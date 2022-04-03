@@ -1,0 +1,23 @@
+Battle of Vostokhograd: The Card RPG
+
+Obsahem semestrální práce je engine pro hraní karetního RPG pro 2 hráče z vojenského prostředí. Generálové soupeřících vojsk budou v rekrutovacím táboře nakupovat nové karty, aby mohli zneškodnit svůj protějšek a tím obsadit sporné město Vostokhograd, ležící kdesi na východ od nás. Hra je realizována v grafickém terminálovém prostředí ncurses.
+
+Na začátku hry má každý hráč svou vlastní kartu generála (které se mohou lišit počtem životů, pasivními schopnostmi) a balíček několika startovních karet. Zároveň se na hrací ploše nachází rekrutovací tábor s lepšími kartami, které si hráči mohou v průběhu hry za hřivny kupovat. V táboře je viditelných jen několik karet, které se postupně s nákupy hráčů doplňují. Hra končí v okamžiku, kdy počet životů jednoho z generálů klesne na nulu.
+
+Průběh hry: V každém kole si generál lízne několik karet ze svého balíčku, rozdělené na jednorázové (Warcry) a trvalé (Troop). Všechny karty může a musí zahrát hned v tomto tahu. Hráč může nakoupit nové karty z tábora do svého odhazovacího balíčku, tyto karty si později bude moci líznout v následujících tazích. Hráč může použít body útoku na nepřátelské jednotky a body obrany na doplnění životů svých jednotek (včetně generálů). Pokud hráč zneškodní soupeřovu jednotku, doplní se jí všechny životy a vrátí se do soupeřova odhazovacího balíčku. Na konci tahu odhodí jednorázové karty do svého odhazovacího balíčku, trvalé karty zůstávají před ním.
+
+Váš engine:
+
+- ze souboru nahraje definici karet (jejich typ, atributy, efekty), balíčku (seznam karet v balíčku)
+- umožní vytvořit a hrát samotnou karetní hru
+- implementuje variantu pro jednoho hráče proti počítači (náhodné tahy nestačí)
+- implementuje variantu pro dva hráče (karty není třeba skrývat, soupeř musí ve svém tahu vše zahrát)
+- umožňuje ukládat a načítat rozehrané hry (ukládají se pouze stavy balíčků + vyložených karet s pozměněnými životy)
+
+Kde je využit polymorfismus?
+
+- Typy karet: jednorázové (Warcry), trvalé (Troop), hráčská postava (General)
+- Efekty akcí: síla útoku (Damage), síla obrany (Heal), kupní síla (₴, hřivny), lízni si kartu, seber soupeřovu jednotku
+- Ovládání hráče: lokální hráč, umělá inteligence (různé druhy)
+
+Inspirací pro semestrální práci byla karetní hra Hero Realms (https://www.herorealms.com/).
