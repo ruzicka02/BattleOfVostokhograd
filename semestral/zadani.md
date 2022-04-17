@@ -33,7 +33,7 @@ Ukládání a načítání rozehrané hry bude probíhat ve formě zapsání (re
 
 ## Návrh tříd
 
-Hojně používanou třídou ve hře bude jedna karta (**CCard**), která bude i základem hlavního polymorfismu - dědit z ní budou třídy **CCardWarcry**, **CCardTroop**, **CCardGeneral**. Všechny karty bude možné umístit do balíčku karet, který bude reprezentovat třída **CDeck**. Za balíček karet se bude považovat libovolná kolekce, ať už jde o karty v ruce, nebo o karty dostupné v rekrutovacím táboře.
+Hojně používanou třídou ve hře bude jedna karta (**CCard**), která bude i základem hlavního polymorfismu - dědit z ní budou třídy **CCardWarcry**, **CCardTroop**, **CCardGeneral**. Všechny karty bude možné umístit do balíčku karet, který bude reprezentovat třída **CDeck**. Za balíček karet se bude považovat libovolná kolekce, jako například karty v ruce. Speciálním případem jsou karty dostupné v rekrutovacím táboře, které reprezentuje třída **CShop**.
 
 Všechny karty budou ukládat efekty svých akcí, jako je síla útoku (Damage), síla obrany (Protection) nebo kupní síla (₴, hřivny) v číselné podobě (pokud tuto vlastnost karta nemá, bude uložena hodnota 0). Speciální schopnosti (např. lízni si kartu, seber soupeřovu jednotku) se budou ukládat jako hodnota typu enum.
 

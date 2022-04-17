@@ -1,0 +1,5 @@
+**/.idea/
+**/a.out
+CMakeLists.txt
+**/cmake-build-debug/
+**/wc.sh

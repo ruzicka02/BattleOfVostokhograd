@@ -1,0 +1,14 @@
+// this will be a card deck definition
+Card name,description,type (g/t/w),life,cost,damage,heal,hrivnya,special
+
+// example of a general
+// price is always set to 0
+Volodymyr the General,Make them pay the price,g,50,0,2,0,0,null
+
+// example of a troop
+Poor Funny Infantry,It ain't much but it's honest work,t,3,2,1,1,1,null
+Professional Eastern Farmer,Makes the tanks go brrrr,t,5,6,4,0,2,steal
+
+// example of a warcry
+// life is always set to 0
+Air Superiority,Justice rains from above,w,0,2,4,0,0,null
