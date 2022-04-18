@@ -41,6 +41,8 @@ Abstraktní třída **CPlayer** bude následně obalovat hráčského generála 
 
 Všechny zmíněné herní aspekty bude obalovat třída **CGame**. Ta bude řídit logiku jednotlivého průběhu hry (střídání tahů hráčů, příprava na začátku/konci hry) a předávat informace k vykreslení na terminál. O vykreslování samotné se pak bude starat třída **CDisplay**.
 
+UML diagram návrhu tříd lze vygenerovat za použití přiloženého Doxyfile.
+
 ## Polymorfismus
 
 - Typy karet: jednorázové (Warcry), trvalé (Troop), hráčská postava (General)
