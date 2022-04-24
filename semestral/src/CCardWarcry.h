@@ -12,7 +12,8 @@ protected:
 
 public:
 	void print_card( int, int ) override;
-	bool receive_damage( int ) override { return false; }
+	bool change_life( int ) override { return false; }
+	void restore() override {}
 };
 
 

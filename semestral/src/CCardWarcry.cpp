@@ -3,3 +3,7 @@
 //
 
 #include "CCardWarcry.h"
+
+void CCardWarcry::print_card(int, int) {
+
+}

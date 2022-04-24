@@ -31,11 +31,11 @@ public:
 
 	/// Removes the top card from the deck.
 	/// @return The removed card.
-	std::shared_ptr<CCard> pop_front();
+	std::shared_ptr<CCard> pop_top();
 
 	/// Looks at the top card in the deck without removing it.
 	/// @return The card on top.
-	std::shared_ptr<CCard> seek_front();
+	std::shared_ptr<CCard> seek_top() const;
 
 	/// Standard getter for cards contained in deck.
 	const std::vector< std::shared_ptr<CCard> >& cards() const {

@@ -11,6 +11,7 @@ class CPlayerAI : public CPlayer {
 protected:
 public:
 	void play() override;
+	void discard_cards (int amount) override;
 };
 
 

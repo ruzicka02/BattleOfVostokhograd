@@ -11,6 +11,7 @@
 #include <memory>
 #include <string>
 
+/// Abstract class that represents a single playing card.
 class CCard {
 protected:
 	// general properties
@@ -33,14 +34,16 @@ public:
 	virtual ~CCard() = default;
 	CCard& operator=( const CCard & ) = default;
 
-	/// Prints image of card to terminal on given position.
-	virtual void print_card( int, int ) = 0;
+	/// Prints image of card to terminal on given coordinates.
+	/// @param[in] y The y vertical coordinate (distance from top).
+	/// @param[in] x The x horizontal coordinate (distance from left).
+	virtual void print_card( int y, int x ) = 0;
 
-	/// Card attacks the referenced card of an enemy.
-	void attack( std::shared_ptr<CCard> );
+	/// Attacks the referenced card of an enemy.
+	void attack( const CPlayer& player, std::shared_ptr<CCard> target );
 
-	/// Card protects/heals the referenced friendly card.
-	void protect( std::shared_ptr<CCard> );
+	/// Protects (restores life to) the referenced card.
+	void protect( const CPlayer& player, std::shared_ptr<CCard> target );
 
 	/// Card plays its special ability.
 	/// @param[in] player Effected player of the ability.
@@ -51,9 +54,15 @@ public:
 	/// Dummy implementation for non-permanent cards as they do not have life stats.
 	/// @param[in] life Positive value when life is added and negative when life is subtracted.
 	/// @return True if card's life went below 0, false otherwise.
-	virtual bool receive_damage( int ) = 0;
+	virtual bool change_life( int life ) = 0;
 
+	/// Restores the life points of the card to its original value.
+	virtual void restore() = 0;
+
+	/// Returns the amount of cash that player receives when card is played.
 	int cash() const { return m_cash; }
+
+	/// Returns the cost of the card in the shop.
 	int cost() const { return m_cost; }
 };
 

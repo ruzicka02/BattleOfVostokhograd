@@ -52,3 +52,7 @@ UML diagram návrhu tříd lze vygenerovat za použití přiloženého Doxyfile.
 
 Inspirací pro semestrální práci byla karetní hra Hero Realms (https://www.herorealms.com/).
 
+# TODO
+
+- Vykreslování karet (metody `print_card`)
+- CDeck metody

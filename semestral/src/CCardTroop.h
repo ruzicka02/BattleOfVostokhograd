@@ -12,8 +12,9 @@ protected:
 	int m_life;
 	int m_life_init;
 public:
-	void print_card( int, int ) override;
-	bool receive_damage( int ) override;
+	void print_card( int y, int x ) override;
+	bool change_life( int life ) override;
+	void restore() override;
 };
 
 
