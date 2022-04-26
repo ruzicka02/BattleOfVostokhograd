@@ -5,6 +5,8 @@
 #ifndef SEMESTRAL_CDISPLAY_H
 #define SEMESTRAL_CDISPLAY_H
 
+#include <memory>
+
 #include "CPlayer.h"
 
 class CDisplay {
@@ -24,7 +26,7 @@ public:
 	/// Refreshes the screen with the current card state of these two players.
 	/// @param[in] first Player who is currently about to play.
 	/// @param[in] second Opponent of the playing player.
-	void refresh( shared_ptr<CPlayer> first, shared_ptr<CPlayer> second );
+	void refresh( std::shared_ptr<CPlayer> first, std::shared_ptr<CPlayer> second );
 
 	/// Lets player choose one card from a given deck.
 	/// @return Pointer to the selected card.

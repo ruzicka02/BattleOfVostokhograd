@@ -5,11 +5,13 @@
 #ifndef SEMESTRAL_CCARD_H
 #define SEMESTRAL_CCARD_H
 
-#include "EAbility.h"
-#include "CPlayer.h"
-
 #include <memory>
 #include <string>
+
+#include "EAbility.h"
+
+// forward declaration because of card playing methods
+class CPlayer;
 
 /// Abstract class that represents a single playing card.
 class CCard {
@@ -40,15 +42,15 @@ public:
 	virtual void print_card( int y, int x ) = 0;
 
 	/// Attacks the referenced card of an enemy.
-	void attack( const CPlayer& player, std::shared_ptr<CCard> target );
+	void attack( CPlayer& player, std::shared_ptr<CCard> target );
 
 	/// Protects (restores life to) the referenced card.
-	void protect( const CPlayer& player, std::shared_ptr<CCard> target );
+	void protect( CPlayer& player, std::shared_ptr<CCard> target );
 
 	/// Card plays its special ability.
 	/// @param[in] player Effected player of the ability.
 	/// @param[in] target Card targeted by the ability. Default value is nullptr in case no card is targeted.
-	void special( const CPlayer& player, std::shared_ptr<CCard> target = nullptr );
+	void special( CPlayer& player, std::shared_ptr<CCard> target = nullptr );
 
 	/// Card adds or subtracts the given amount of life points. Used for both attacking and protecting a card.
 	/// Dummy implementation for non-permanent cards as they do not have life stats.

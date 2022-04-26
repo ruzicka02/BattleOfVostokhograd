@@ -5,16 +5,18 @@
 #ifndef SEMESTRAL_CGAME_H
 #define SEMESTRAL_CGAME_H
 
+#include <memory>
+
 #include "CPlayer.h"
 #include "CShop.h"
 #include "CDisplay.h"
 
 class CGame {
 protected:
-	shared_ptr<CPlayer> m_first;
-	shared_ptr<CPlayer> m_second;
-	CShop*				m_shop;
-	CDisplay*			m_display;
+	std::shared_ptr<CPlayer> 	m_first;
+	std::shared_ptr<CPlayer> 	m_second;
+	CShop*						m_shop;
+	CDisplay*					m_display;
 public:
 	/// Starts the game, creates instance of CDisplay.
 	void init();

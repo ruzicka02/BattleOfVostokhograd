@@ -6,6 +6,8 @@
 #define SEMESTRAL_CDECK_H
 
 #include <vector>
+#include <memory>
+
 #include "CCard.h"
 
 class CDeck {
@@ -23,9 +25,10 @@ public:
 
 	/// Inserts the referenced card to the top of deck.
 	/// @return self
-	CDeck& insert( CCard& );
+	CDeck& insert( std::shared_ptr<CCard> );
 
 	/// Removes the referenced card from the deck.
+	/// @exception out_of_range Throws exception when card is not found in the deck.
 	/// @return self
 	CDeck& remove( std::shared_ptr<CCard> );
 
