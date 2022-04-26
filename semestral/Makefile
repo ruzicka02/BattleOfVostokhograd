@@ -1,4 +1,5 @@
 CXXFLAGS = -Wall -pedantic -std=c++17
+LDLIBS = -lncursesw
 
 HEADERS = $(wildcard src/*.h)
 SOURCES = $(wildcard src/*.cpp)
@@ -19,7 +20,7 @@ ruzicsi1: build/main
 
 build/main: $(OBJECTS)
 	mkdir -p $(@D)
-	g++ $^ -o $@
+	g++ $^ -o $@ $(LDLIBS)
 
 build/%.o: src/%.cpp
 	mkdir -p $(@D)
