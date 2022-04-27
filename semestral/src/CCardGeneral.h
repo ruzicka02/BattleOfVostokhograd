@@ -12,6 +12,9 @@ protected:
 	int m_life;
 	int m_life_init;
 public:
+	CCardGeneral(std::string mName, std::string mDesc, int mCost, int mDamage, int mProtection, int mCash, int mLife)
+	: CCard(std::move(mName), std::move(mDesc), mCost, mDamage, mProtection, mCash), m_life(mLife), m_life_init(mLife) {}
+
 	void print_card( int y, int x ) override;
 	bool change_life( int life ) override;
 	void restore() override;

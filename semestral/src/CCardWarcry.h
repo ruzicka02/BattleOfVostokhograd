@@ -11,7 +11,11 @@ class CCardWarcry : public CCard {
 protected:
 
 public:
-	void print_card( int, int ) override;
+	CCardWarcry(std::string mName, std::string mDesc, int mCost, int mDamage, int mProtection, int mCash)
+	: CCard(std::move(mName), std::move(mDesc), mCost, mDamage, mProtection, mCash) {}
+
+
+	void print_card( int y, int x ) override;
 	bool change_life( int ) override { return false; }
 	void restore() override {}
 };
