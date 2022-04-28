@@ -17,8 +17,10 @@ CDisplay::CDisplay() {
 	noecho();
 	curs_set(0);
 
-	// gold (11... yellow)
-	init_pair(1, COLOR_WHITE, COLOR_YELLOW + 8);
+	// gold
+	init_pair(1, COLOR_WHITE, COLOR_YELLOW);
+	// version unsupported by test bench
+	// init_pair(1, COLOR_WHITE, COLOR_YELLOW + 8);
 
 	// life
 	init_pair(2, COLOR_WHITE, COLOR_RED);
@@ -35,14 +37,16 @@ CDisplay::CDisplay() {
 	init_pair(7, COLOR_WHITE, COLOR_BLUE);
 
 	// game background
-	init_pair(8, COLOR_WHITE, COLOR_CYAN + 16);
+	init_pair(8, COLOR_WHITE, COLOR_BLACK);
+	// version unsupported by test bench
+	// init_pair(8, COLOR_WHITE, COLOR_CYAN + 16);
 
 
 	bkgd(COLOR_PAIR(8));
 }
 
 CDisplay::~CDisplay() {
-
+	endwin();
 }
 
 int CDisplay::menu() {

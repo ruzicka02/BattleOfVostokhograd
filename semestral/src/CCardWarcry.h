@@ -16,6 +16,8 @@ public:
 
 
 	void print_card( int y, int x ) override;
+	void print_card_wide( int y, int x ) override;
+	std::string save_card() override;
 	bool change_life( int ) override { return false; }
 	void restore() override {}
 };
