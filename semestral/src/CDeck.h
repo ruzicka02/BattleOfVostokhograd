@@ -20,8 +20,8 @@ public:
 	virtual ~CDeck() = default;
 
 	// translation between game logic and csv files
-	virtual void load_deck( std::istream& );
-	virtual void save_deck( std::ostream& );
+	virtual bool load_deck( std::istream& );
+	virtual bool save_deck( std::ostream& );
 
 	/// Inserts the referenced card to the top of deck.
 	/// @return self
@@ -46,7 +46,7 @@ public:
 	}
 
 	/// Shuffles the contained cards to a new, random order.
-	void shuffle();
+	void shuffle_cards();
 };
 
 

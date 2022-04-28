@@ -17,8 +17,8 @@ public:
 	~CShop() = default;
 
 	// overrides the CDeck definitions, considers shop content and drawing deck immediately following
-	virtual void load_deck( std::istream& );
-	virtual void save_deck( std::ostream& );
+	virtual bool load_deck( std::istream& );
+	virtual bool save_deck( std::ostream& );
 
 	/// Removes the referenced card from the store and refills with another card from drawing pile.
 	void sell_card( std::shared_ptr<CCard> );

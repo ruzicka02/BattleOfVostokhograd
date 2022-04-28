@@ -5,6 +5,9 @@
 #include "CCardWarcry.h"
 
 #include <ncurses.h>
+#include <string>
+
+using namespace std;
 
 void CCardWarcry::print_card(int y, int x) {
 	const int HEIGHT = 15, WIDTH = 20;
@@ -62,4 +65,29 @@ void CCardWarcry::print_card_wide(int y, int x) {
 
 	delwin(card);
 
+}
+
+string CCardWarcry::save_card() {
+	string data;
+	data.append(m_name)
+			.append(",")
+			.append(m_desc)
+			.append(",g,0,")
+			.append(to_string(m_cost))
+			.append(",")
+			.append(to_string(m_damage))
+			.append(",")
+			.append(to_string(m_protection))
+			.append(",")
+			.append(to_string(m_cash))
+			.append(",");
+
+	if ( m_special == steal)
+		data.append("steal");
+	else if ( m_special == draw )
+		data.append("draw");
+	else
+		data.append("null");
+
+	return data;
 }

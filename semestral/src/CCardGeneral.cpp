@@ -5,6 +5,9 @@
 #include "CCardGeneral.h"
 
 #include <ncurses.h>
+#include <string>
+
+using namespace std;
 
 void CCardGeneral::print_card( int y, int x ) {
 	const int HEIGHT = 15, WIDTH = 20;
@@ -70,4 +73,31 @@ bool CCardGeneral::change_life( int life ) {
 
 void CCardGeneral::restore() {
 	m_life = m_life_init;
+}
+
+string CCardGeneral::save_card() {
+	string data;
+	data.append(m_name)
+		.append(",")
+		.append(m_desc)
+		.append(",g,")
+		.append(to_string(m_life_init)) // fixme... no way to save m_life
+		.append(",")
+		.append(to_string(m_cost))
+		.append(",")
+		.append(to_string(m_damage))
+		.append(",")
+		.append(to_string(m_protection))
+		.append(",")
+		.append(to_string(m_cash))
+		.append(",");
+
+	if ( m_special == steal)
+		data.append("steal");
+	else if ( m_special == draw )
+		data.append("draw");
+	else
+		data.append("null");
+
+	return data;
 }

@@ -28,8 +28,8 @@ protected:
 	EAbility 		m_special;
 
 public:
-	CCard(std::string mName, std::string mDesc, int mCost, int mDamage, int mProtection, int mCash)
-		: m_name(std::move(mName)), m_desc(std::move(mDesc)),  m_cost(mCost), m_damage(mDamage), m_protection(mProtection), m_cash(mCash) {}
+	CCard(std::string mName, std::string mDesc, int mCost, int mDamage, int mProtection, int mCash, EAbility mSpecial)
+		: m_name(std::move(mName)), m_desc(std::move(mDesc)),  m_cost(mCost), m_damage(mDamage), m_protection(mProtection), m_cash(mCash), m_special(mSpecial) {}
 
 	CCard() = default;
 	CCard( const CCard & ) = default;
@@ -40,6 +40,18 @@ public:
 	/// @param[in] y The y vertical coordinate (distance from top).
 	/// @param[in] x The x horizontal coordinate (distance from left).
 	virtual void print_card( int y, int x ) = 0;
+
+	/// Prints image of card to terminal on given coordinates using wide characters (emojis). Not supported on some devices.
+	/// @param[in] y The y vertical coordinate (distance from top).
+	/// @param[in] x The x horizontal coordinate (distance from left).
+	virtual void print_card_wide( int y, int x ) = 0;
+
+	/// Returns the string with all the card information, used in game saving
+	virtual std::string save_card() = 0;
+
+	/// Static method that creates a new card based on information in the given string.
+	/// @return Shared pointer to the newly created card.
+	static std::shared_ptr<CCard> load_card (std::string line);
 
 	/// Attacks the referenced card of an enemy.
 	void attack( CPlayer& player, std::shared_ptr<CCard> target );

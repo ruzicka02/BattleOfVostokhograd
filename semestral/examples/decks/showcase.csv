@@ -1,5 +1,5 @@
 // this will be a card deck definition
-Card name,description,type (g/t/w),life,cost,damage,heal,hrivnya,special
+Card name,description,type (g/t/w),life,cost,damage,heal,cash,special
 
 // example of a general
 // price is always set to 0

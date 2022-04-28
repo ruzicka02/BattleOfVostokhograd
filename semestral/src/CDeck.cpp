@@ -2,22 +2,49 @@
 // Created by simon on 17.4.22.
 //
 
+#include <iostream>
 #include <stdexcept>
+#include <string>
+#include <random>
+#include <algorithm>
 
 #include "CDeck.h"
 
 using namespace std;
 
-void CDeck::load_deck(istream &) {
+bool CDeck::load_deck(istream & file) {
 
+	string line;
+
+	// loads a single card from a line of source file
+	while (getline(file, line)) {
+
+		// line too short
+		if ( line.length() <= 1 )
+			continue;
+
+		// comment
+		if ( line[0] == '/' && line[1] == '/' )
+			continue;
+
+		// creates the shared pointer in CCard::load_card
+		shared_ptr<CCard> in = CCard::load_card(line);
+		if ( in == nullptr )
+			return false;
+
+		insert( in );
+	}
+
+	return true;
 }
 
-void CDeck::save_deck(ostream &) {
+bool CDeck::save_deck(ostream & file) {
 
 }
 
 CDeck &CDeck::insert( shared_ptr<CCard> in ) {
-	m_content.emplace_back(in);
+	if ( in != nullptr )
+		m_content.emplace_back(in);
 
 	return *this;
 }
@@ -55,6 +82,7 @@ shared_ptr <CCard> CDeck::seek_top() const {
 		return nullptr;
 }
 
-void CDeck::shuffle() {
-
+void CDeck::shuffle_cards() {
+	random_device rand;
+	shuffle( m_content.begin(), m_content.end(), rand );
 }
