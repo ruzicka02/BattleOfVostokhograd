@@ -19,6 +19,9 @@ bool CDeck::load_deck(istream & file) {
 	// loads a single card from a line of source file
 	while (getline(file, line)) {
 
+		if ( ! file.good() )
+			return false;
+
 		// line too short
 		if ( line.length() <= 1 )
 			continue;
@@ -39,7 +42,10 @@ bool CDeck::load_deck(istream & file) {
 }
 
 bool CDeck::save_deck(ostream & file) {
+	for ( auto card : m_content )
+		file << card->save_card() << '\n';
 
+	return file.good();
 }
 
 CDeck &CDeck::insert( shared_ptr<CCard> in ) {

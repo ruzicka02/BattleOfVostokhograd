@@ -81,7 +81,7 @@ string CCardGeneral::save_card() {
 		.append(",")
 		.append(m_desc)
 		.append(",g,")
-		.append(to_string(m_life_init)) // fixme... no way to save m_life
+		.append(to_string(m_life)) // only stores the current life value, set as new maximum
 		.append(",")
 		.append(to_string(m_cost))
 		.append(",")

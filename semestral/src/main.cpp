@@ -39,18 +39,19 @@ int main () {
 	ifstream input( "examples/decks/start_hand.csv" );
 	deck.load_deck(input);
 
-
-	deck.pop_top()->print_card(5, 0);
-	deck.pop_top()->print_card(5, 25);
-	deck.pop_top()->print_card(5, 50);
-	deck.pop_top()->print_card(5, 75);
+	int pos = 0;
+	for ( auto card : deck.cards() ) {
+		card->print_card(5, pos);
+		pos += 25;
+	}
 
 
 	getch();
 	endwin();
 
-	// fixme... cards not scanned
-	cout << deck.cards().size() << endl;
+	cout << "Total cards in deck: " << deck.cards().size() << endl;
+	ofstream output("examples/decks/start_hand_comp.csv");
+	deck.save_deck(output);
 
 	return 0;
 }

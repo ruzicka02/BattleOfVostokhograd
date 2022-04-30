@@ -88,8 +88,8 @@ string CCardTroop::save_card() {
 	data.append(m_name)
 			.append(",")
 			.append(m_desc)
-			.append(",g,")
-			.append(to_string(m_life_init)) // fixme... no way to save m_life
+			.append(",t,")
+			.append(to_string(m_life_init)) // only stores the max life value, life regenerated
 			.append(",")
 			.append(to_string(m_cost))
 			.append(",")

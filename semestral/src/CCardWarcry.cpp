@@ -72,7 +72,7 @@ string CCardWarcry::save_card() {
 	data.append(m_name)
 			.append(",")
 			.append(m_desc)
-			.append(",g,0,")
+			.append(",w,0,")
 			.append(to_string(m_cost))
 			.append(",")
 			.append(to_string(m_damage))
