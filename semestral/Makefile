@@ -24,7 +24,7 @@ build/main: $(OBJECTS)
 
 build/%.o: src/%.cpp
 	mkdir -p $(@D)
-	g++ $(CXXFLAGS) $< -c -o $@
+	g++ $(CXXFLAGS) $< -c -o $@ -g
 
 debug/test_%.o: tests/%.test.cpp
 	mkdir -p $(@D)
@@ -36,9 +36,5 @@ doc: Doxyfile $(HEADERS)
 .PHONY: clean
 clean:
 	rm -rf ruzicsi1 build/ debug/ doc/ 2>/dev/null
-
-.PHONY: test_all
-test_all: debug/test_CCoord
-	debug/test_CCoord
 
 # Requirements / Dependencies
