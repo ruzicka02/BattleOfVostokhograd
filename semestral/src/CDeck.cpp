@@ -38,6 +38,8 @@ bool CDeck::load_deck(istream & file) {
 		insert( in );
 	}
 
+	shuffle_cards();
+
 	return true;
 }
 
@@ -56,17 +58,14 @@ CDeck &CDeck::insert( shared_ptr<CCard> in ) {
 }
 
 CDeck &CDeck::remove( shared_ptr <CCard> in ) {
-	bool found = false;
 
 	for ( auto iter = m_content.begin(); iter < m_content.end(); iter ++ )
 		if ( *iter == in ) {
 			m_content.erase(iter);
-			found = true;
-			break;
+			return *this;
 		}
 
-	if ( !found )
-		throw out_of_range("CDeck::remove exception: Card not contained in deck.");
+	throw out_of_range("CDeck::remove exception: Card not contained in deck.");
 
 	return *this;
 }
