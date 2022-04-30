@@ -19,7 +19,12 @@ int main () {
 
 	refresh();
 
-	#include "../tests/cdeck_test.cpp"
+	CDeck deck;
+	ifstream input( "examples/decks/start_hand.csv" );
+	deck.load_deck(input);
+	input.close();
+
+	init_screen.card_selection(deck);
 
 	return 0;
 }

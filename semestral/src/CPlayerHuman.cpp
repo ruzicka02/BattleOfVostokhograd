@@ -3,3 +3,10 @@
 //
 
 #include "CPlayerHuman.h"
+
+void CPlayerHuman::play() {
+
+}
+void CPlayerHuman::discard_cards (int amount) {
+
+}

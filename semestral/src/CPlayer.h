@@ -36,6 +36,7 @@ public:
 	void discard_all();
 
 	/// Restores health of the referenced card and puts it from table to discard pile.
+	/// @exception out_of_range Throws exception if card is not on table.
 	void kill_card( std::shared_ptr<CCard> );
 
 	/// Removes the referenced card from table, effectively losing it. Used when card is stolen by opponent.
