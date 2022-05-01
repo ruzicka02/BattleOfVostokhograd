@@ -10,6 +10,9 @@
 class CPlayerHuman : public CPlayer {
 protected:
 public:
+	CPlayerHuman( std::shared_ptr<CCardGeneral> gen, CDisplay* display, const CDeck& deck )
+			: CPlayer(std::move(gen), display, deck) {}
+
 	void play() override;
 
 	void discard_cards (int amount) override;

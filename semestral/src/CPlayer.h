@@ -13,22 +13,24 @@ class CDisplay;
 
 class CPlayer {
 protected:
-	CCardGeneral 	m_general;
-	CDeck			m_drawing;
-	CDeck			m_hand;
-	CDeck			m_table;
-	CDeck			m_discard;
+	std::shared_ptr<CCardGeneral> 	m_general;
+	CDeck							m_drawing;
+	CDeck							m_hand;
+	CDeck							m_table;
+	CDeck							m_discard;
 
-	CPlayer*		m_opponent;
-	CDisplay*		m_display;
+	CPlayer*						m_opponent;
+	CDisplay*						m_display;
 public:
 	/// Constructs instance of Player with empty decks.
 	/// @param[in] gen General card of Player, necessary for construction
-	CPlayer( CCardGeneral gen, CDisplay* display )
-		: m_general(std::move(gen)), m_opponent(nullptr), m_display(display) {}
+	CPlayer( std::shared_ptr<CCardGeneral> gen, CDisplay* display, const CDeck& deck )
+		: m_general(std::move(gen)), m_drawing(deck), m_opponent(nullptr), m_display(display) {}
 	CPlayer( const CPlayer& ) = default;
 	CPlayer& operator= ( const CPlayer& ) = default;
-	virtual ~CPlayer() = default;
+	virtual ~CPlayer() {
+		m_opponent = nullptr;
+	}
 
 	/// Draws the given amount of cards from drawing pile to hand.
 	void draw_cards( int amount );
@@ -52,7 +54,10 @@ public:
 	/// Buys the referenced card from shop and puts it into discard pile.
 	void buy_card( std::shared_ptr<CCard> );
 
-	const CCardGeneral &get_general() const {
+	/// Deploys the referenced card from hand to the table.
+	void deploy_card( std::shared_ptr<CCard> );
+
+	std::shared_ptr<CCardGeneral> get_general() const {
 		return m_general;
 	}
 
@@ -66,6 +71,10 @@ public:
 
 	const std::shared_ptr<CCard> get_discard_top() const {
 		return m_discard.seek_top();
+	}
+
+	size_t get_draw_count() const {
+		return m_drawing.count();
 	}
 
 	/// Virtual method for player to do stuff, either manually or automatically.

@@ -33,3 +33,8 @@ void CPlayer::steal_card(std::shared_ptr <CCard> target) {
 void CPlayer::buy_card(std::shared_ptr <CCard> target) {
 	m_discard.insert(target);
 }
+
+void CPlayer::deploy_card(std::shared_ptr<CCard> target) {
+	m_hand.remove(target);
+	m_table.insert(target);
+}
