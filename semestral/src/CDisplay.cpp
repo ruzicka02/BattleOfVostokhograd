@@ -64,6 +64,18 @@ void CDisplay::info_bar( const string& info ) {
 	attroff(COLOR_PAIR(9));
 }
 
+void CDisplay::context_bar_draw() {
+	attron(COLOR_PAIR(9));
+	mvprintw(0, 0, "%*s", - m_scr_x, m_context.c_str());
+	refresh();
+	attroff(COLOR_PAIR(9));
+}
+
+void CDisplay::context_bar(const string &context) {
+	m_context = context;
+	context_bar_draw();
+}
+
 void CDisplay::refresh_board( std::shared_ptr<CPlayer> first, std::shared_ptr<CPlayer> second ) {
 
 }
@@ -85,6 +97,7 @@ std::shared_ptr<CCard> CDisplay::card_selection( const CDeck& deck ) {
 
 	mvprintw(5, 0, "Card selection:" );
 	info_bar("Choose card (L/R Arrow), Select card (ENTER)" );
+	context_bar_draw();
 	refresh();
 
 	int input = 0;

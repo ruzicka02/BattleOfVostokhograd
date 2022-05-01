@@ -8,6 +8,9 @@
 #include "CDeck.h"
 #include "CCardGeneral.h"
 
+// forward declaration because of calling certain CDisplay methods
+class CDisplay;
+
 class CPlayer {
 protected:
 	CCardGeneral 	m_general;
@@ -17,11 +20,12 @@ protected:
 	CDeck			m_discard;
 
 	CPlayer*		m_opponent;
+	CDisplay*		m_display;
 public:
 	/// Constructs instance of Player with empty decks.
 	/// @param[in] gen General card of Player, necessary for construction
-	explicit CPlayer( CCardGeneral gen )
-		: m_general(std::move(gen)), m_opponent(nullptr) {}
+	CPlayer( CCardGeneral gen, CDisplay* display )
+		: m_general(std::move(gen)), m_opponent(nullptr), m_display(display) {}
 	CPlayer( const CPlayer& ) = default;
 	CPlayer& operator= ( const CPlayer& ) = default;
 	virtual ~CPlayer() = default;

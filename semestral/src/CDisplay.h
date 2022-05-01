@@ -14,6 +14,7 @@ class CDisplay {
 protected:
 	int m_scr_y;
 	int m_scr_x;
+	std::string m_context;
 public:
 	/// Initializes an empty ncurses screen.
 	CDisplay();
@@ -26,6 +27,12 @@ public:
 
 	/// Prints an information bar to the bottom of the screen, telling user what he can do
 	void info_bar( const std::string& info );
+
+	/// Prints a context bar to the top of the screen, telling more about the current action
+	void context_bar_draw();
+
+	/// Changes the content of context bar on top of the screen, telling more about the current action
+	void context_bar( const std::string& context );
 
 	/// Refreshes the screen with the current card state of these two players.
 	/// @param[in] first Player who is currently about to play.
