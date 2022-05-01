@@ -6,13 +6,14 @@
 #define SEMESTRAL_CDISPLAY_H
 
 #include <memory>
+#include <string>
 
 #include "CPlayer.h"
 
 class CDisplay {
 protected:
-	int m_scr_width;
-	int m_scr_height;
+	int m_scr_y;
+	int m_scr_x;
 public:
 	/// Initializes an empty ncurses screen.
 	CDisplay();
@@ -22,6 +23,9 @@ public:
 
 	/// Draws the initializing game menu, returns the selected option.
 	int menu();
+
+	/// Prints an information bar to the bottom of the screen, telling user what he can do
+	void info_bar( const std::string& info );
 
 	/// Refreshes the screen with the current card state of these two players.
 	/// @param[in] first Player who is currently about to play.

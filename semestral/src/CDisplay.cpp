@@ -7,12 +7,14 @@
 #include <locale.h>
 #include <ncurses.h>
 
+using namespace std;
+
 CDisplay::CDisplay() {
 	setlocale(LC_ALL, "");
 	initscr();
 	start_color();
 
-
+	keypad(stdscr, TRUE);
 	cbreak();
 	noecho();
 	curs_set(0);
@@ -36,11 +38,13 @@ CDisplay::CDisplay() {
 	init_pair(6, COLOR_BLUE, COLOR_WHITE);
 	init_pair(7, COLOR_WHITE, COLOR_BLUE);
 
-	// game background
+	// game background (and inversion)
 	init_pair(8, COLOR_WHITE, COLOR_BLACK);
+	init_pair(9, COLOR_BLACK, COLOR_WHITE);
 	// version unsupported by test bench
 	// init_pair(8, COLOR_WHITE, COLOR_CYAN + 16);
 
+	getmaxyx(stdscr, m_scr_y, m_scr_x);
 
 	bkgd(COLOR_PAIR(8));
 }
@@ -53,40 +57,59 @@ int CDisplay::menu() {
 	return 0;
 }
 
+void CDisplay::info_bar( const string& info ) {
+	attron(COLOR_PAIR(9));
+	mvprintw(m_scr_y - 1, 0, "%*s", - m_scr_x, info.c_str());
+	refresh();
+	attroff(COLOR_PAIR(9));
+}
+
 void CDisplay::refresh_board( std::shared_ptr<CPlayer> first, std::shared_ptr<CPlayer> second ) {
 
 }
 
 std::shared_ptr<CCard> CDisplay::card_selection( const CDeck& deck ) {
 	clear();
+	refresh();
+//	endwin();
+//	initscr();
 
-	const int y = 0;
+
+	const int y = 15, card_diff = 22;
 	int x = 0, selected = 0, selected_max = deck.cards().size();
 
 	for ( auto card : deck.cards() ) {
-		printw("card\n");
 		card->print_card(y, x);
-		x += 20;
+		x += card_diff;
 	}
 
-	mvprintw(0, 0, "hello");
+	mvprintw(5, 0, "Card selection:" );
+	info_bar("Choose card (L/R Arrow), Select card (ENTER)" );
 	refresh();
 
 	int input = 0;
-	halfdelay(5);
+	// halfdelay(1);
 
 	while (true) {
+		mvprintw(y - 1, selected * card_diff, "Your selection:");
+		mvprintw(10, 0, "Selected nr: %d", selected );
 		input = getch();
+		mvprintw(y - 1, 0, "%*s", m_scr_x, "");
 
 		if ( input == KEY_LEFT && selected > 0 )
 			selected --;
 
-		if ( input == KEY_RIGHT && selected < selected_max )
+		if ( input == KEY_RIGHT && selected < selected_max - 1 )
 			selected ++;
 
-		if ( input == 'y' )
+		if ( input == 'y' || input == '\n' )
 			break;
+
+
 	}
+
+	clear();
+	refresh();
 
 	return deck.cards().at(selected);
 }
