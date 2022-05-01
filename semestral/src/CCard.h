@@ -74,7 +74,8 @@ public:
 	/// Restores the life points of the card to its original value.
 	virtual void restore() = 0;
 
-	/// Returns appropriate (non-zero) attributes of a card, that can be played afterwards.
+	/// Returns appropriate (non-zero) attributes of a card, that can be played afterwards. Order of the operations
+	/// is following: `Can be deployed (troop), can attack, can protect, has special ability`.
 	virtual std::vector<bool> attributes() = 0;
 
 	/// Returns the amount of cash that player receives when card is played.

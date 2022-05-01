@@ -109,3 +109,15 @@ string CCardTroop::save_card() {
 
 	return data;
 }
+
+// Can be deployed (troop), can attack, can protect, has special ability
+std::vector<bool> CCardTroop::attributes() {
+	vector<bool> values;
+
+	values.push_back(true); // can be deployed when in hand, value ignored when already on table
+	values.push_back(m_damage > 0);
+	values.push_back(m_protection > 0);
+	values.push_back(m_special != null);
+
+	return values;
+}

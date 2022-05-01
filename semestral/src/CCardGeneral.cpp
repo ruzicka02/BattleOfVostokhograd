@@ -101,3 +101,15 @@ string CCardGeneral::save_card() {
 
 	return data;
 }
+
+// Can be deployed (troop), can attack, can protect, has special ability
+std::vector<bool> CCardGeneral::attributes() {
+	vector<bool> values;
+
+	values.push_back(false); // general is always "deployed"
+	values.push_back(m_damage > 0);
+	values.push_back(m_protection > 0);
+	values.push_back(m_special != null);
+
+	return values;
+}
