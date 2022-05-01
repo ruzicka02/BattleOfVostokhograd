@@ -17,11 +17,11 @@ using namespace std;
 int main () {
 	CDisplay init_screen;
 
-	printw("Battle of Vostokhograd: The Card RPG\nSimon Ruzicka, 2022\n");
+	mvprintw(2, 0, "Battle of Vostokhograd: The Card RPG\nSimon Ruzicka, 2022\n");
 
 	refresh();
 
-#include "../tests/cardselection_test.cpp"
+	#include "tests/cardselection_test.cpp"
 
 	return 0;
 }

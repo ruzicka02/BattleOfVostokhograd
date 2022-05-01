@@ -2,7 +2,7 @@
 // Created by simon on 1.5.22.
 //
 
-mvprintw(5, 0, "Before card selection:" );
+init_screen.context_bar("Before card selection:" );
 init_screen.info_bar("Press any key to continue." );
 
 CDeck deck;
@@ -21,11 +21,14 @@ getch();
 
 CDeck selected;
 
+init_screen.context_bar("0/3 selected");
 selected.insert( init_screen.card_selection(deck) );
+init_screen.context_bar("1/3 selected");
 selected.insert( init_screen.card_selection(deck) );
+init_screen.context_bar("2/3 selected");
 selected.insert( init_screen.card_selection(deck) );
 
-mvprintw(5, 0, "Your selected cards:" );
+init_screen.context_bar("Your selected cards:" );
 init_screen.info_bar("Press any key to continue." );
 
 const int y = 15, card_diff = 22;

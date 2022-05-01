@@ -26,7 +26,7 @@ build/%.o: src/%.cpp
 	mkdir -p $(@D)
 	g++ $(CXXFLAGS) $< -c -o $@ -g
 
-debug/test_%.o: tests/%.test.cpp
+debug/%.o: src/tests
 	mkdir -p $(@D)
 	g++ $(CXXFLAGS) $< -I src/ -c -o $@
 
