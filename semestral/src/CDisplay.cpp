@@ -88,7 +88,8 @@ std::shared_ptr<CCard> CDisplay::card_selection( const CDeck& deck ) {
 
 
 	const int y = 15, card_diff = 22;
-	int x = 0, selected = 0, selected_max = deck.cards().size();
+	int x = 0;
+	size_t selected = 0, selected_max = deck.count();
 
 	for ( auto card : deck.cards() ) {
 		card->print_card(y, x);

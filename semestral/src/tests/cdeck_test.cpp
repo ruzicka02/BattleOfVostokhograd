@@ -27,7 +27,7 @@ getch();
 
 endwin();
 
-cout << "Total cards in deck: " << deck.cards().size() << endl;
+cout << "Total cards in deck: " << deck.count() << endl;
 
 input.open( "examples/decks/start_hand.csv" );
 stringstream s_file;

@@ -51,6 +51,11 @@ public:
 		return m_content;
 	}
 
+	/// Standard getter for count of cards contained in deck.
+	size_t count() const {
+		return m_content.size();
+	}
+
 	/// Shuffles the contained cards to a new, random order.
 	void shuffle_cards();
 };
