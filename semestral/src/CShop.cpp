@@ -13,10 +13,10 @@ void CShop::print_shop( int y, int x ) {
 	}
 }
 
-bool CShop::load_deck( std::istream& file ) {
+bool CShop::load_deck( std::istream& file, bool shuffle ) {
 	const int SHOP_SIZE = 5;
 
-	bool ret_val = m_drawing.load_deck(file);
+	bool ret_val = m_drawing.load_deck(file, shuffle);
 	for ( int i = 0; i < SHOP_SIZE; i ++ ) {
 		insert(m_drawing.pop_top());
 	}
@@ -29,7 +29,7 @@ bool CShop::save_deck( std::ostream& file ) {
 	bool ret_val = m_drawing.save_deck(file);
 
 	if ( ret_val )
-		ret_val = save_deck(file);
+		ret_val = CDeck::save_deck(file);
 
 	return ret_val;
 }

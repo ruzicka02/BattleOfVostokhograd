@@ -12,7 +12,7 @@
 
 using namespace std;
 
-bool CDeck::load_deck(istream & file) {
+bool CDeck::load_deck(istream & file, bool shuffle) {
 
 	string line;
 
@@ -38,7 +38,8 @@ bool CDeck::load_deck(istream & file) {
 		insert( in );
 	}
 
-	shuffle_cards();
+	if ( shuffle )
+		shuffle_cards();
 
 	return true;
 }

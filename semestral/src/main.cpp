@@ -1,6 +1,8 @@
 #include <ncurses.h>
 #include <fstream>
 #include <iostream>
+#include <iomanip>
+#include <cassert>
 
 #include "EAbility.h"
 #include "CCardTroop.h"
@@ -19,12 +21,14 @@ int main () {
 
 	refresh();
 
-	CDeck deck;
-	ifstream input( "examples/decks/start_hand.csv" );
-	deck.load_deck(input);
-	input.close();
+#include "../tests/cdeck_test.cpp"
 
-	init_screen.card_selection(deck);
+//	CDeck deck;
+//	ifstream input( "examples/decks/start_hand.csv" );
+//	deck.load_deck(input);
+//	input.close();
+
+//	init_screen.card_selection(deck);
 
 	return 0;
 }

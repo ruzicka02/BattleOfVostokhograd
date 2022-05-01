@@ -19,13 +19,15 @@ public:
 	CDeck& operator= ( const CDeck& ) = default;
 	virtual ~CDeck() = default;
 
-	/// Loads all cards from a csv file into the deck. Card order is shuffled randomly.
+	/// Loads all cards from a csv file into the deck.
 	/// @return True on success, False if a problem (I/O, invalid data) occurred.
-	virtual bool load_deck( std::istream& );
+	/// @param[in] file Stream from which the card definitions are loaded.
+	/// @param[in] shuffle Decides whether cards are shuffled randomly, turned off by default.
+	virtual bool load_deck( std::istream& file, bool shuffle = false );
 
 	/// Saves all cards into a csv file from the deck.
 	/// @return True on success, False if a problem (I/O) occurred.
-	virtual bool save_deck( std::ostream& );
+	virtual bool save_deck( std::ostream& file );
 
 	/// Inserts the referenced card to the top of deck.
 	/// @return self
