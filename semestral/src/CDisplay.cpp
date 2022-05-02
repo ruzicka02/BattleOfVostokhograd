@@ -58,12 +58,12 @@ CDisplay::~CDisplay() {
 }
 
 bool CDisplay::terminal_size_check() const {
-	if ( m_scr_y >= 45 && m_scr_x >= 100 )
+	if ( m_scr_y >= 45 && m_scr_x >= 120 )
 		return true;
 
 	clear();
 	refresh();
-	printw("In order to play the game, upscale your terminal to size 100x45 characters and restart the game.\n");
+	printw("In order to play the game, upscale your terminal to size 120x45 characters and restart the game.\n");
 	printw("Your current terminal size is %d x %d\n", m_scr_x, m_scr_y);
 	mvprintw(3,0,"Press any key to continue.");
 
@@ -96,39 +96,67 @@ void CDisplay::context_bar(const string &context) {
 }
 
 void CDisplay::refresh_board( std::shared_ptr<CPlayer> first, std::shared_ptr<CPlayer> second, CShop* shop ) {
+	clear();
+	refresh();
+
 	// distance of cards next to each other
 	const int card_diff = 22;
 
 	// shop
-	shop->print_shop(6, 0); // bottom right corner 32, 20
+	shop->print_shop(6, 0); // bottom right corner 37, 20
 
 	// generals
 	first->get_general()->print_card(23, m_scr_x - 20);
 	second->get_general()->print_card(2, m_scr_x - 20);
 
 	// hand of playing player
-	int y = 40, x = 0;
+	int y = 40, x = 0, unprinted = 0;
 	for ( auto card : first->get_hand() ) {
-		card->print_card(y, x);
+		// maximum drawable
+		if ( x >= 5 * card_diff )
+			unprinted ++;
+		else
+			card->print_card(y, x);
+
 		x += card_diff;
 	}
+
+	// bottom right HUD
+	if ( unprinted > 0 )
+		mvprintw(m_scr_y - 5, m_scr_x - 12, "%d MORE CARDS", unprinted);
+
+	mvprintw(m_scr_y - 3, m_scr_x - 7, "CASH %d", first->get_cash());
+	mvprintw(m_scr_y - 2, m_scr_x - 10, "DRAWING %d", first->get_draw_count());
 
 	// table of playing player
-	y = 21, x = 22;
+	y = 20, x = 22;
+	unprinted = 0;
 	for ( auto card : first->get_table() ) {
-		card->print_card(y, x);
+		// maximum drawable
+		if ( x >= 3 * card_diff + 22 )
+			unprinted ++;
+		else
+			card->print_card(y, x);
+
 		x += card_diff;
 	}
+	if ( unprinted > 0 )
+		mvprintw(22, m_scr_x - 22, "%d MORE CARDS", unprinted);
 
 	// opponents table
-	y = 5, x = 22;
-	for ( auto card : first->get_table() ) {
-		card->print_card(y, x);
+	y = 4, x = 22;
+	unprinted = 0;
+	for ( auto card : second->get_table() ) {
+		// maximum drawable
+		if ( x >= 3 * card_diff + 22 )
+			unprinted ++;
+		else
+			card->print_card(y, x);
+
 		x += card_diff;
 	}
-
-	// cards in drawing pile
-	mvprintw(43, m_scr_x - 10, "IN DRAW %d", first->get_draw_count());
+	if ( unprinted > 0 )
+		mvprintw(17, m_scr_x - 22, "%d MORE CARDS", unprinted);
 
 	info_bar("Controls of the game: ");
 
