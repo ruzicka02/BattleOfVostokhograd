@@ -25,7 +25,8 @@ int main () {
 
 	refresh();
 
-#include "tests/refreshboard_test.cpp"
+
+#include "tests/cardselection_test.cpp"
 
 	return 0;
 }

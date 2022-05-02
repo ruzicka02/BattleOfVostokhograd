@@ -166,16 +166,21 @@ std::shared_ptr<CCard> CDisplay::card_selection( const CDeck& deck ) const {
 	clear();
 	refresh();
 
-	const int y = 15, card_diff = 22;
-	int x = 0;
+	const int card_diff_y = 17, card_diff_x = 22, y_init = 12, x_init = 4;
+	int y = y_init, x = x_init;
 	size_t selected = 0, selected_max = deck.count();
 
 	for ( const auto& card : deck.cards() ) {
 		card->print_card(y, x);
-		x += card_diff;
+		x += card_diff_x;
+
+		if ( x >= 5 * card_diff_x ) {
+			x -= 5 * card_diff_x;
+			y += card_diff_y;
+		}
 	}
 
-	mvprintw(5, 0, "Card selection:" );
+	mvprintw(1, 0, "Select a card!" );
 	info_bar("Choose card (L/R Arrow), Select card (ENTER)" );
 	context_bar_draw(); // information from where card selection was called
 	refresh();
@@ -183,16 +188,31 @@ std::shared_ptr<CCard> CDisplay::card_selection( const CDeck& deck ) const {
 	int input = 0;
 
 	while (true) {
-		mvprintw(y - 1, (int)selected * card_diff, "Your selection:");
-		mvprintw(10, 0, "Selected nr: %d", selected );
+		if ( selected < 5 )
+			mvprintw(y_init - 1, (int)selected * card_diff_x + x_init, "Your selection:");
+		else
+			mvprintw(y_init + card_diff_y - 1, (int)(selected - 5) * card_diff_x + x_init, "Your selection:");
+
+		mvprintw(2, 0, "Your choice is card Nr %d", selected );
+
+		// wait for input
 		input = getch();
-		mvprintw(y - 1, 0, "%*s", m_scr_x, "");
+
+		// clean the selection text
+		mvprintw(y_init - 1, 0, "%*s", m_scr_x, "");
+		mvprintw(y_init + card_diff_y - 1, 0, "%*s", m_scr_x, "");
 
 		if ( input == KEY_LEFT && selected > 0 )
 			selected --;
 
 		if ( input == KEY_RIGHT && selected < selected_max - 1 )
 			selected ++;
+
+		if ( input == KEY_UP && selected >= 5 )
+			selected -= 5;
+
+		if ( input == KEY_DOWN && selected <= selected_max - 6 )
+			selected += 5;
 
 		if ( input == 'y' || input == '\n' )
 			break;
