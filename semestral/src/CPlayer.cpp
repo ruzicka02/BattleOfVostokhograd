@@ -15,6 +15,10 @@ void CPlayer::discard_all() {
 }
 
 void CPlayer::kill_card(std::shared_ptr <CCard> target) {
+	// do nothing in case general is dead (game will terminate soon)
+	if ( target == m_general )
+		return;
+
 	target->restore();
 	m_table.remove(target);
 	m_discard.insert(target);

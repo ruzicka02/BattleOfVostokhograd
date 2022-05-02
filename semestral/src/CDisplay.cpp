@@ -95,7 +95,7 @@ void CDisplay::context_bar(const string &context) {
 	context_bar_draw();
 }
 
-void CDisplay::refresh_board( std::shared_ptr<CPlayer> first, std::shared_ptr<CPlayer> second, CShop* shop ) {
+void CDisplay::refresh_board( CPlayer* first, CPlayer* second, CShop* shop ) const {
 	clear();
 	refresh();
 
@@ -159,18 +159,18 @@ void CDisplay::refresh_board( std::shared_ptr<CPlayer> first, std::shared_ptr<CP
 		mvprintw(17, m_scr_x - 22, "%d MORE CARDS", unprinted);
 
 	info_bar("Controls of the game: ");
+	context_bar_draw();
 
 }
 
-std::shared_ptr<CCard> CDisplay::card_selection( const CDeck& deck ) const {
+std::shared_ptr<CCard> CDisplay::card_selection( const std::vector< std::shared_ptr<CCard> >& deck ) const {
 	clear();
 	refresh();
 
 	const int card_diff_y = 17, card_diff_x = 22, y_init = 12, x_init = 4;
-	int y = y_init, x = x_init;
-	size_t selected = 0, selected_max = deck.count();
+	int y = y_init, x = x_init, selected = 0, selected_max = (int)deck.size();
 
-	for ( const auto& card : deck.cards() ) {
+	for ( const auto& card : deck ) {
 		card->print_card(y, x);
 		x += card_diff_x;
 
@@ -189,11 +189,11 @@ std::shared_ptr<CCard> CDisplay::card_selection( const CDeck& deck ) const {
 
 	while (true) {
 		if ( selected < 5 )
-			mvprintw(y_init - 1, (int)selected * card_diff_x + x_init, "Your selection:");
+			mvprintw(y_init - 1, selected * card_diff_x + x_init, "Your selection:");
 		else
-			mvprintw(y_init + card_diff_y - 1, (int)(selected - 5) * card_diff_x + x_init, "Your selection:");
+			mvprintw(y_init + card_diff_y - 1, (selected - 5) * card_diff_x + x_init, "Your selection:");
 
-		mvprintw(2, 0, "Your choice is card Nr %d", selected );
+		mvprintw(2, 0, "Your choice is card Nr %d / %d max", selected + 1, selected_max );
 
 		// wait for input
 		input = getch();
@@ -223,5 +223,5 @@ std::shared_ptr<CCard> CDisplay::card_selection( const CDeck& deck ) const {
 	clear();
 	refresh();
 
-	return deck.cards().at(selected);
+	return deck.at(selected);
 }

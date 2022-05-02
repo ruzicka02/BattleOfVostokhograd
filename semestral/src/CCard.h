@@ -54,16 +54,18 @@ public:
 	/// @return Shared pointer to the newly created card.
 	static std::shared_ptr<CCard> load_card (std::string line);
 
-	/// Attacks the referenced card of an enemy.
-	void attack( CPlayer& player, std::shared_ptr<CCard> target );
+	/// Attacks the referenced card of an enemy. In case the card is destroyed, it leaves the battlefield.
+	/// @param[in] player Targeted player (opponent).
+	/// @param[in] target Card targeted by the ability. Can be left empty in case no card is targeted.
+	void attack( CPlayer* player, std::shared_ptr<CCard> target );
 
 	/// Protects (restores life to) the referenced card.
-	void protect( CPlayer& player, std::shared_ptr<CCard> target );
+	void protect( CPlayer* player, std::shared_ptr<CCard> target );
 
 	/// Card plays its special ability.
-	/// @param[in] player Effected player of the ability.
-	/// @param[in] target Card targeted by the ability. Default value is nullptr in case no card is targeted.
-	void special( CPlayer& player, std::shared_ptr<CCard> target = nullptr );
+	/// @param[in] player Player that is playing the card.
+	/// @param[in] target Card targeted by the ability. Can be left empty in case no card is targeted.
+	void special( CPlayer* player, std::shared_ptr<CCard> target = nullptr );
 
 	/// Card adds or subtracts the given amount of life points. Used for both attacking and protecting a card.
 	/// Dummy implementation for non-permanent cards as they do not have life stats.
@@ -79,10 +81,13 @@ public:
 	virtual std::vector<bool> attributes() = 0;
 
 	/// Returns the amount of cash that player receives when card is played.
-	int cash() const { return m_cash; }
+	[[nodiscard]] int cash() const { return m_cash; }
 
 	/// Returns the cost of the card in the shop.
-	int cost() const { return m_cost; }
+	[[nodiscard]] int cost() const { return m_cost; }
+
+	/// Returns the special ability of the card.
+	[[nodiscard]] EAbility special_get() const { return m_special; }
 };
 
 

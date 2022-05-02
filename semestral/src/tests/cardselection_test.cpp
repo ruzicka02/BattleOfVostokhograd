@@ -21,17 +21,17 @@ CDeck selected;
 std::shared_ptr<CCard> choice;
 
 init_screen.context_bar("0/3 selected");
-choice = init_screen.card_selection(deck);
+choice = init_screen.card_selection(deck.cards());
 selected.insert( choice );
 deck.remove( choice );
 
 init_screen.context_bar("1/3 selected");
-choice = init_screen.card_selection(deck);
+choice = init_screen.card_selection(deck.cards());
 selected.insert( choice );
 deck.remove( choice );
 
 init_screen.context_bar("2/3 selected");
-choice = init_screen.card_selection(deck);
+choice = init_screen.card_selection(deck.cards());
 selected.insert( choice );
 deck.remove( choice );
 
