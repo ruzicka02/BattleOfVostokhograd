@@ -7,6 +7,8 @@
 
 #include "CPlayer.h"
 
+/// Derived class of CPlayer that implements player interaction with the game. Calls CDisplay::card_selection to choose
+/// cards for needed actions.
 class CPlayerHuman : public CPlayer {
 protected:
 public:

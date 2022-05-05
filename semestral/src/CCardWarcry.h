@@ -7,6 +7,9 @@
 
 #include "CCard.h"
 
+/// Derived class from CCard representing a warcry (non-deployable card). It has no health tracker and contains dummy
+/// implementations for connected methods. Once played, it does not stay on players board and goes immediately into
+/// discard pile.
 class CCardWarcry : public CCard {
 protected:
 

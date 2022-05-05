@@ -14,7 +14,10 @@
 // forward declaration because of card playing methods
 class CPlayer;
 
-/// Abstract class that represents a single playing card.
+/// Abstract class that represents a single playing card with its unique set of attributes. Does not contain the life
+/// attribute even though it has method interface for it, as it is only necessary for some of the derived classes. It
+/// provides methods necessary for printing the cards to the terminal as it is considered more elegant than providing
+/// all the card information outside of the class.
 class CCard {
 protected:
 	// general properties
@@ -30,10 +33,9 @@ protected:
 
 public:
 	CCard(std::string mName, std::string mDesc, int mCost, int mDamage, int mProtection, int mCash, EAbility mSpecial)
-		: m_name(std::move(mName)), m_desc(std::move(mDesc)),  m_cost(mCost), m_damage(mDamage), m_protection(mProtection), m_cash(mCash), m_special(mSpecial) {}
+			: m_name(std::move(mName)), m_desc(std::move(mDesc)),  m_cost(mCost), m_damage(mDamage), m_protection(mProtection), m_cash(mCash), m_special(mSpecial) {}
 
-	CCard() = default;
-	CCard( const CCard & ) = default;
+	CCard( const CCard & rhs ) = default;
 	virtual ~CCard() = default;
 	CCard& operator=( const CCard & ) = default;
 

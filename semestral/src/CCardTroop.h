@@ -7,6 +7,8 @@
 
 #include "CCard.h"
 
+/// Derived class from CCard representing a player's deployable troop. It has its own health tracker and in case of death,
+/// it is returned back to player's discard pile with its health restored.
 class CCardTroop : public CCard {
 protected:
 	int m_life;

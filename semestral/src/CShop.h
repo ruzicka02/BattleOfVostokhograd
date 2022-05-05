@@ -7,6 +7,8 @@
 
 #include "CDeck.h"
 
+/// Derived class from CDeck representing the in-game card shop. It is actually represented by two decks, where cards
+/// in the "main deck" are visible by the print_shop() method, and the secondary m_drawing deck refills the main one.
 class CShop : public CDeck {
 protected:
 	CDeck m_drawing;

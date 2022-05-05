@@ -54,10 +54,8 @@ Inspirací pro semestrální práci byla karetní hra Hero Realms (https://www.h
 # TODO
 
 - zlepšít herní rozhraní CPlayer
-  - metoda play_card pro celého CPlayer
 - ovládání hráčem CPlayerHuman
-- ovládání počítačem CPlayerAI
-  - přidat třídu CPlayerAIRandom
+- ovládání počítačem CPlayerAI, CPlayerBogo
 - herní mechanismy CGame
 
 Navíc:

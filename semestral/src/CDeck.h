@@ -12,6 +12,9 @@
 #include "CCard.h"
 #include "EAbility.h"
 
+/// Container for various CCard derived objects, used on various places throughout the game. It is only recommended to
+/// use in cases where all the connected methods are desirable - otherwise, only the pure vector of CCard pointers is used.
+/// Contains logic for importing and exporting the card definitions to and from a CSV file.
 class CDeck {
 protected:
 	std::vector< std::shared_ptr<CCard> > m_content;
@@ -21,13 +24,13 @@ public:
 	CDeck& operator= ( const CDeck& ) = default;
 	virtual ~CDeck() = default;
 
-	/// Loads all cards from a csv file into the deck.
+	/// Loads all cards from a CSV file into the deck.
 	/// @return True on success, False if a problem (I/O, invalid data) occurred.
 	/// @param[in] file Stream from which the card definitions are loaded.
 	/// @param[in] shuffle Decides whether cards are shuffled randomly, turned off by default.
 	virtual bool load_deck( std::istream& file, bool shuffle = false );
 
-	/// Saves all cards into a csv file from the deck.
+	/// Saves all cards into a CSV file from the deck.
 	/// @return True on success, False if a problem (I/O) occurred.
 	virtual bool save_deck( std::ostream& file );
 

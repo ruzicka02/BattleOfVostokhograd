@@ -11,6 +11,8 @@
 #include "CPlayer.h"
 #include "CShop.h"
 
+/// Class encapsulation of the majority of interactions with the terminal using the ncurses library. Majority of the
+/// methods are used for printing content only, with the exception of card_selection() which returns the selected card.
 class CDisplay {
 protected:
 	int m_scr_y;

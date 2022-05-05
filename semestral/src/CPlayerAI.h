@@ -7,6 +7,8 @@
 
 #include "CPlayer.h"
 
+/// Derived class of CPlayer that implements the smarter AI behavior. From the given cards to buy, attack etc.
+/// it selects the most adequate one, using internal heuristics.
 class CPlayerAI : public CPlayer {
 protected:
 public:

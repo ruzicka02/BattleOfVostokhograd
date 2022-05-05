@@ -7,6 +7,7 @@
 
 #include "CPlayer.h"
 
+/// Derived class of CPlayer that implements the most simple random AI behavior.
 class CPlayerBogo : public CPlayer {
 protected:
 public:

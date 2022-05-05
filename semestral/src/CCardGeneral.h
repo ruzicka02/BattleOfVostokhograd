@@ -7,6 +7,8 @@
 
 #include "CCard.h"
 
+/// Derived class from CCard representing a general of one player. It has its own health tracker and in case of death,
+/// the game is supposed to terminate (this is not part of the class logic and is managed outside).
 class CCardGeneral : public CCard {
 protected:
 	int m_life;

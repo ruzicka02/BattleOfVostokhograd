@@ -11,6 +11,7 @@
 #include "CShop.h"
 #include "CDisplay.h"
 
+/// High-level class for managing the creation and successful termination of the game. Handles the way players change turns.
 class CGame {
 protected:
 	std::shared_ptr<CPlayer> 	m_first;

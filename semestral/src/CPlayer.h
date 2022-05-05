@@ -12,6 +12,8 @@
 // forward declaration because of calling certain CDisplay methods
 class CDisplay;
 
+/// Abstract player class with its own set of decks and a general card. Implements various actions that move cards
+/// between the decks. Contains basic gameplay methods as play_card() and play().
 class CPlayer {
 protected:
 	int 							m_cash;
@@ -85,6 +87,11 @@ public:
 
 	[[nodiscard]] int get_cash() const {
 		return m_cash;
+	}
+
+	/// Returns true, if the general is dead (health <= 0) and the player has lost.
+	[[nodiscard]] bool lost() const {
+		return m_general->change_life(0); // life does not change, returns necessary bool
 	}
 
 	/// Virtual method for player to play his turn, either manually or automatically.
