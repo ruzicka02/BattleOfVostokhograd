@@ -79,14 +79,14 @@ int CDisplay::menu() {
 void CDisplay::info_bar( const string& info ) const {
 	attron(COLOR_PAIR(10) | A_BOLD);
 	mvprintw(m_scr_y - 1, 0, "%*s", - m_scr_x, info.c_str());
-	refresh();
+//	refresh();
 	attroff(COLOR_PAIR(10) | A_BOLD);
 }
 
 void CDisplay::context_bar_draw() const {
 	attron(COLOR_PAIR(10) | A_BOLD);
 	mvprintw(0, 0, "%*s", - m_scr_x, m_context.c_str());
-	refresh();
+//	refresh();
 	attroff(COLOR_PAIR(10) | A_BOLD);
 }
 
