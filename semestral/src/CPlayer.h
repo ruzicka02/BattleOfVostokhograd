@@ -28,7 +28,7 @@ public:
 	/// Constructs instance of Player with empty decks.
 	/// @param[in] gen General card of Player, necessary for construction
 	CPlayer( std::shared_ptr<CCardGeneral> gen, const CDeck& deck, CDisplay* display, CShop* shop )
-		: m_cash(0), m_general(std::move(gen)), m_drawing(deck), m_opponent(nullptr), m_shop(shop), m_display(display) {}
+			: m_cash(0), m_general(std::move(gen)), m_drawing(deck), m_opponent(nullptr), m_shop(shop), m_display(display) {}
 	CPlayer( const CPlayer& ) = default;
 	CPlayer& operator= ( const CPlayer& ) = default;
 	virtual ~CPlayer() {
@@ -90,10 +90,16 @@ public:
 	/// Virtual method for player to play his turn, either manually or automatically.
 	virtual void play() = 0;
 
-	/// Virtual method for player to play one card, either manually or automatically.
+	/// Method for player to play one card, based on its type and abilities.
 	/// @param[in] card The referenced card that will be played.
 	/// @param[in] hand True if card is played from hand, false if it already is on the table.
-	virtual void play_card(std::shared_ptr<CCard> card, bool hand) = 0;
+	void play_card(std::shared_ptr<CCard> card, bool hand);
+
+	/// Virtual method for player to choose one card. Performed automatically by AI players.
+	/// @return Selected card.
+	/// @param[in] cards Cards to choose from.
+	/// @param[in] mode Action with the given cards for the AI
+	virtual std::shared_ptr<CCard> pick_card( const std::vector< std::shared_ptr<CCard> >& cards, int mode ) const = 0;
 };
 
 

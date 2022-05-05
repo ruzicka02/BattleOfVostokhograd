@@ -10,14 +10,12 @@
 #include <iostream>
 
 #include "CCard.h"
-#include "CCardWarcry.h"
 #include "EAbility.h"
 
 class CDeck {
 protected:
 	std::vector< std::shared_ptr<CCard> > m_content;
 public:
-	// fixme
 	CDeck() : m_content(std::vector< std::shared_ptr<CCard> >()) { }
 	CDeck( const CDeck& ) = default;
 	CDeck& operator= ( const CDeck& ) = default;

@@ -1,21 +1,21 @@
 //
-// Created by simon on 18.4.22.
+// Created by simon on 5.5.22.
 //
 
-#ifndef SEMESTRAL_CPLAYERAI_H
-#define SEMESTRAL_CPLAYERAI_H
+#ifndef SEMESTRAL_CPLAYERBOGO_H
+#define SEMESTRAL_CPLAYERBOGO_H
 
 #include "CPlayer.h"
 
-class CPlayerAI : public CPlayer {
+class CPlayerBogo : public CPlayer {
 protected:
 public:
-	CPlayerAI( std::shared_ptr<CCardGeneral> gen, const CDeck& deck, CDisplay* display, CShop* shop )
+	CPlayerBogo( std::shared_ptr<CCardGeneral> gen, const CDeck& deck, CDisplay* display, CShop* shop )
 			: CPlayer(std::move(gen), deck, display, shop) {}
 
 	void play() override;
 
-	/// Virtual method for player to choose one card using CDisplay::card_selection()
+	/// Virtual method for player to choose one card using the power of randomness.
 	/// @return Selected card.
 	/// @param[in] cards Cards to choose from.
 	/// @param[in] mode Action with the given cards for the AI
@@ -24,4 +24,5 @@ public:
 	void discard_cards (int amount) override;
 };
 
-#endif //SEMESTRAL_CPLAYERAI_H
+
+#endif //SEMESTRAL_CPLAYERBOGO_H

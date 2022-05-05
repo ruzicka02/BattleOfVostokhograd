@@ -14,7 +14,12 @@ public:
 			: CPlayer(std::move(gen), deck, display, shop) {}
 
 	void play() override;
-	void play_card(std::shared_ptr<CCard> card, bool hand) override;
+
+	/// Virtual method for player to choose one card using CDisplay::card_selection()
+	/// @return Selected card.
+	/// @param[in] cards Cards to choose from.
+	/// @param[in] mode Action with the given cards for the AI
+	std::shared_ptr<CCard> pick_card( const std::vector< std::shared_ptr<CCard> >& cards, int mode ) const override;
 
 	void discard_cards (int amount) override;
 };
