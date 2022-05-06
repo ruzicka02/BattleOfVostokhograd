@@ -37,18 +37,30 @@ Hojně používanou třídou ve hře bude jedna karta (**CCard**), která bude i
 
 Všechny karty budou ukládat efekty svých akcí, jako je síla útoku (Damage), síla obrany (Protection) nebo kupní síla (₴, hřivny) v číselné podobě (pokud tuto vlastnost karta nemá, bude uložena hodnota 0). Speciální schopnosti (např. lízni si kartu, seber soupeřovu jednotku) se budou ukládat jako hodnota typu enum.
 
-Abstraktní třída **CPlayer** bude následně obalovat hráčského generála a čtyři balíčky (lízací balíček, karty v ruce, vyložené karty, odhazovací balíček) a bude zajišťovat operace mezi nimi (lízni si N karet, odhoď zbylé karty, vylož trvalou jednotku, ...). Tato třída bude také poskytovat rozhraní pro útoky na karty protějšího hráče. Z této třídy budou následně dědit **CPlayerHuman** (ovládaná hráčem) a **CPlayerAI** (ovládaná počítačem).
+Abstraktní třída **CPlayer** bude následně obalovat hráčského generála a čtyři balíčky (lízací balíček, karty v ruce, vyložené karty, odhazovací balíček) a bude zajišťovat operace mezi nimi (lízni si N karet, odhoď zbylé karty, vylož trvalou jednotku, ...). Tato třída bude také poskytovat rozhraní pro útoky na karty protějšího hráče. Z této třídy budou následně dědit **CPlayerHuman** (ovládaná hráčem), **CPlayerAI** (ovládaná počítačem) a **CPlayerBogo** (ovládaná počítačem pomocí čistě náhodných tahů).
 
 Všechny zmíněné herní aspekty bude obalovat třída **CGame**. Ta bude řídit logiku jednotlivého průběhu hry (střídání tahů hráčů, příprava na začátku/konci hry) a předávat informace k vykreslení na terminál. O vykreslování samotné se pak bude starat třída **CDisplay**.
 
 Diagram návrhu tříd lze vygenerovat z hlavičkových souborů za použití přiloženého Doxyfile.
 
+Ve složce zdrojových souborů se navíc nachází knihovna funkcí **Test.cpp**, která zkouší zobrazit na terminál různé herní scénáře a provádí jednoduché asserty. Funkce z této knihovnz se provedou ve funkci main, pokud je program spuštěn s přepínačem `--debug`.
+
 ## Polymorfismus
 
-- Typy karet: jednorázové (Warcry), trvalé (Troop), hráčská postava (General)
-- Ovládání hráče: lokální hráč, umělá inteligence (chytrá, náhodná)
-- Vztah balíčku karet (CDeck) a obchodu (CShop)
+- Typy karet: jednorázové (Warcry), trvalé (Troop), ~~hráčská postava (General)~~
+- Ovládání hráče: lokální hráč (Human), umělá inteligence (AI), náhodné tahy (Bogo)
 
 ## Zdroje
 
 Inspirací pro semestrální práci byla karetní hra Hero Realms (https://www.herorealms.com/).
+
+# TODO
+
+- zlepšít herní rozhraní CPlayer
+- ovládání hráčem CPlayerHuman
+- ovládání počítačem CPlayerAI, CPlayerBogo
+- herní mechanismy CGame
+
+Navíc:
+- životy karet v savefiles (life vs. life_init)
+- přepracování polymorfismu u CCardGeneral

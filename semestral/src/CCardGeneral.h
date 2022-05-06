@@ -7,6 +7,13 @@
 
 #include "CCard.h"
 
+// fixme
+// Info ke kontrolnimu bodu semestralni prace - tato trida bude potrebovat prepracovani, protoze dedi z CCard, ale
+// zaroven se pouziva ve tride CPlayer "naprimo" (bez pouziti polymorfickeho vztahu). Pravdepodobne reseni bude pridani
+// nove tridy CCardRegular, ze ktere budou nasledne dedit tridy CCardTroop a CCardWarcry (polymorfismus se tedy nebude
+// nachazet na potomcich CCard, ale CCardRegular). Alternativou by bylo tridu kompletne zrusit, jemne prepracovat mechaniky
+// hry a nektere parametry dat primo do tridy CPlayer, cimz by tato trida byla zbytecna.
+
 /// Derived class from CCard representing a general of one player. It has its own health tracker and in case of death,
 /// the game is supposed to terminate (this is not part of the class logic and is managed outside).
 class CCardGeneral : public CCard {
