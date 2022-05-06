@@ -46,7 +46,7 @@ CDisplay::CDisplay() {
 	// init_pair(8, COLOR_WHITE, COLOR_CYAN + 16);
 
 	// info, context bars
-	init_pair(10, COLOR_WHITE, COLOR_MAGENTA);
+	init_pair(10, COLOR_BLACK, COLOR_CYAN);
 
 	getmaxyx(stdscr, m_scr_y, m_scr_x);
 
@@ -77,17 +77,17 @@ int CDisplay::menu() {
 }
 
 void CDisplay::info_bar( const string& info ) const {
-	attron(COLOR_PAIR(10) | A_BOLD);
+	attron(COLOR_PAIR(10) );
 	mvprintw(m_scr_y - 1, 0, "%*s", - m_scr_x, info.c_str());
-//	refresh();
-	attroff(COLOR_PAIR(10) | A_BOLD);
+	refresh();
+	attroff(COLOR_PAIR(10) );
 }
 
 void CDisplay::context_bar_draw() const {
-	attron(COLOR_PAIR(10) | A_BOLD);
+	attron(COLOR_PAIR(10) );
 	mvprintw(0, 0, "%*s", - m_scr_x, m_context.c_str());
-//	refresh();
-	attroff(COLOR_PAIR(10) | A_BOLD);
+	refresh();
+	attroff(COLOR_PAIR(10) );
 }
 
 void CDisplay::context_bar(const string &context) {
