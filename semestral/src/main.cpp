@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <cassert>
 #include <cstring>
+#include <csignal>
 
 #include "Test.h"
 
@@ -18,11 +19,20 @@
 
 using namespace std;
 
+void sigint_handler( int num ) {
+	endwin(); // shut down ncurses
+
+	cout << "Interrupt signal called, game was terminated automatically";
+	exit(0);
+}
+
 int main ( int argc, char* argv[] ) {
+	signal(SIGINT, sigint_handler);
+
 	CDisplay init_screen;
 	init_screen.context_bar("Initial test");
 	if ( ! init_screen.terminal_size_check() )
-		exit_curses(1);
+		return 1;
 
 	mvprintw(1, 0, "Battle of Vostokhograd: The Card RPG\nSimon Ruzicka, 2022\n");
 
@@ -36,6 +46,7 @@ int main ( int argc, char* argv[] ) {
 		card_selection_t ();
 	}
 
-	// reduces the amount of ncurses mem leaks
-	exit_curses(0);
+	// reduces the amount of ncurses mem leaks, does not work on testing Docker
+	// exit_curses(0);
+	return 0;
 }
