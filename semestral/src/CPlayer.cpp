@@ -112,10 +112,12 @@ void CPlayer::play_card(std::shared_ptr<CCard> card, bool hand) {
 	}
 
 	// cash
-	m_cash += card->cash();
-	m_display->context_bar("Cash added to your stockpile." );
-	m_display->refresh_board(this, m_opponent, m_shop);
-	getch();
+	if ( card->cash() > 0 ) {
+		m_cash += card->cash();
+		m_display->context_bar("Cash added to your stockpile.");
+		m_display->refresh_board(this, m_opponent, m_shop);
+		getch();
+	}
 
 	nocbreak(); // turn off half delay mode
 }

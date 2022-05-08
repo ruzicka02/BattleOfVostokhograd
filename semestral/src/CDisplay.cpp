@@ -158,7 +158,7 @@ void CDisplay::refresh_board( CPlayer* first, CPlayer* second, CShop* shop ) con
 	if ( unprinted > 0 )
 		mvprintw(17, m_scr_x - 22, "%d MORE CARDS", unprinted);
 
-	info_bar("Controls of the game: ");
+	info_bar("Continue (ENTER)");
 	context_bar_draw();
 
 }
@@ -181,7 +181,7 @@ std::shared_ptr<CCard> CDisplay::card_selection( const std::vector< std::shared_
 	}
 
 	mvprintw(1, 0, "Select a card!" );
-	info_bar("Choose card (L/R Arrow), Select card (ENTER)" );
+	info_bar("Choose card (L/R Arrow), Confirm (ENTER)" );
 	context_bar_draw(); // information from where card selection was called
 	refresh();
 

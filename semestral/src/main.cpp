@@ -49,7 +49,5 @@ int main ( int argc, char* argv[] ) {
 		card_selection_t();
 	}
 
-	// reduces the amount of ncurses mem leaks, does not work on testing Docker
-	// exit_curses(0);
 	return 0;
 }
