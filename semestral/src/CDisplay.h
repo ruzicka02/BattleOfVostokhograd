@@ -48,8 +48,15 @@ public:
 	void refresh_board( CPlayer* first, CPlayer* second, CShop* shop ) const;
 
 	/// Lets player choose one card from a given deck.
+	/// @param[in] cards Cards to select from.
 	/// @return Pointer to the selected card.
 	std::shared_ptr<CCard> card_selection( const std::vector< std::shared_ptr<CCard> >& ) const;
+
+	/// Lets player choose one card from his hand, table or his general. Used when selecting a card to play.
+	/// @param[in] player Player who is currently about to play.
+	/// @param[in] played Cards that were already played.
+	/// @return Pointer to the selected card.
+	std::shared_ptr<CCard> card_selection_ingame( CPlayer* player, std::vector<bool>& played ) const;
 };
 
 

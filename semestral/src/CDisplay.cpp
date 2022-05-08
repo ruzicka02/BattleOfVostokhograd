@@ -129,7 +129,7 @@ void CDisplay::refresh_board( CPlayer* first, CPlayer* second, CShop* shop ) con
 	mvprintw(m_scr_y - 2, m_scr_x - 10, "DRAWING %d", first->get_draw_count());
 
 	// table of playing player
-	y = 20, x = 22;
+	y = 21, x = 22;
 	unprinted = 0;
 	for ( auto card : first->get_table() ) {
 		// maximum drawable
@@ -224,4 +224,77 @@ std::shared_ptr<CCard> CDisplay::card_selection( const std::vector< std::shared_
 	refresh();
 
 	return deck.at(selected);
+}
+
+std::shared_ptr<CCard> CDisplay::card_selection_ingame(CPlayer * player, vector<bool>& played) const {
+	// screen is not redrawn, method must be called after refresh_board
+
+	const int hand_count = player->get_hand().size(), table_count = player->get_table().size() + 1;
+
+	const int card_hand_y = 39, card_table_y = 22, card_gen_y = 20, card_diff_x = 22; // constants derived from CDisplay::refresh_board
+	int input = 0, selected = 0, selected_max = hand_count;
+	bool focus_table = false;
+
+	info_bar("Choose card (Arrow keys), Confirm (ENTER), Go to shop (B)" );
+
+
+
+//		m_display->card_selection(playable);
+	while (true) {
+
+		// print selection text
+		if (!focus_table)
+			mvprintw(card_hand_y, selected * card_diff_x, "Your selection:"); // cards in hand
+		else if (selected == selected_max)
+			mvprintw(card_gen_y, m_scr_x - 20, "Your selection:"); // general
+		else
+			mvprintw(card_table_y, (selected + 1) * card_diff_x, "Your selection:"); // cards on table
+
+		// wait for input
+		input = getch();
+
+		// rewrite the old selection
+		if (!focus_table)
+			mvprintw(card_hand_y, selected * card_diff_x, "%*c", 20, ' ');
+		else if (selected == selected_max)
+			mvprintw(card_gen_y, m_scr_x - 20, "%*c", 20, ' ');
+		else
+			mvprintw(card_table_y, (selected + 1) * card_diff_x, "%*c", 20, ' ');
+
+		if (input == KEY_LEFT && selected > 0)
+			selected--;
+
+		if (input == KEY_RIGHT && selected < selected_max - 1)
+			selected++;
+
+		if (input == KEY_UP && table_count != 0) {
+			focus_table = true;
+			selected = 0;
+			selected_max = table_count;
+		}
+
+		if (input == KEY_DOWN && hand_count != 0) {
+			focus_table = false;
+			selected = 0;
+			selected_max = hand_count;
+		}
+
+		if (input == 'y' || input == '\n')
+			break;
+
+	}
+
+	// todo... make sure every card is played max once
+	// return value
+	if (!focus_table)
+		return player->get_hand().at(selected);
+	else if (selected == selected_max) {
+		played.at(0) = true;
+		return player->get_general();
+	}
+	else {
+		played.at(selected + 1) = true;
+		return player->get_table().at(selected);
+	}
+
 }
