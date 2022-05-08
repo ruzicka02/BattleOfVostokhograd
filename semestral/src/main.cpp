@@ -40,10 +40,13 @@ int main ( int argc, char* argv[] ) {
 
 	// tests
 	if ( argc > 1 && ! strcmp( argv[1], "--debug") ) {
-		CDisplay_t ();
-		CDeck_t ();
-		refresh_board_t ();
-		card_selection_t ();
+		endwin();
+
+		play_card_t();
+		CDisplay_t();
+		CDeck_t();
+		refresh_board_t();
+		card_selection_t();
 	}
 
 	// reduces the amount of ncurses mem leaks, does not work on testing Docker

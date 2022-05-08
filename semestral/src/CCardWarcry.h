@@ -22,7 +22,7 @@ public:
 	void print_card_wide( int y, int x ) override;
 	std::string save_card() override;
 
-	std::vector<bool> attributes() override;
+	std::vector<int> attributes() override;
 
 	bool change_life( int ) override { return false; }
 	void restore() override {}

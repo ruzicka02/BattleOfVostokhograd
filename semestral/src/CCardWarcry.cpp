@@ -93,13 +93,13 @@ string CCardWarcry::save_card() {
 }
 
 // Can be deployed (troop), can attack, can protect, has special ability
-std::vector<bool> CCardWarcry::attributes() {
-	vector<bool> values;
+std::vector<int> CCardWarcry::attributes() {
+	vector<int> values;
 
-	values.push_back(false); // is a warcry, cannot be deployed
-	values.push_back(m_damage > 0);
-	values.push_back(m_protection > 0);
-	values.push_back(m_special != null);
+	values.push_back(0); // is a warcry, cannot be deployed
+	values.push_back(m_damage);
+	values.push_back(m_protection);
+	values.push_back(m_special != null ? 1 : 0);
 
 	return values;
 }

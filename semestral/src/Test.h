@@ -18,4 +18,7 @@ void CDisplay_t ();
 /// Prints a preview of the in-game board with "hidden cards" (not fitting to screen), deploys cards from hand to table on clicks.
 void refresh_board_t ();
 
+/// Tests the CPlayer::play_card method
+void play_card_t ();
+
 #endif //SEMESTRAL_TEST_H

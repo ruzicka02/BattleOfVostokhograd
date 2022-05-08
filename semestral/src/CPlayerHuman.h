@@ -21,9 +21,9 @@ public:
 	/// @return Selected card.
 	/// @param[in] cards Cards to choose from.
 	/// @param[in] mode Action with the given cards for the AI
-	std::shared_ptr<CCard> pick_card( const std::vector< std::shared_ptr<CCard> >& cards, int mode ) const override;
+	[[nodiscard]] std::shared_ptr<CCard> pick_card( const std::vector< std::shared_ptr<CCard> >& cards, int mode ) const override;
 
-	void discard_cards (int amount) override;
+	void discard_selection (int amount) override;
 };
 
 

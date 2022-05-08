@@ -41,10 +41,14 @@ public:
 	void draw_cards( int amount );
 
 	/// Discards the given amount of cards from hand to discard pile. Lets human player select, which cards he wants to discard.
-	virtual void discard_cards( int amount ) = 0;
+	virtual void discard_selection(int amount ) = 0;
 
 	/// Discards all cards from hand to discard pile. Does not throw any card selection to human player.
 	void discard_all();
+
+	/// Discards the one specific card from hand to discard pile. Used when playing warcries from hand.
+	/// @exception out_of_range Throws exception if card is not in hand.
+	virtual void discard_card( std::shared_ptr<CCard> );
 
 	/// Restores health of the referenced card and puts it from table to discard pile.
 	/// @exception out_of_range Throws exception if card is not on table.
@@ -87,6 +91,10 @@ public:
 
 	[[nodiscard]] int get_cash() const {
 		return m_cash;
+	}
+
+	void set_opponent( CPlayer* opponent ) {
+		m_opponent = opponent;
 	}
 
 	/// Returns true, if the general is dead (health <= 0) and the player has lost.

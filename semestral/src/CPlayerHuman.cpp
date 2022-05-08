@@ -25,7 +25,7 @@ void CPlayerHuman::play() {
 
 
 
-void CPlayerHuman::discard_cards (int amount) {
+void CPlayerHuman::discard_selection (int amount) {
 
 	for ( int i = 0; i < amount; i ++ ) {
 		stringstream context;

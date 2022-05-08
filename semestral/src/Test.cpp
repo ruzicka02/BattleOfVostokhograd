@@ -84,6 +84,9 @@ void CDeck_t () {
 	for ( auto card : deck.cards() ) {
 		card->print_card(30, pos);
 		pos += 25;
+
+		if ( pos >= 100 )
+			break;
 	}
 
 //	CShop showcase
@@ -196,6 +199,58 @@ void refresh_board_t () {
 	screen.refresh_board(&p1, &p2, &shop);
 	getch();
 	p1.deploy_card(p1.get_hand().at(0));
+
+	screen.context_bar("Press any key to end the test");
+	screen.refresh_board(&p1, &p2, &shop);
+	getch();
+
+	clear();
+}
+
+void play_card_t () {
+	CDisplay screen;
+
+	CShop shop;
+	ifstream input( "examples/decks/start_hand.csv" );
+	shop.load_deck(input, true);
+	input.close();
+
+	CDeck deck;
+	deck.insert(make_shared<CCardTroop>("Stealing troop", "Lorem ipsum dolor sit amet", 1, 2, 0, 0, 1, steal));
+	deck.insert(make_shared<CCardTroop>("Sample troop", "Lorem ipsum dolor sit amet", 1, 2, 3, 4, 5, null));
+	deck.insert(make_shared<CCardWarcry>("Sample warcry", "Lorem ipsum dolor sit amet", 1, 2, 3, 4, null));
+
+	CDeck deck2;
+	deck2.insert(make_shared<CCardTroop>("Training dummy", "Lorem ipsum dolor sit amet", 8, 2, 0, 0, 1, steal));
+	deck2.insert(make_shared<CCardTroop>("Training dummy", "Lorem ipsum dolor sit amet", 8, 2, 0, 0, 1, null));
+	deck2.insert(make_shared<CCardTroop>("Training dummy", "Lorem ipsum dolor sit amet", 8, 2, 0, 0, 1, null));
+
+
+	auto g1 = make_shared<CCardGeneral>("General 1", "This general is the best general in the world", 50, 2, 3, 4, 1, null);
+	g1->change_life(-10);
+	auto p1 = CPlayerHuman(g1, deck, &screen, &shop);
+
+	auto g2 = make_shared<CCardGeneral>("General 2", "This general is also the best general in the world", 50, 2, 3, 4, 1, null);
+	auto p2 = CPlayerHuman(g2, deck2, &screen, &shop);
+
+	p1.set_opponent(&p2);
+	p2.set_opponent(&p1);
+
+	p1.draw_cards(3);
+
+	p2.draw_cards(3);
+	p2.deploy_card(p2.get_hand().at(0));
+	p2.deploy_card(p2.get_hand().at(0));
+	p2.deploy_card(p2.get_hand().at(0));
+
+	screen.refresh_board(&p1, &p2, &shop);
+
+while (! p1.get_hand().empty()) {
+	screen.context_bar("Card playing showcase - press any key to play a card");
+	getch();
+	p1.play_card(p1.get_hand().at(0), true);
+	screen.refresh_board(&p1, &p2, &shop);
+}
 
 	screen.context_bar("Press any key to end the test");
 	screen.refresh_board(&p1, &p2, &shop);

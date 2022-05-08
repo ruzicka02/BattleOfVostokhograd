@@ -76,7 +76,11 @@ void CCardTroop::print_card_wide(int y, int x) {
 bool CCardTroop::change_life(int life) {
 	m_life += life;
 
-	return life <= 0;
+	// max life overflow
+	if ( m_life > m_life_init )
+		m_life = m_life_init;
+
+	return m_life <= 0;
 }
 
 void CCardTroop::restore() {
@@ -111,13 +115,13 @@ string CCardTroop::save_card() {
 }
 
 // Can be deployed (troop), can attack, can protect, has special ability
-std::vector<bool> CCardTroop::attributes() {
-	vector<bool> values;
+std::vector<int> CCardTroop::attributes() {
+	vector<int> values;
 
-	values.push_back(true); // can be deployed when in hand, value ignored when already on table
-	values.push_back(m_damage > 0);
-	values.push_back(m_protection > 0);
-	values.push_back(m_special != null);
+	values.push_back(1); // can be deployed when in hand, value ignored when already on table
+	values.push_back(m_damage);
+	values.push_back(m_protection);
+	values.push_back(m_special != null ? 1 : 0);
 
 	return values;
 }
