@@ -13,9 +13,12 @@ class CCardTroop : public CCard {
 protected:
 	int m_life;
 	int m_life_init;
+
+	bool m_played;
 public:
 	CCardTroop(std::string mName, std::string mDesc, int mLife, int mCost, int mDamage, int mProtection, int mCash, EAbility mSpecial)
-	: CCard(std::move(mName), std::move(mDesc), mCost, mDamage, mProtection, mCash, mSpecial), m_life(mLife), m_life_init(mLife) {}
+	: 	CCard(std::move(mName), std::move(mDesc), mCost, mDamage, mProtection, mCash, mSpecial),
+		m_life(mLife), m_life_init(mLife), m_played(false) {}
 
 	void print_card( int y, int x ) override;
 	void print_card_wide( int y, int x ) override;
@@ -25,6 +28,9 @@ public:
 
 	bool change_life( int life ) override;
 	void restore() override;
+
+	[[nodiscard]] bool played() const override { return m_played; }
+	void set_played(bool played) override { m_played = played; }
 };
 
 

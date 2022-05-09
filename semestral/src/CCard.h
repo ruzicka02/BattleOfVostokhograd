@@ -90,6 +90,12 @@ public:
 
 	/// Returns the special ability of the card.
 	[[nodiscard]] EAbility special_get() const { return m_special; }
+
+	/// Returns whether card was already played. Dummy implementation for non deployable cards.
+	virtual bool played() const = 0;
+
+	/// Changes state whether card was played or not. Dummy implementation for non deployable cards.
+	virtual void set_played(bool) = 0;
 };
 
 
