@@ -14,20 +14,20 @@ using namespace std;
 
 void CPlayerHuman::play() {
 
-	vector<bool> played;
-	for ( size_t i = 0; i <= m_table.count(); i ++ )
-		played.emplace_back(false);
+	// set all cards as not played
+	for ( size_t i = 0; i < m_table.count(); i ++ )
+		m_table.cards().at(i)->set_played(false);
 
 	bool cards_available;
 
 	do {
 		m_display->context_bar("Your turn! Select a card." );
 		m_display->refresh_board(this, m_opponent, m_shop);
-		shared_ptr<CCard> selected = m_display->card_selection_ingame(this, played);
+		m_display->card_selection_ingame(this);
 
 		cards_available = m_hand.count() != 0;
-		for ( size_t i = 0; i < played.size(); i ++ )
-			if (!played.at(i)) {
+		for ( const auto& i : m_table.cards() )
+			if (! i->played()) {
 				cards_available = true;
 				break;
 			}

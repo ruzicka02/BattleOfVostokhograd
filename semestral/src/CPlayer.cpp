@@ -120,4 +120,5 @@ void CPlayer::play_card(std::shared_ptr<CCard> card, bool hand) {
 	}
 
 	nocbreak(); // turn off half delay mode
+	cbreak();
 }

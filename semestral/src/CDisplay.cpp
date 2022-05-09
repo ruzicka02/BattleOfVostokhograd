@@ -226,33 +226,52 @@ std::shared_ptr<CCard> CDisplay::card_selection( const std::vector< std::shared_
 	return deck.at(selected);
 }
 
-std::shared_ptr<CCard> CDisplay::card_selection_ingame(CPlayer * player, vector<bool>& played) {
+void CDisplay::card_selection_ingame(CPlayer * player) {
 	// screen is not redrawn, method must be called after refresh_board
 
 	const int hand_count = player->get_hand().size(), table_count = player->get_table().size() + 1;
+
+	// get info about played cards
+	vector<bool> played;
+	for ( auto card : player->get_table() ) {
+		played.push_back(card->played());
+	}
+
+	played.push_back(player->get_general()->played());
 
 	const int card_hand_y = 39, card_table_y = 20, card_gen_y = 22, card_diff_x = 22; // constants derived from CDisplay::refresh_board
 	int input = 0, selected = 0, selected_max = hand_count;
 	bool focus_table = false, enter_press = false;
 
 	// print which cards were already played
-	for ( selected = 0; selected < table_count; selected ++ ) {
+	attron(COLOR_PAIR(9));
+
+	for ( ; selected < table_count; selected ++ ) {
 		if (played.at(selected) && selected == table_count - 1) {
-			mvprintw(card_gen_y + 14, m_scr_x - 15, "PLAYED");
+			mvprintw(card_gen_y + 14, m_scr_x - 15, " PLAYED ");
 			break;
 		}
 
-		if (played.at(selected))
-			mvprintw(card_table_y + 14, (selected + 1) * card_diff_x + 5, "PLAYED");
-		selected ++;
+		if (played.at(selected)) {
+			move(0,0);
+			mvprintw(card_table_y + 14, (selected + 1) * card_diff_x + 5, " PLAYED ");
+			move(0,0);
+		}
+
+
 	}
+
+	attroff(COLOR_PAIR(9));
 	selected = 0;
 
 	info_bar("Choose card (Arrow keys), Confirm (ENTER), Go to shop (B)" );
 
+	int loop = 0;
 	while (true) {
-		mvprintw(1, 0, "Selected: %d/%d\nFocus_table: %d\nKey press: %3d %c", selected, selected_max, focus_table, input, input);
+		loop ++;
 
+		mvprintw(1, 0, "Selected: %d/%d", selected + 1, selected_max);
+		mvprintw(2, 0, "Focus_table: %d", focus_table);
 
 		// print selection text
 		if (!focus_table)
@@ -291,7 +310,7 @@ std::shared_ptr<CCard> CDisplay::card_selection_ingame(CPlayer * player, vector<
 			selected_max = hand_count;
 		}
 
-		if (input == 'y' || input == '\n')
+		if (input == '\n')
 			enter_press = true;
 
 		if (enter_press && focus_table && played.at(selected)) {
@@ -302,6 +321,7 @@ std::shared_ptr<CCard> CDisplay::card_selection_ingame(CPlayer * player, vector<
 
 		if (enter_press)
 			break;
+
 	}
 
 	// return value
@@ -311,26 +331,16 @@ std::shared_ptr<CCard> CDisplay::card_selection_ingame(CPlayer * player, vector<
 	if (!focus_table) {
 		selected_card = player->get_hand().at(selected);
 		player->play_card(selected_card, true);
-
-		if (player->get_hand().size() == played.size()) {
-			played.insert(played.end() - 1, true);
-		}
-
-		return selected_card;
 	}
 	else if (selected == selected_max - 1) {
-		played.at(selected) = true;
-
 		selected_card = player->get_general();
 		player->play_card(selected_card, false);
-		return selected_card;
 	}
 	else {
-		played.at(selected) = true;
-
 		selected_card = player->get_table().at(selected);
 		player->play_card(selected_card, false);
-		return selected_card;
 	}
+
+	selected_card->set_played(true);
 
 }
