@@ -226,26 +226,38 @@ std::shared_ptr<CCard> CDisplay::card_selection( const std::vector< std::shared_
 	return deck.at(selected);
 }
 
-std::shared_ptr<CCard> CDisplay::card_selection_ingame(CPlayer * player, vector<bool>& played) const {
+std::shared_ptr<CCard> CDisplay::card_selection_ingame(CPlayer * player, vector<bool>& played) {
 	// screen is not redrawn, method must be called after refresh_board
 
 	const int hand_count = player->get_hand().size(), table_count = player->get_table().size() + 1;
 
-	const int card_hand_y = 39, card_table_y = 22, card_gen_y = 20, card_diff_x = 22; // constants derived from CDisplay::refresh_board
+	const int card_hand_y = 39, card_table_y = 20, card_gen_y = 22, card_diff_x = 22; // constants derived from CDisplay::refresh_board
 	int input = 0, selected = 0, selected_max = hand_count;
-	bool focus_table = false;
+	bool focus_table = false, enter_press = false;
+
+	// print which cards were already played
+	for ( selected = 0; selected < table_count; selected ++ ) {
+		if (played.at(selected) && selected == table_count - 1) {
+			mvprintw(card_gen_y + 14, m_scr_x - 15, "PLAYED");
+			break;
+		}
+
+		if (played.at(selected))
+			mvprintw(card_table_y + 14, (selected + 1) * card_diff_x + 5, "PLAYED");
+		selected ++;
+	}
+	selected = 0;
 
 	info_bar("Choose card (Arrow keys), Confirm (ENTER), Go to shop (B)" );
 
-
-
-//		m_display->card_selection(playable);
 	while (true) {
+		mvprintw(1, 0, "Selected: %d/%d\nFocus_table: %d\nKey press: %3d %c", selected, selected_max, focus_table, input, input);
+
 
 		// print selection text
 		if (!focus_table)
 			mvprintw(card_hand_y, selected * card_diff_x, "Your selection:"); // cards in hand
-		else if (selected == selected_max)
+		else if (selected == selected_max - 1)
 			mvprintw(card_gen_y, m_scr_x - 20, "Your selection:"); // general
 		else
 			mvprintw(card_table_y, (selected + 1) * card_diff_x, "Your selection:"); // cards on table
@@ -256,7 +268,7 @@ std::shared_ptr<CCard> CDisplay::card_selection_ingame(CPlayer * player, vector<
 		// rewrite the old selection
 		if (!focus_table)
 			mvprintw(card_hand_y, selected * card_diff_x, "%*c", 20, ' ');
-		else if (selected == selected_max)
+		else if (selected == selected_max - 1)
 			mvprintw(card_gen_y, m_scr_x - 20, "%*c", 20, ' ');
 		else
 			mvprintw(card_table_y, (selected + 1) * card_diff_x, "%*c", 20, ' ');
@@ -267,7 +279,7 @@ std::shared_ptr<CCard> CDisplay::card_selection_ingame(CPlayer * player, vector<
 		if (input == KEY_RIGHT && selected < selected_max - 1)
 			selected++;
 
-		if (input == KEY_UP && table_count != 0) {
+		if (input == KEY_UP) {
 			focus_table = true;
 			selected = 0;
 			selected_max = table_count;
@@ -280,21 +292,45 @@ std::shared_ptr<CCard> CDisplay::card_selection_ingame(CPlayer * player, vector<
 		}
 
 		if (input == 'y' || input == '\n')
-			break;
+			enter_press = true;
 
+		if (enter_press && focus_table && played.at(selected)) {
+			enter_press = false;
+			context_bar("This card was already played, select another card");
+			continue;
+		}
+
+		if (enter_press)
+			break;
 	}
 
-	// todo... make sure every card is played max once
 	// return value
-	if (!focus_table)
-		return player->get_hand().at(selected);
-	else if (selected == selected_max) {
-		played.at(0) = true;
-		return player->get_general();
+	shared_ptr<CCard> selected_card;
+	context_bar("Card was successfully selected");
+
+	if (!focus_table) {
+		selected_card = player->get_hand().at(selected);
+		player->play_card(selected_card, true);
+
+		if (player->get_hand().size() == played.size()) {
+			played.insert(played.end() - 1, true);
+		}
+
+		return selected_card;
+	}
+	else if (selected == selected_max - 1) {
+		played.at(selected) = true;
+
+		selected_card = player->get_general();
+		player->play_card(selected_card, false);
+		return selected_card;
 	}
 	else {
-		played.at(selected + 1) = true;
-		return player->get_table().at(selected);
+		played.at(selected) = true;
+
+		selected_card = player->get_table().at(selected);
+		player->play_card(selected_card, false);
+		return selected_card;
 	}
 
 }

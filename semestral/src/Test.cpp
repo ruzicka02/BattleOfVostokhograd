@@ -245,12 +245,14 @@ void play_card_t () {
 
 	screen.refresh_board(&p1, &p2, &shop);
 
-while (! p1.get_hand().empty()) {
-	screen.context_bar("Card playing showcase - press any key to play a card");
-	getch();
-	p1.play_card(p1.get_hand().at(0), true);
-	screen.refresh_board(&p1, &p2, &shop);
-}
+	p1.play();
+
+//	while (! p1.get_hand().empty()) {
+//		screen.context_bar("Card playing showcase - press any key to play a card");
+//		getch();
+//		p1.play_card(p1.get_hand().at(0), true);
+//		screen.refresh_board(&p1, &p2, &shop);
+//	}
 
 	screen.context_bar("Press any key to end the test");
 	screen.refresh_board(&p1, &p2, &shop);

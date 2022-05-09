@@ -13,7 +13,6 @@
 using namespace std;
 
 void CPlayerHuman::play() {
-	m_display->context_bar("Your turn!" );
 
 	vector<bool> played;
 	for ( size_t i = 0; i <= m_table.count(); i ++ )
@@ -22,11 +21,12 @@ void CPlayerHuman::play() {
 	bool cards_available;
 
 	do {
+		m_display->context_bar("Your turn! Select a card." );
 		m_display->refresh_board(this, m_opponent, m_shop);
-		m_display->card_selection_ingame(this, played);
+		shared_ptr<CCard> selected = m_display->card_selection_ingame(this, played);
 
 		cards_available = m_hand.count() != 0;
-		for ( size_t i = 0; i <= played.size(); i ++ )
+		for ( size_t i = 0; i < played.size(); i ++ )
 			if (!played.at(i)) {
 				cards_available = true;
 				break;

@@ -56,7 +56,7 @@ public:
 	/// @param[in] player Player who is currently about to play.
 	/// @param[in] played Cards that were already played.
 	/// @return Pointer to the selected card.
-	std::shared_ptr<CCard> card_selection_ingame( CPlayer* player, std::vector<bool>& played ) const;
+	std::shared_ptr<CCard> card_selection_ingame( CPlayer* player, std::vector<bool>& played );
 };
 
 
