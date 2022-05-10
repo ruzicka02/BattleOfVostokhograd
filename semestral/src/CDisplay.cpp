@@ -243,27 +243,6 @@ void CDisplay::card_selection_ingame(CPlayer * player) {
 	int input = 0, selected = 0, selected_max = hand_count;
 	bool focus_table = false, enter_press = false;
 
-	// print which cards were already played
-	attron(COLOR_PAIR(9));
-
-	for ( ; selected < table_count; selected ++ ) {
-		if (played.at(selected) && selected == table_count - 1) {
-			mvprintw(card_gen_y + 14, m_scr_x - 15, " PLAYED ");
-			break;
-		}
-
-		if (played.at(selected)) {
-			move(0,0);
-			mvprintw(card_table_y + 14, (selected + 1) * card_diff_x + 5, " PLAYED ");
-			move(0,0);
-		}
-
-
-	}
-
-	attroff(COLOR_PAIR(9));
-	selected = 0;
-
 	info_bar("Choose card (Arrow keys), Confirm (ENTER), Go to shop (B)" );
 
 	int loop = 0;

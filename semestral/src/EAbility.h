@@ -17,4 +17,17 @@ enum EAbility {
 	draw
 };
 
+inline std::string ability_str(EAbility val) {
+	switch (val) {
+		case null:
+			return "No ability";
+		case steal:
+			return "Steal a card";
+		case draw:
+			return "Draw a card";
+		default:
+			return "Unexpected value";
+	}
+}
+
 #endif //SEMESTRAL_EABILITY_H

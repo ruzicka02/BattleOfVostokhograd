@@ -25,9 +25,17 @@ void CCardGeneral::print_card( int y, int x ) {
 	mvwprintw(card, 1, 4, "= General =");
 	mvwprintw(card, 3, 0, m_desc.c_str());
 
-	mvwprintw(card, 9, 3, "%d DMG", m_damage);
-	mvwprintw(card, 10, 3, "%d HEAL", m_protection);
-	mvwprintw(card, 11, 3, "%d CASH", m_cash);
+	mvwprintw(card, 8, 3, "%d DMG", m_damage);
+	mvwprintw(card, 9, 3, "%d HEAL", m_protection);
+	mvwprintw(card, 10, 3, "%d CASH", m_cash);
+
+	if (m_special != null) {
+		mvwprintw(card, 11, 3, "%s", ability_str(m_special).c_str());
+	}
+
+	if (played()) {
+		mvwprintw(card, HEIGHT - 2, 6, " PLAYED ");
+	}
 
 	wattron(card, COLOR_PAIR(2));
 	mvwprintw(card, HEIGHT - 1, 0, "%d / %d Health                  ", m_life, m_life_init);
@@ -53,9 +61,17 @@ void CCardGeneral::print_card_wide( int y, int x ) {
 	mvwprintw(card, 1, 4, "= General =");
 	mvwprintw(card, 3, 0, m_desc.c_str());
 
-	mvwprintw(card, 9, 3, "%d ️DMG %ls", m_damage, L"🗡");
-	mvwprintw(card, 10, 3, "%d HEAL ️%ls", m_protection, L"🏥");
-	mvwprintw(card, 11, 3, "%d CASH ️%ls", m_cash, L"🪙");
+	mvwprintw(card, 8, 3, "%d ️DMG %ls", m_damage, L"🗡");
+	mvwprintw(card, 9, 3, "%d HEAL ️%ls", m_protection, L"🏥");
+	mvwprintw(card, 10, 3, "%d CASH ️%ls", m_cash, L"🪙");
+
+	if (m_special != null) {
+		mvwprintw(card, 11, 3, "%s", ability_str(m_special).c_str());
+	}
+
+	if (played()) {
+		mvwprintw(card, HEIGHT - 2, 6, " PLAYED ");
+	}
 
 	wattron(card, COLOR_PAIR(2));
 	mvwprintw(card, HEIGHT - 1, 0, "%d / %d Health %ls                  ", m_life, m_life_init, L"🤍");

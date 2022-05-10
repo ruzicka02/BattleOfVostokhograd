@@ -142,16 +142,18 @@ void CDisplay_t () {
 	card_g.print_card(5, 50);
 
 	card_g.change_life(-8);
+	card_g.set_played(true);
 	card_g.print_card(5, 75);
 
 	mvprintw(22, 0, "Cards utilizing wchar capabilities\n");
 
 	card_t.print_card_wide(25, 0);
 	card_w.print_card_wide(25, 25);
-	card_g.print_card_wide(25, 50);
+	card_g.print_card_wide(25, 75);
 
-	card_g.change_life(-8);
-	card_g.print_card(25, 75);
+	card_g.change_life(+8);
+	card_g.set_played(false);
+	card_g.print_card_wide(25, 50);
 
 	getch();
 
@@ -221,7 +223,7 @@ void play_card_t () {
 	deck.insert(make_shared<CCardWarcry>("Sample warcry", "Lorem ipsum dolor sit amet", 1, 2, 3, 4, null));
 
 	CDeck deck2;
-	deck2.insert(make_shared<CCardTroop>("Training dummy", "Lorem ipsum dolor sit amet", 8, 2, 0, 0, 1, steal));
+	deck2.insert(make_shared<CCardTroop>("Training dummy", "Lorem ipsum dolor sit amet", 8, 2, 0, 0, 1, null));
 	deck2.insert(make_shared<CCardTroop>("Training dummy", "Lorem ipsum dolor sit amet", 8, 2, 0, 0, 1, null));
 	deck2.insert(make_shared<CCardTroop>("Training dummy", "Lorem ipsum dolor sit amet", 8, 2, 0, 0, 1, null));
 
