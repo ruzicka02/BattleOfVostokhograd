@@ -39,6 +39,6 @@ void CShop::sell_card( std::shared_ptr<CCard> card ) {
 	remove( card );
 
 	// new card from drawing pile (if it is available)
-	if ( m_drawing.pop_top() )
+	if ( m_drawing.seek_top() )
 		insert(m_drawing.pop_top());
 }

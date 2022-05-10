@@ -125,8 +125,8 @@ void CDisplay::refresh_board( CPlayer* first, CPlayer* second, CShop* shop ) con
 	if ( unprinted > 0 )
 		mvprintw(m_scr_y - 5, m_scr_x - 12, "%d MORE CARDS", unprinted);
 
-	mvprintw(m_scr_y - 3, m_scr_x - 7, "CASH %d", first->get_cash());
-	mvprintw(m_scr_y - 2, m_scr_x - 10, "DRAWING %d", first->get_draw_count());
+	mvprintw(m_scr_y - 3, m_scr_x - 8, "CASH %d", first->get_cash());
+	mvprintw(m_scr_y - 2, m_scr_x - 11, "CARDS %d/%d", first->get_draw_count(), first->get_discard_count());
 
 	// table of playing player
 	y = 21, x = 22;
@@ -287,6 +287,12 @@ void CDisplay::card_selection_ingame(CPlayer * player) {
 			focus_table = false;
 			selected = 0;
 			selected_max = hand_count;
+		}
+
+		// shop
+		if (input == 'b' || input == 'B') {
+			context_bar("Select a card to buy." );
+			player->buy_card();
 		}
 
 		if (input == '\n')

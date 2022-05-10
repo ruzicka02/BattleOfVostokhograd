@@ -213,7 +213,7 @@ void play_card_t () {
 	CDisplay screen;
 
 	CShop shop;
-	ifstream input( "examples/decks/start_hand.csv" );
+	ifstream input( "examples/decks/shop.csv" );
 	shop.load_deck(input, true);
 	input.close();
 

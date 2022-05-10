@@ -32,6 +32,10 @@ void CPlayerHuman::play() {
 		}
 	}
 
+	m_display->context_bar("Last time to go to the shop." );
+	getch();
+	while (	buy_card() ) {}
+
 	// set all cards as not played
 	for ( size_t i = 0; i < m_table.count(); i ++ )
 		m_table.cards().at(i)->set_played(false);
@@ -50,9 +54,44 @@ void CPlayerHuman::discard_selection (int amount) {
 		m_hand.remove( m_display->card_selection(m_hand.cards()) );
 	}
 
-
 }
 
 std::shared_ptr<CCard> CPlayerHuman::pick_card(const vector<std::shared_ptr<CCard>> &cards, int mode) const {
 	return m_display->card_selection(cards);
+}
+
+bool CPlayerHuman::buy_card() {
+
+	auto available = m_shop->cards();
+	bool cash_suff = false;
+
+	for ( auto card : available ) {
+		if ( card->cost() <= m_cash ) {
+			cash_suff = true;
+			break;
+		}
+	}
+
+	if ( !cash_suff ) {
+		m_display->context_bar("You cannot go to shop with " + to_string(m_cash) + " cash!");
+		return false;
+	}
+
+	shared_ptr<CCard> selected;
+	while (true) {
+		m_display->context_bar("You have " + to_string(m_cash) + " cash available.");
+		selected = m_display->card_selection(available);
+
+		if ( selected->cost() <= m_cash ) {
+			break;
+		}
+		m_display->context_bar("This card is not expensive, only you have too little money, select another one.");
+	}
+
+	m_cash -= selected->cost();
+	m_shop->sell_card(selected);
+	m_discard.insert(selected);
+
+	m_display->refresh_board(this, m_opponent, m_shop);
+	return true;
 }

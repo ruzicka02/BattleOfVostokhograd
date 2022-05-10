@@ -46,10 +46,6 @@ void CPlayer::steal_card(std::shared_ptr <CCard> target) {
 	target->set_played(true);
 }
 
-void CPlayer::buy_card(std::shared_ptr <CCard> target) {
-	m_discard.insert(target);
-}
-
 void CPlayer::deploy_card(std::shared_ptr<CCard> target) {
 	m_hand.remove(target);
 	m_table.insert(target);
@@ -72,7 +68,7 @@ void CPlayer::play_card(std::shared_ptr<CCard> card, bool hand) {
 
 	// must be warcry in hand... discard the card from hand
 	if ( ! attr[0] && hand ) {
-		m_hand.remove(card);
+		discard_card(card);
 	}
 
 	// attack

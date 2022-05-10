@@ -62,9 +62,6 @@ public:
 	/// @exception out_of_range Throws exception if card is not on opponents table.
 	void steal_card( std::shared_ptr<CCard> );
 
-	/// Buys the referenced card from shop and puts it into discard pile.
-	void buy_card( std::shared_ptr<CCard> );
-
 	/// Deploys the referenced card from hand to the table.
 	/// @exception out_of_range Throws exception if card is not in hand.
 	void deploy_card( std::shared_ptr<CCard> );
@@ -87,6 +84,10 @@ public:
 
 	[[nodiscard]] size_t get_draw_count() const {
 		return m_drawing.count();
+	}
+
+	[[nodiscard]] size_t get_discard_count() const {
+		return m_discard.count();
 	}
 
 	[[nodiscard]] int get_cash() const {
@@ -115,6 +116,9 @@ public:
 	/// @param[in] cards Cards to choose from.
 	/// @param[in] mode Action with the given cards for the AI
 	virtual std::shared_ptr<CCard> pick_card( const std::vector< std::shared_ptr<CCard> >& cards, int mode ) const = 0;
+
+	/// Virtual method for player to select and buy a card from shop and put it into discard pile.
+	virtual bool buy_card() = 0;
 };
 
 
