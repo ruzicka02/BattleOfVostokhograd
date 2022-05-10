@@ -93,6 +93,7 @@ bool CCardGeneral::change_life( int life ) {
 
 void CCardGeneral::restore() {
 	m_life = m_life_init;
+	m_played = false;
 }
 
 string CCardGeneral::save_card() {

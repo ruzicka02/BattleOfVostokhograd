@@ -43,6 +43,7 @@ void CPlayer::steal_card(std::shared_ptr <CCard> target) {
 	m_opponent->destroy_card(target);
 
 	m_table.insert(target);
+	target->set_played(true);
 }
 
 void CPlayer::buy_card(std::shared_ptr <CCard> target) {

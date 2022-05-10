@@ -14,13 +14,9 @@ using namespace std;
 
 void CPlayerHuman::play() {
 
-	// set all cards as not played
-	for ( size_t i = 0; i < m_table.count(); i ++ )
-		m_table.cards().at(i)->set_played(false);
+	bool cards_available = true;
 
-	bool cards_available;
-
-	do {
+	while (cards_available) {
 		m_display->context_bar("Your turn! Select a card." );
 		m_display->refresh_board(this, m_opponent, m_shop);
 		m_display->card_selection_ingame(this);
@@ -31,8 +27,16 @@ void CPlayerHuman::play() {
 				cards_available = true;
 				break;
 			}
+		if (! get_general()->played()) {
+			cards_available = true;
+		}
+	}
 
-	} while (cards_available);
+	// set all cards as not played
+	for ( size_t i = 0; i < m_table.count(); i ++ )
+		m_table.cards().at(i)->set_played(false);
+
+	get_general()->set_played(false);
 }
 
 

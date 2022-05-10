@@ -102,6 +102,7 @@ bool CCardTroop::change_life(int life) {
 
 void CCardTroop::restore() {
 	m_life = m_life_init;
+	m_played = false;
 }
 
 string CCardTroop::save_card() {

@@ -241,7 +241,7 @@ void CDisplay::card_selection_ingame(CPlayer * player) {
 
 	const int card_hand_y = 39, card_table_y = 20, card_gen_y = 22, card_diff_x = 22; // constants derived from CDisplay::refresh_board
 	int input = 0, selected = 0, selected_max = hand_count;
-	bool focus_table = false, enter_press = false;
+	bool focus_table = (hand_count == 0), enter_press = false;
 
 	info_bar("Choose card (Arrow keys), Confirm (ENTER), Go to shop (B)" );
 
