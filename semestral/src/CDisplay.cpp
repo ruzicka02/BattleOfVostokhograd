@@ -243,12 +243,10 @@ void CDisplay::card_selection_ingame(CPlayer * player) {
 	int input = 0, selected = 0, selected_max = hand_count;
 	bool focus_table = (hand_count == 0), enter_press = false;
 
-	info_bar("Choose card (Arrow keys), Confirm (ENTER), Go to shop (B)" );
+	info_bar("Choose card (Arrow keys), Confirm (ENTER), Go to shop (B) žščřďťň" );
 
-	int loop = 0;
 	while (true) {
-		loop ++;
-
+		selected_max = focus_table ? table_count : hand_count;
 		mvprintw(1, 0, "Selected: %d/%d", selected + 1, selected_max);
 		mvprintw(2, 0, "Focus_table: %d", focus_table);
 
@@ -280,13 +278,11 @@ void CDisplay::card_selection_ingame(CPlayer * player) {
 		if (input == KEY_UP) {
 			focus_table = true;
 			selected = 0;
-			selected_max = table_count;
 		}
 
 		if (input == KEY_DOWN && hand_count != 0) {
 			focus_table = false;
 			selected = 0;
-			selected_max = hand_count;
 		}
 
 		// shop
