@@ -30,6 +30,17 @@ public:
 
 	/// Starts playing the game itself.
 	void play();
+
+	/// Saves the game into file with given name.
+	/// @return True on successful operation (no IO error etc)
+	bool save_game(std::string name);
+
+	/// Loads the game from file with given name.
+	/// @return True on successful operation (no IO error etc)
+	bool load_game(std::string name);
+
+	/// Returns names of all game saves in the inherently used directory examples/saves/
+	std::vector<std::string> get_saved_games();
 };
 
 
