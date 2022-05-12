@@ -47,6 +47,7 @@ CDisplay::CDisplay() {
 
 	// info, context bars
 	init_pair(10, COLOR_BLACK, COLOR_CYAN);
+	init_pair(11, COLOR_CYAN, COLOR_BLACK);
 
 	getmaxyx(stdscr, m_scr_y, m_scr_x);
 
@@ -73,7 +74,54 @@ bool CDisplay::terminal_size_check() const {
 }
 
 int CDisplay::menu() {
-	return 0;
+	attron(COLOR_PAIR(11));
+	mvprintw(3, 0, "       ____        _   _   _               __  __      __       _        _    _                               _ \n"
+				   "      |  _ \\      | | | | | |             / _| \\ \\    / /      | |      | |  | |                             | |\n"
+				   "      | |_) | __ _| |_| |_| | ___    ___ | |_   \\ \\  / ___  ___| |_ ___ | | _| |__   ___   __ _ _ __ __ _  __| |\n"
+				   "      |  _ < / _` | __| __| |/ _ \\  / _ \\|  _|   \\ \\/ / _ \\/ __| __/ _ \\| |/ | '_ \\ / _ \\ / _` | '__/ _` |/ _` |\n"
+				   "      | |_) | (_| | |_| |_| |  __/ | (_) | |      \\  | (_) \\__ | || (_) |   <| | | | (_) | (_| | | | (_| | (_| |\n"
+				   "      |____/ \\__,_|\\__|\\__|_|\\___|  \\___/|_|___    \\/ \\___/|___/\\__\\___/|_|\\_|_|_|_|\\___/ \\__, |_|  \\__,_|\\__,_|\n"
+				   "                   |__   __| |           / ____|            | | |  __ \\|  __ \\ / ____|     __/ |                \n"
+				   "                      | |  | |__   ___  | |     __ _ _ __ __| | | |__) | |__) | |  __     |___/                 \n"
+				   "                      | |  | '_ \\ / _ \\ | |    / _` | '__/ _` | |  _  /|  ___/| | |_ |                          \n"
+				   "                      | |  | | | |  __/ | |___| (_| | | | (_| | | | \\ \\| |    | |__| |                          \n"
+				   "                      |_|  |_| |_|\\___|  \\_____\\__,_|_|  \\__,_| |_|  \\_|_|     \\_____|                          \n");
+	attroff(COLOR_PAIR(11));
+
+	int selected = 0, input = 0, y_init = 15;
+
+	vector<string> options = {" New PvP game", " New PvE game", " Load game", " Exit"};
+
+	while (true) {
+
+		// clean the selection text
+		move(y_init, 0);
+		clrtobot();
+
+		for ( int i = 0; i < options.size(); i ++ ) {
+			if (i == selected) attron(COLOR_PAIR(9));
+			mvprintw(y_init + 2 * i, 5, "%-15s", options.at(i).c_str());
+			if (i == selected) attroff(COLOR_PAIR(9));
+		}
+
+		info_bar("Choose option (Arrow keys), Confirm (Y/ENTER)" );
+
+		// wait for input
+		input = getch();
+
+		if ( input == KEY_UP && selected > 0 )
+			selected --;
+
+		if ( input == KEY_DOWN && selected < options.size() - 1 )
+			selected ++;
+
+		if ( input == 'y' || input == 'Y' || input == '\n' )
+			break;
+
+
+	}
+
+	return selected;
 }
 
 void CDisplay::info_bar( const string& info ) const {
@@ -158,7 +206,7 @@ void CDisplay::refresh_board( CPlayer* first, CPlayer* second, CShop* shop ) con
 	if ( unprinted > 0 )
 		mvprintw(17, m_scr_x - 22, "%d MORE CARDS", unprinted);
 
-	info_bar("Continue (ENTER)");
+	info_bar("Continue (Y/ENTER)");
 	context_bar_draw();
 
 }
@@ -181,7 +229,7 @@ std::shared_ptr<CCard> CDisplay::card_selection( const std::vector< std::shared_
 	}
 
 	mvprintw(1, 0, "Select a card!" );
-	info_bar("Choose card (L/R Arrow), Confirm (ENTER)" );
+	info_bar("Choose card (L/R Arrow), Confirm (Y/ENTER)" );
 	context_bar_draw(); // information from where card selection was called
 	refresh();
 
@@ -214,7 +262,7 @@ std::shared_ptr<CCard> CDisplay::card_selection( const std::vector< std::shared_
 		if ( input == KEY_DOWN && selected <= selected_max - 6 )
 			selected += 5;
 
-		if ( input == 'y' || input == '\n' )
+		if ( input == 'y' || input == 'Y' || input == '\n' )
 			break;
 
 

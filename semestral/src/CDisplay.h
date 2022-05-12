@@ -30,7 +30,8 @@ public:
 	/// @return True if terminal is large enough, false otherwise (game should be terminated).
 	bool terminal_size_check() const;
 
-	/// Draws the initializing game menu, returns the selected option.
+	/// Draws the initializing game menu.
+	/// @return Selected option in the menu bz the user.
 	int menu();
 
 	/// Prints an information bar to the bottom of the screen, telling user what he can do

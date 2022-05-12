@@ -77,7 +77,7 @@ void CPlayerHuman::card_selection_ingame() {
 	int input = 0, selected = 0, selected_max = hand_count;
 	bool focus_table = (hand_count == 0), enter_press = false;
 
-	m_display->info_bar("Choose card (Arrow keys), Confirm (ENTER), Go to shop (B)" );
+	m_display->info_bar("Choose card (Arrow keys), Confirm (Y/ENTER), Go to shop (B)" );
 
 	int max_scr_x = getmaxx(stdscr);
 
@@ -127,7 +127,7 @@ void CPlayerHuman::card_selection_ingame() {
 			buy_card();
 		}
 
-		if (input == '\n')
+		if (input == '\n' || input == 'y' || input == 'Y')
 			enter_press = true;
 
 		if (enter_press && focus_table && played.at(selected)) {

@@ -34,12 +34,14 @@ int main ( int argc, char* argv[] ) {
 	if ( ! init_screen.terminal_size_check() )
 		return 1;
 
-	mvprintw(1, 0, "Battle of Vostokhograd: The Card RPG\nSimon Ruzicka, 2022\n");
+	mvprintw(1, 0, "Simon Ruzicka, 2022\n");
 
 	refresh();
 
 	// tests
 	if ( argc > 1 && ! strcmp( argv[1], "--debug") ) {
+		init_screen.context_bar("Menu test");
+		init_screen.menu();
 		endwin();
 
 		play_card_t();
