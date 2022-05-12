@@ -117,8 +117,6 @@ public:
 	/// @param[in] mode Action with the given cards for the AI
 	virtual std::shared_ptr<CCard> pick_card( const std::vector< std::shared_ptr<CCard> >& cards, int mode ) const = 0;
 
-	/// Virtual method for player to select and buy a card from shop and put it into discard pile.
-	virtual bool buy_card() = 0;
 };
 
 

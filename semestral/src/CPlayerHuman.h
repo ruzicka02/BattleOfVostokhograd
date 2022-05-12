@@ -11,6 +11,15 @@
 /// cards for needed actions.
 class CPlayerHuman : public CPlayer {
 protected:
+
+	/// Lets player choose one card from his hand, table or his general. Used when selecting a card to play. Card is
+	/// then played directly from this function.
+	void card_selection_ingame();
+
+	/// Lets player select a card to buy from the shop and inserts it into the discard pile. Aborted if player has
+	/// insufficient funds for this action.
+	/// @return False in case no card has been bought.
+	bool buy_card();
 public:
 	CPlayerHuman( std::shared_ptr<CCardGeneral> gen, const CDeck& deck, CDisplay* display, CShop* shop )
 			: CPlayer(std::move(gen), deck, display, shop) {}
@@ -24,7 +33,7 @@ public:
 	[[nodiscard]] std::shared_ptr<CCard> pick_card( const std::vector< std::shared_ptr<CCard> >& cards, int mode ) const override;
 
 	void discard_selection (int amount) override;
-	bool buy_card() override;
+
 };
 
 
