@@ -2,20 +2,12 @@
 #include <fstream>
 #include <iostream>
 #include <iomanip>
-#include <cassert>
 #include <cstring>
 #include <csignal>
 
 #include "Test.h"
 
-#include "EAbility.h"
-#include "CCardTroop.h"
-#include "CCardWarcry.h"
-#include "CCardGeneral.h"
-
-#include "CDisplay.h"
-#include "CShop.h"
-#include "CPlayerHuman.h"
+#include "CGame.h"
 
 using namespace std;
 
@@ -29,27 +21,17 @@ void sigint_handler( int num ) {
 int main ( int argc, char* argv[] ) {
 	signal(SIGINT, sigint_handler);
 
-	CDisplay init_screen;
-	init_screen.context_bar("Initial test");
-	if ( ! init_screen.terminal_size_check() )
-		return 1;
-
-	mvprintw(1, 0, "Simon Ruzicka, 2022\n");
-
-	refresh();
-
 	// tests
 	if ( argc > 1 && ! strcmp( argv[1], "--debug") ) {
-		init_screen.context_bar("Menu test");
-		init_screen.menu();
-		endwin();
-
 		play_card_t();
 		CDisplay_t();
 		CDeck_t();
 		refresh_board_t();
 		card_selection_t();
 	}
+
+	CGame game;
+	game.start();
 
 	return 0;
 }

@@ -74,6 +74,12 @@ bool CDisplay::terminal_size_check() const {
 }
 
 int CDisplay::menu() {
+
+	if ( ! terminal_size_check() )
+		return 3; // exit
+
+	mvprintw(1, 0, "Simon Ruzicka, 2022\n");
+
 	attron(COLOR_PAIR(11));
 	mvprintw(3, 0, "       ____        _   _   _               __  __      __       _        _    _                               _ \n"
 				   "      |  _ \\      | | | | | |             / _| \\ \\    / /      | |      | |  | |                             | |\n"
@@ -98,7 +104,7 @@ int CDisplay::menu() {
 		move(y_init, 0);
 		clrtobot();
 
-		for ( int i = 0; i < options.size(); i ++ ) {
+		for ( int i = 0; i < (int)options.size(); i ++ ) {
 			if (i == selected) attron(COLOR_PAIR(9));
 			mvprintw(y_init + 2 * i, 5, "%-15s", options.at(i).c_str());
 			if (i == selected) attroff(COLOR_PAIR(9));
@@ -112,7 +118,7 @@ int CDisplay::menu() {
 		if ( input == KEY_UP && selected > 0 )
 			selected --;
 
-		if ( input == KEY_DOWN && selected < options.size() - 1 )
+		if ( input == KEY_DOWN && selected < (int)options.size() - 1 )
 			selected ++;
 
 		if ( input == 'y' || input == 'Y' || input == '\n' )

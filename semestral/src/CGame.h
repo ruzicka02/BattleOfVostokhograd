@@ -16,17 +16,20 @@ class CGame {
 protected:
 	std::shared_ptr<CPlayer> 	m_first;
 	std::shared_ptr<CPlayer> 	m_second;
-	CShop*						m_shop;
-	CDisplay*					m_display;
-public:
-	/// Starts the game, creates instance of CDisplay.
-	void init();
+	CShop						m_shop;
+	CDisplay					m_display;
 
 	/// Prepares the game for one player vs. AI
 	void prepare_pve();
 
 	/// Prepares the game for two players
 	void prepare_pvp();
+public:
+	/// Starts the game, creates instance of CDisplay.
+	CGame();
+
+	/// Opens the menu using CDisplay::menu, lets player select action.
+	void start();
 
 	/// Starts playing the game itself.
 	void play();
