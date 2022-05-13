@@ -25,8 +25,8 @@ protected:
 	/// Prepares the game for two players
 	void prepare_pvp();
 public:
-	/// Starts the game, creates instance of CDisplay.
-	CGame();
+	/// Starts the game, automatically creates instance of CDisplay and an empty CShop.
+	CGame() = default;
 
 	/// Opens the menu using CDisplay::menu, lets player select action.
 	void start();

@@ -59,6 +59,7 @@ Inspirací pro semestrální práci byla karetní hra Hero Realms (https://www.h
 - herní mechanismy CGame
 - ovládání počítačem CPlayerAI, CPlayerBogo
 - savegame mechanismus
+- CLI rozhraní
 
 Navíc:
 - životy karet v savefiles (life vs. life_init)

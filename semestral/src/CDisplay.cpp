@@ -73,7 +73,7 @@ bool CDisplay::terminal_size_check() const {
 	return false;
 }
 
-int CDisplay::menu() {
+int CDisplay::menu(vector<string> options) {
 
 	if ( ! terminal_size_check() )
 		return 3; // exit
@@ -95,8 +95,6 @@ int CDisplay::menu() {
 	attroff(COLOR_PAIR(11));
 
 	int selected = 0, input = 0, y_init = 15;
-
-	vector<string> options = {" New PvP game", " New PvE game", " Load game", " Exit"};
 
 	while (true) {
 

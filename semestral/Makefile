@@ -1,5 +1,5 @@
 CXXFLAGS = -Wall -pedantic -std=c++17
-LDLIBS = -lncursesw
+LDLIBS = -lncursesw -lstdc++fs
 
 HEADERS = $(wildcard src/*.h)
 SOURCES = $(wildcard src/*.cpp)

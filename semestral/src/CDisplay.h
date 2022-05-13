@@ -30,9 +30,10 @@ public:
 	/// @return True if terminal is large enough, false otherwise (game should be terminated).
 	bool terminal_size_check() const;
 
-	/// Draws the initializing game menu.
-	/// @return Selected option in the menu bz the user.
-	int menu();
+	/// Draws the game menu selection with variable options.
+	/// @param[in] options Selectable options to be displayed in the menu.
+	/// @return Index number of selected option in the menu by the user.
+	int menu(std::vector<std::string> options);
 
 	/// Prints an information bar to the bottom of the screen, telling user what he can do
 	void info_bar( const std::string& info ) const;
