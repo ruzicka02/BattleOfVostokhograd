@@ -64,3 +64,4 @@ Inspirací pro semestrální práci byla karetní hra Hero Realms (https://www.h
 Navíc:
 - životy karet v savefiles (life vs. life_init)
 - přepracování polymorfismu u CCardGeneral
+- nastavení wide char funkcionality v menu

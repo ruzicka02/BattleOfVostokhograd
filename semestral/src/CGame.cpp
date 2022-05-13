@@ -4,13 +4,17 @@
 
 #include <filesystem>
 #include <fstream>
+
 #include "CGame.h"
+
+#include "CPlayerHuman.h"
+#include "CPlayerAI.h"
 
 using namespace std;
 
 void CGame::start() {
 	int menu_res = m_display.menu({" New PvP game", " New PvE game", " Load game", " Exit"});
-	bool play_switch = true, load_switch = false;
+	bool exit_switch = false, load_switch = false;
 
 	switch (menu_res) {
 		case 0:
@@ -23,25 +27,53 @@ void CGame::start() {
 			load_switch = true;
 			break;
 		default: // option exit + all uncovered cases (should not happen)
-			play_switch = false;
+			exit_switch = true;
 	}
+
+	if (exit_switch) {
+		return;
+	}
+
+	bool ok = true;
 
 	if (load_switch) {
 		vector<string> save_games = get_saved_games();
+		if ( save_games.empty() )
+			return;
+
 		int selection = m_display.menu(save_games);
-		load_game(save_games.at(selection));
+		ok = load_game(save_games.at(selection));
+	} else {
+		ifstream shop_cards("examples/decks/shop.csv");
+		ok = m_shop.load_deck(shop_cards, true);
+		shop_cards.close();
 	}
 
-	if (play_switch) {
-		ifstream shop_cards("examples/decks/shop.csv");
-		m_shop.load_deck(shop_cards, true);
-
-		play();
+	if (ok) {
+		play();	// main game loop
 	}
 }
 
 void CGame::prepare_pve() {
+	CDeck deck;
+	ifstream input( "examples/decks/start_hand.csv" );
+	deck.load_deck(input, true);
+	input.close();
 
+	auto g1 = make_shared<CCardGeneral>("General 1", "This general is the best general in the world", 50, 2, 3, 4, 1, null);
+	g1->change_life(-10);
+	m_first = make_shared<CPlayerHuman>(g1, deck, &m_display, &m_shop);
+
+	CDeck deck2;
+	input.open( "examples/decks/start_hand.csv" );
+	deck.load_deck(input, true);
+	input.close();
+
+	auto g2 = make_shared<CCardGeneral>("General 2", "This general is also the best general in the world", 50, 2, 3, 4, 1, null);
+	m_second = make_shared<CPlayerHuman>(g2, deck2, &m_display, &m_shop);
+
+	m_first->set_opponent(m_second);
+	m_second->set_opponent(m_first);
 }
 
 void CGame::prepare_pvp() {

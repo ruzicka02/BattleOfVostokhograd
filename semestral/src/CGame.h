@@ -24,15 +24,15 @@ protected:
 
 	/// Prepares the game for two players
 	void prepare_pvp();
+
+	/// Starts playing the game itself.
+	void play();
 public:
 	/// Starts the game, automatically creates instance of CDisplay and an empty CShop.
 	CGame() = default;
 
 	/// Opens the menu using CDisplay::menu, lets player select action.
 	void start();
-
-	/// Starts playing the game itself.
-	void play();
 
 	/// Saves the game into file with given name.
 	/// @return True on successful operation (no IO error etc)

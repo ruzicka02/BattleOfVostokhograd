@@ -147,7 +147,7 @@ void CDisplay::context_bar(const string &context) {
 	context_bar_draw();
 }
 
-void CDisplay::refresh_board( CPlayer* first, CPlayer* second, CShop* shop ) const {
+void CDisplay::refresh_board( const CPlayer& first, const CPlayer& second, CShop* shop ) const {
 	clear();
 	refresh();
 
@@ -158,12 +158,12 @@ void CDisplay::refresh_board( CPlayer* first, CPlayer* second, CShop* shop ) con
 	shop->print_shop(6, 0); // bottom right corner 37, 20
 
 	// generals
-	first->get_general()->print_card(23, m_scr_x - 20);
-	second->get_general()->print_card(2, m_scr_x - 20);
+	first.get_general()->print_card(23, m_scr_x - 20);
+	second.get_general()->print_card(2, m_scr_x - 20);
 
 	// hand of playing player
 	int y = 40, x = 0, unprinted = 0;
-	for ( auto card : first->get_hand() ) {
+	for ( auto card : first.get_hand() ) {
 		// maximum drawable
 		if ( x >= 5 * card_diff )
 			unprinted ++;
@@ -177,13 +177,13 @@ void CDisplay::refresh_board( CPlayer* first, CPlayer* second, CShop* shop ) con
 	if ( unprinted > 0 )
 		mvprintw(m_scr_y - 5, m_scr_x - 12, "%d MORE CARDS", unprinted);
 
-	mvprintw(m_scr_y - 3, m_scr_x - 8, "CASH %d", first->get_cash());
-	mvprintw(m_scr_y - 2, m_scr_x - 11, "CARDS %d/%d", first->get_draw_count(), first->get_discard_count());
+	mvprintw(m_scr_y - 3, m_scr_x - 8, "CASH %d", first.get_cash());
+	mvprintw(m_scr_y - 2, m_scr_x - 11, "CARDS %d/%d", first.get_draw_count(), first.get_discard_count());
 
 	// table of playing player
 	y = 21, x = 22;
 	unprinted = 0;
-	for ( auto card : first->get_table() ) {
+	for ( auto card : first.get_table() ) {
 		// maximum drawable
 		if ( x >= 3 * card_diff + 22 )
 			unprinted ++;
@@ -198,7 +198,7 @@ void CDisplay::refresh_board( CPlayer* first, CPlayer* second, CShop* shop ) con
 	// opponents table
 	y = 4, x = 22;
 	unprinted = 0;
-	for ( auto card : second->get_table() ) {
+	for ( auto card : second.get_table() ) {
 		// maximum drawable
 		if ( x >= 3 * card_diff + 22 )
 			unprinted ++;

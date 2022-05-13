@@ -174,36 +174,36 @@ void refresh_board_t () {
 	input.close();
 
 	auto g1 = make_shared<CCardGeneral>("General 1", "This general is the best general in the world", 50, 2, 3, 4, 1, null);
-	auto p1 = CPlayerHuman(g1, deck, &screen, &shop);
+	auto p1 = make_shared<CPlayerHuman>(g1, deck, &screen, &shop);
 
 	deck.shuffle_cards();
 	auto g2 = make_shared<CCardGeneral>("General 2", "This general is also the best general in the world", 50, 2, 3, 4, 1, null);
-	auto p2 = CPlayerHuman(g2, deck, &screen, &shop);
+	auto p2 = make_shared<CPlayerHuman>(g2, deck, &screen, &shop);
 
-	p1.draw_cards(6);
+	p1->draw_cards(6);
 
-	p2.draw_cards(7);
-	p2.deploy_card(p2.get_hand().at(0));
-	p2.deploy_card(p2.get_hand().at(0));
-	p2.deploy_card(p2.get_hand().at(0));
+	p2->draw_cards(7);
+	p2->deploy_card(p2->get_hand().at(0));
+	p2->deploy_card(p2->get_hand().at(0));
+	p2->deploy_card(p2->get_hand().at(0));
 
 	screen.context_bar("Game board showcase - press any key to deploy a card");
 
-	screen.refresh_board(&p1, &p2, &shop);
+	screen.refresh_board(p1, p2, &shop);
 	getch();
-	p1.deploy_card(p1.get_hand().at(2));
-	screen.refresh_board(&p1, &p2, &shop);
+	p1->deploy_card(p1->get_hand().at(2));
+	screen.refresh_board(p1, p2, &shop);
 	getch();
-	p1.deploy_card(p1.get_hand().at(1));
-	screen.refresh_board(&p1, &p2, &shop);
+	p1->deploy_card(p1->get_hand().at(1));
+	screen.refresh_board(p1, p2, &shop);
 	getch();
-	p1.deploy_card(p1.get_hand().at(1));
-	screen.refresh_board(&p1, &p2, &shop);
+	p1->deploy_card(p1->get_hand().at(1));
+	screen.refresh_board(p1, p2, &shop);
 	getch();
-	p1.deploy_card(p1.get_hand().at(0));
+	p1->deploy_card(p1->get_hand().at(0));
 
 	screen.context_bar("Press any key to end the test");
-	screen.refresh_board(&p1, &p2, &shop);
+	screen.refresh_board(p1, p2, &shop);
 	getch();
 
 	clear();
@@ -230,24 +230,24 @@ void play_card_t () {
 
 	auto g1 = make_shared<CCardGeneral>("General 1", "This general is the best general in the world", 50, 2, 3, 4, 1, null);
 	g1->change_life(-10);
-	auto p1 = CPlayerHuman(g1, deck, &screen, &shop);
+	auto p1 = make_shared<CPlayerHuman>(g1, deck, &screen, &shop);
 
 	auto g2 = make_shared<CCardGeneral>("General 2", "This general is also the best general in the world", 50, 2, 3, 4, 1, null);
-	auto p2 = CPlayerHuman(g2, deck2, &screen, &shop);
+	auto p2 = make_shared<CPlayerHuman>(g2, deck2, &screen, &shop);
 
-	p1.set_opponent(&p2);
-	p2.set_opponent(&p1);
+	p1->set_opponent(p2);
+	p2->set_opponent(p1);
 
-	p1.draw_cards(3);
+	p1->draw_cards(3);
 
-	p2.draw_cards(3);
-	p2.deploy_card(p2.get_hand().at(0));
-	p2.deploy_card(p2.get_hand().at(0));
-	p2.deploy_card(p2.get_hand().at(0));
+	p2->draw_cards(3);
+	p2->deploy_card(p2->get_hand().at(0));
+	p2->deploy_card(p2->get_hand().at(0));
+	p2->deploy_card(p2->get_hand().at(0));
 
-	screen.refresh_board(&p1, &p2, &shop);
+	screen.refresh_board(p1, p2, &shop);
 
-	p1.play();
+	p1->play();
 
 //	while (! p1.get_hand().empty()) {
 //		screen.context_bar("Card playing showcase - press any key to play a card");
@@ -257,7 +257,7 @@ void play_card_t () {
 //	}
 
 	screen.context_bar("Press any key to end the test");
-	screen.refresh_board(&p1, &p2, &shop);
+	screen.refresh_board(p1, p2, &shop);
 	getch();
 
 	clear();

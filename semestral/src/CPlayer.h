@@ -5,6 +5,8 @@
 #ifndef SEMESTRAL_CPLAYER_H
 #define SEMESTRAL_CPLAYER_H
 
+#include <utility>
+
 #include "CDeck.h"
 #include "CShop.h"
 #include "CCardGeneral.h"
@@ -23,19 +25,17 @@ protected:
 	CDeck							m_table;
 	CDeck							m_discard;
 
-	CPlayer*						m_opponent;
+	std::weak_ptr<CPlayer>			m_opponent;
 	CShop*							m_shop;
 	CDisplay*						m_display;
 public:
 	/// Constructs instance of Player with empty decks.
 	/// @param[in] gen General card of Player, necessary for construction
 	CPlayer( std::shared_ptr<CCardGeneral> gen, const CDeck& deck, CDisplay* display, CShop* shop )
-			: m_cash(0), m_general(std::move(gen)), m_drawing(deck), m_opponent(nullptr), m_shop(shop), m_display(display) {}
+			: m_cash(0), m_general(std::move(gen)), m_drawing(deck), m_shop(shop), m_display(display) {}
 	CPlayer( const CPlayer& ) = default;
 	CPlayer& operator= ( const CPlayer& ) = default;
-	virtual ~CPlayer() {
-		m_opponent = nullptr;
-	}
+	virtual ~CPlayer() = default;
 
 	/// Draws the given amount of cards from drawing pile to hand.
 	void draw_cards( int amount );
@@ -94,8 +94,8 @@ public:
 		return m_cash;
 	}
 
-	void set_opponent( CPlayer* opponent ) {
-		m_opponent = opponent;
+	void set_opponent( std::weak_ptr<CPlayer> opponent ) {
+		m_opponent = std::move(opponent);
 	}
 
 	/// Returns true, if the general is dead (health <= 0) and the player has lost.

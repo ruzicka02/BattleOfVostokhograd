@@ -62,7 +62,7 @@ void CPlayer::play_card(std::shared_ptr<CCard> card, bool hand) {
 	if ( attr[0] && hand ) {
 		deploy_card(card);
 		m_display->context_bar("Troop has been deployed." );
-		m_display->refresh_board(this, m_opponent, m_shop);
+		m_display->refresh_board(&this, m_opponent, m_shop);
 		getch();
 	}
 
