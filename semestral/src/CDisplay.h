@@ -47,7 +47,7 @@ public:
 	/// Refreshes the screen with the current card state of these two players.
 	/// @param[in] first Player who is currently about to play.
 	/// @param[in] second Opponent of the playing player.
-	void refresh_board( const CPlayer& first, const CPlayer& second, CShop* shop ) const;
+	void refresh_board( std::shared_ptr<CPlayer> first, std::shared_ptr<CPlayer> second, CShop* shop ) const;
 
 	/// Lets player choose one card from a given deck.
 	/// @param[in] cards Cards to select from.

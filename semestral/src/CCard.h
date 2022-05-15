@@ -59,15 +59,17 @@ public:
 	/// Attacks the referenced card of an enemy. In case the card is destroyed, it leaves the battlefield.
 	/// @param[in] player Targeted player (opponent).
 	/// @param[in] target Card targeted by the ability. Can be left empty in case no card is targeted.
-	void attack( CPlayer* player, std::shared_ptr<CCard> target );
+	void attack( std::shared_ptr<CPlayer> player, std::shared_ptr<CCard> target ) const;
 
 	/// Protects (restores life to) the referenced card.
-	void protect( CPlayer* player, std::shared_ptr<CCard> target );
+	/// @param[in] player Player that is playing the card.
+	/// @param[in] target Card targeted by the ability.
+	void protect( std::shared_ptr<CPlayer> player, std::shared_ptr<CCard> target ) const;
 
 	/// Card plays its special ability.
 	/// @param[in] player Player that is playing the card.
 	/// @param[in] target Card targeted by the ability. Can be left empty in case no card is targeted.
-	void special( CPlayer* player, std::shared_ptr<CCard> target = nullptr );
+	void special( std::shared_ptr<CPlayer> player, std::shared_ptr<CCard> target = nullptr ) const;
 
 	/// Card adds or subtracts the given amount of life points. Used for both attacking and protecting a card.
 	/// Dummy implementation for non-permanent cards as they do not have life stats.

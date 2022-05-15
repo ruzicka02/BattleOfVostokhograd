@@ -18,7 +18,7 @@ void CPlayerHuman::play() {
 
 	while (cards_available) {
 		m_display->context_bar("Your turn! Select a card." );
-		m_display->refresh_board(this, m_opponent, m_shop);
+		m_display->refresh_board(shared_from_this(), m_opponent.lock(), m_shop);
 		card_selection_ingame();
 
 		cards_available = m_hand.count() != 0;
@@ -198,6 +198,6 @@ bool CPlayerHuman::buy_card() {
 	m_discard.insert(selected);
 	m_display->context_bar("Card was bought successfully.");
 
-	m_display->refresh_board(this, m_opponent, m_shop);
+	m_display->refresh_board(shared_from_this(), m_opponent.lock(), m_shop);
 	return true;
 }

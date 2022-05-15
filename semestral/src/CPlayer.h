@@ -15,8 +15,9 @@
 class CDisplay;
 
 /// Abstract player class with its own set of decks and a general card. Implements various actions that move cards
-/// between the decks. Contains basic gameplay methods as play_card() and play().
-class CPlayer {
+/// between the decks. Contains basic gameplay methods as play_card() and play(). Inherits from std::enable_shared_from_this
+/// as it needs to create own shared pointers when calling CDisplay::refresh_board().
+class CPlayer : public std::enable_shared_from_this<CPlayer> {
 protected:
 	int 							m_cash;
 	std::shared_ptr<CCardGeneral> 	m_general;
