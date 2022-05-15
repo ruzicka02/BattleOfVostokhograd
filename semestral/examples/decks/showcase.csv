@@ -1,14 +1,20 @@
-// this will be a card deck definition
-Card name,description,type (g/t/w),life,cost,damage,heal,cash,special
-
-// example of a general
-// price is always set to 0
-Volodymyr the General,Make them pay the price,g,50,0,2,0,0,null
-
-// example of a troop
-Poor Funny Infantry,It ain't much but it's honest work,t,3,2,1,1,1,null
-Professional Eastern Farmer,Makes the tanks go brrrr,t,5,6,4,0,2,steal
-
-// example of a warcry
-// life is always set to 0
-Air Superiority,Justice rains from above,w,0,2,4,0,0,null
+// this will be a card deck definition,,,,,,,,
+Card name,description,type (g/t/w),cost,damage,heal,cash,special,life
+//,,,,,,,,
+// example of a general,,,,,,,,
+// price is always set to 0,,,,,,,,
+Volodymyr the General,Make them pay the price,g,0,2,0,0,null,50
+//,,,,,,,,
+// example of a troop,,,,,,,,
+Poor Funny Infantry,It ain't much but it's honest work,t,2,1,1,1,null,3
+Eastern Farmer,Makes the tanks go brrrr,t,6,4,0,2,steal,5
+//,,,,,,,,
+// example of a warcry,,,,,,,,
+// life is always set to 0,,,,,,,,
+Air Superiority,Justice rains from above,w,2,4,0,0,null,0
+//,,,,,,,,
+// all the various abilities,,,,,,,,
+Testing War Cry,Testing games is awesome,w,2,4,0,0,draw,0
+Testing War Cry,Testing games is awesome,w,2,4,0,0,steal,0
+Testing War Cry,Testing games is awesome,w,2,4,0,0,discard,0
+Testing War Cry,Testing games is awesome,w,2,4,0,0,sacrifice,0
