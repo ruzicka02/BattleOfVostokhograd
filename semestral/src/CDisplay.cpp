@@ -147,12 +147,27 @@ void CDisplay::context_bar(const string &context) {
 	context_bar_draw();
 }
 
+int CDisplay::print_cards( const std::vector<std::shared_ptr<CCard>>& cards, int y, int x, int max ) const {
+	const int card_diff = 22; // distance of cards next to each other
+	int counter = 0, unprinted = 0;
+
+	for ( const auto& card : cards ) {
+		// maximum drawable
+		if ( counter >= max )
+			unprinted ++;
+		else
+			card->print_card(y, x);
+
+		x += card_diff;
+		counter ++;
+	}
+
+	return unprinted;
+}
+
 void CDisplay::refresh_board( shared_ptr<CPlayer> first, shared_ptr<CPlayer> second, CShop* shop ) const {
 	clear();
 	refresh();
-
-	// distance of cards next to each other
-	const int card_diff = 22;
 
 	// shop
 	shop->print_shop(6, 0); // bottom right corner 37, 20
@@ -161,18 +176,8 @@ void CDisplay::refresh_board( shared_ptr<CPlayer> first, shared_ptr<CPlayer> sec
 	first->get_general()->print_card(23, m_scr_x - 20);
 	second->get_general()->print_card(2, m_scr_x - 20);
 
-	// todo... function to draw a deck (possibly in CDeck)
 	// hand of playing player
-	int y = 40, x = 0, unprinted = 0;
-	for ( const auto& card : first->get_hand() ) {
-		// maximum drawable
-		if ( x >= 5 * card_diff )
-			unprinted ++;
-		else
-			card->print_card(y, x);
-
-		x += card_diff;
-	}
+	int unprinted = print_cards(first->get_hand(), 40, 0, 5);
 
 	// bottom right HUD
 	if ( unprinted > 0 )
@@ -182,32 +187,12 @@ void CDisplay::refresh_board( shared_ptr<CPlayer> first, shared_ptr<CPlayer> sec
 	mvprintw(m_scr_y - 2, m_scr_x - 11, "CARDS %d/%d", first->get_draw_count(), first->get_discard_count());
 
 	// table of playing player
-	y = 21, x = 22;
-	unprinted = 0;
-	for ( const auto& card : first->get_table() ) {
-		// maximum drawable
-		if ( x >= 3 * card_diff + 22 )
-			unprinted ++;
-		else
-			card->print_card(y, x);
-
-		x += card_diff;
-	}
+	unprinted = print_cards(first->get_table(), 21, 22, 3);
 	if ( unprinted > 0 )
 		mvprintw(22, m_scr_x - 22, "%d MORE CARDS", unprinted);
 
 	// opponents table
-	y = 4, x = 22;
-	unprinted = 0;
-	for ( const auto& card : second->get_table() ) {
-		// maximum drawable
-		if ( x >= 3 * card_diff + 22 )
-			unprinted ++;
-		else
-			card->print_card(y, x);
-
-		x += card_diff;
-	}
+	unprinted = print_cards(second->get_table(), 4, 22, 3);
 	if ( unprinted > 0 )
 		mvprintw(17, m_scr_x - 22, "%d MORE CARDS", unprinted);
 

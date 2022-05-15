@@ -44,6 +44,11 @@ public:
 	/// Changes the content of context bar on top of the screen, telling more about the current action
 	void context_bar( const std::string& context );
 
+	/// Prints the given collection of cards to the screen next to each other to given coordinates.
+	/// @param[in] max Maximum amount of cards that can fit to screen.
+	/// @return Amount of unprinted cards (compared to given max).
+	[[nodiscard]] int print_cards( const std::vector<std::shared_ptr<CCard>>& cards, int y, int x, int max ) const;
+
 	/// Refreshes the screen with the current card state of these two players.
 	/// @param[in] first Player who is currently about to play.
 	/// @param[in] second Opponent of the playing player.
