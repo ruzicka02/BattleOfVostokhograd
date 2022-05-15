@@ -13,6 +13,9 @@ protected:
 public:
 	CPlayerBogo( std::shared_ptr<CCardGeneral> gen, const CDeck& deck, CDisplay* display, CShop* shop )
 			: CPlayer(std::move(gen), deck, display, shop) {}
+	CPlayerBogo( const CPlayerBogo& ) = default;
+	CPlayerBogo& operator= ( const CPlayerBogo& ) = default;
+	~CPlayerBogo() override = default;
 
 	void play() override;
 

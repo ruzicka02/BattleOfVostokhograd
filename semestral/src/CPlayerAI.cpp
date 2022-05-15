@@ -3,3 +3,15 @@
 //
 
 #include "CPlayerAI.h"
+
+void CPlayerAI::play() {
+
+}
+
+std::shared_ptr<CCard> CPlayerAI::pick_card(const std::vector<std::shared_ptr<CCard>> &cards, int mode) const {
+	return cards.at(0);
+}
+
+void CPlayerAI::discard_selection(int amount) {
+
+}

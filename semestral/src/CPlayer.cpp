@@ -9,8 +9,18 @@
 
 using namespace std;
 
-void CPlayer::draw_cards(int amount) {
-	for ( int i = 0; i < amount; i++ ) {
+void CPlayer::draw_cards(size_t amount) {
+	if (amount > m_drawing.count() + m_discard.count())
+		amount = m_drawing.count() + m_discard.count();
+
+	for ( size_t i = 0; i < amount; i++ ) {
+		if (! m_drawing.count()) { // refill the drawing pile from discard pile
+			m_discard.shuffle_cards();
+			while ( m_discard.count() ) {
+				m_drawing.insert(m_discard.pop_top());
+			}
+		}
+
 		shared_ptr<CCard> card = m_drawing.pop_top();
 		m_hand.insert(card);
 	}
@@ -18,7 +28,7 @@ void CPlayer::draw_cards(int amount) {
 }
 
 void CPlayer::discard_all() {
-	while ( m_hand.seek_top() )
+	while ( m_hand.count() )
 		m_discard.insert(m_hand.pop_top());
 }
 

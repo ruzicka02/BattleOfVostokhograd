@@ -2,6 +2,7 @@
 // Created by simon on 18.4.22.
 //
 
+#include <ncurses.h>
 #include <filesystem>
 #include <fstream>
 
@@ -9,6 +10,7 @@
 
 #include "CPlayerHuman.h"
 #include "CPlayerAI.h"
+#include "CPlayerBogo.h"
 
 using namespace std;
 
@@ -61,8 +63,11 @@ void CGame::prepare_pve() {
 	input.close();
 
 	auto g1 = make_shared<CCardGeneral>("General 1", "This general is the best general in the world", 50, 2, 3, 4, 1, null);
-	g1->change_life(-10);
 	m_first = make_shared<CPlayerHuman>(g1, deck, &m_display, &m_shop);
+
+	// AI randomness
+	m_display.context_bar("Select AI difficulty level.");
+	int menu_res = m_display.menu({" Smart AI", " Random AI (Bogo)"});
 
 	CDeck deck2;
 	input.open( "examples/decks/start_hand.csv" );
@@ -70,18 +75,50 @@ void CGame::prepare_pve() {
 	input.close();
 
 	auto g2 = make_shared<CCardGeneral>("General 2", "This general is also the best general in the world", 50, 2, 3, 4, 1, null);
-	m_second = make_shared<CPlayerHuman>(g2, deck2, &m_display, &m_shop);
+	if ( menu_res )
+		m_second = make_shared<CPlayerBogo>(g2, deck2, &m_display, &m_shop);
+	else
+		m_second = make_shared<CPlayerAI>(g2, deck2, &m_display, &m_shop);
 
 	m_first->set_opponent(m_second);
 	m_second->set_opponent(m_first);
 }
 
 void CGame::prepare_pvp() {
+	CDeck deck;
+	ifstream input( "examples/decks/start_hand.csv" );
+	deck.load_deck(input, true);
+	input.close();
 
+	auto g1 = make_shared<CCardGeneral>("General Alice", "This general is the best general in the world", 50, 2, 3, 4, 1, null);
+	m_first = make_shared<CPlayerHuman>(g1, deck, &m_display, &m_shop);
+
+	CDeck deck2;
+	input.open( "examples/decks/start_hand.csv" );
+	deck2.load_deck(input, true);
+	input.close();
+
+	auto g2 = make_shared<CCardGeneral>("General Bob", "This general is also the best general in the world", 50, 2, 3, 4, 1, null);
+	m_second = make_shared<CPlayerHuman>(g2, deck2, &m_display, &m_shop);
+
+	m_first->set_opponent(m_second);
+	m_second->set_opponent(m_first);
 }
 
 void CGame::play() {
+	while (! m_first->lost()) {
+		m_first->draw_cards(5);
+		m_first->play();
 
+		m_display.context_bar(m_second->get_general()->name() + " will be playing now.");
+		getch();
+		swap(m_first, m_second);
+	}
+
+	swap(m_first, m_second);
+	m_display.context_bar(m_first->get_general()->name() + " has won the game!");
+	m_display.info_bar("Press any key to continue.");
+	getch();
 }
 
 bool CGame::save_game(std::string name) {

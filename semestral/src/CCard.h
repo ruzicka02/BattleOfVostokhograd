@@ -90,6 +90,9 @@ public:
 	/// Returns the cost of the card in the shop.
 	[[nodiscard]] int cost() const { return m_cost; }
 
+	/// Returns the name of the card (used especially with generals).
+	[[nodiscard]] const std::string& name() const { return m_name; }
+
 	/// Returns the special ability of the card.
 	[[nodiscard]] EAbility special_get() const { return m_special; }
 

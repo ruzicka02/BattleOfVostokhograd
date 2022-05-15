@@ -21,6 +21,9 @@ void CPlayerHuman::play() {
 		m_display->refresh_board(shared_from_this(), m_opponent.lock(), m_shop);
 		card_selection_ingame();
 
+		if (m_opponent.lock()->lost())
+			return;
+
 		cards_available = m_hand.count() != 0;
 		for ( const auto& i : m_table.cards() )
 			if (! i->played()) {

@@ -28,6 +28,7 @@ protected:
 	/// Starts playing the game itself.
 	void play();
 public:
+
 	/// Starts the game, automatically creates instance of CDisplay and an empty CShop.
 	CGame() = default;
 

@@ -23,6 +23,9 @@ protected:
 public:
 	CPlayerHuman( std::shared_ptr<CCardGeneral> gen, const CDeck& deck, CDisplay* display, CShop* shop )
 			: CPlayer(std::move(gen), deck, display, shop) {}
+	CPlayerHuman( const CPlayerHuman& ) = default;
+	CPlayerHuman& operator= ( const CPlayerHuman& ) = default;
+	~CPlayerHuman() override = default;
 
 	void play() override;
 
