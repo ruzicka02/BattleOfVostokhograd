@@ -58,6 +58,31 @@ CDisplay::~CDisplay() {
 	endwin();
 }
 
+void CDisplay::context_bar_draw() const {
+	attron(COLOR_PAIR(10) );
+	mvprintw(0, 0, "%*s", - m_scr_x, m_context.c_str());
+	refresh();
+	attroff(COLOR_PAIR(10) );
+}
+
+int CDisplay::print_cards( const std::vector<std::shared_ptr<CCard>>& cards, int y, int x, int max ) const {
+	const int card_diff = 22; // distance of cards next to each other
+	int counter = 0, unprinted = 0;
+
+	for ( const auto& card : cards ) {
+		// maximum drawable
+		if ( counter >= max )
+			unprinted ++;
+		else
+			card->print_card(y, x);
+
+		x += card_diff;
+		counter ++;
+	}
+
+	return unprinted;
+}
+
 bool CDisplay::terminal_size_check() const {
 	if ( m_scr_y >= 45 && m_scr_x >= 120 )
 		return true;
@@ -135,34 +160,9 @@ void CDisplay::info_bar( const string& info ) const {
 	attroff(COLOR_PAIR(10) );
 }
 
-void CDisplay::context_bar_draw() const {
-	attron(COLOR_PAIR(10) );
-	mvprintw(0, 0, "%*s", - m_scr_x, m_context.c_str());
-	refresh();
-	attroff(COLOR_PAIR(10) );
-}
-
 void CDisplay::context_bar(const string &context) {
 	m_context = context;
 	context_bar_draw();
-}
-
-int CDisplay::print_cards( const std::vector<std::shared_ptr<CCard>>& cards, int y, int x, int max ) const {
-	const int card_diff = 22; // distance of cards next to each other
-	int counter = 0, unprinted = 0;
-
-	for ( const auto& card : cards ) {
-		// maximum drawable
-		if ( counter >= max )
-			unprinted ++;
-		else
-			card->print_card(y, x);
-
-		x += card_diff;
-		counter ++;
-	}
-
-	return unprinted;
 }
 
 void CDisplay::refresh_board( shared_ptr<CPlayer> first, shared_ptr<CPlayer> second, CShop* shop ) const {

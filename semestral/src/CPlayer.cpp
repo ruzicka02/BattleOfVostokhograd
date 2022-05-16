@@ -119,9 +119,12 @@ void CPlayer::play_card(std::shared_ptr<CCard> card, bool hand) {
 
 			card->special(shared_from_this(), selected);
 		} else {
+			m_display->context_bar(ability_to_print_str(ability));
 			card->special(shared_from_this()); // using the default nullptr value as a selected card
 		}
 
+		m_display->refresh_board(shared_from_this(), m_opponent.lock(), m_shop);
+		getch();
 	}
 
 	// cash
@@ -131,6 +134,8 @@ void CPlayer::play_card(std::shared_ptr<CCard> card, bool hand) {
 		m_display->refresh_board(shared_from_this(), m_opponent.lock(), m_shop);
 		getch();
 	}
+
+	card->set_played(true);
 
 	nocbreak(); // turn off half delay mode
 	cbreak();

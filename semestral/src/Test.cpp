@@ -221,8 +221,12 @@ void play_card_t () {
 	deck.insert(make_shared<CCardTroop>("Stealing troop", "Lorem ipsum dolor sit amet", 1, 2, 0, 0, 1, steal));
 	deck.insert(make_shared<CCardTroop>("Sample troop", "Lorem ipsum dolor sit amet", 1, 2, 3, 4, 5, null));
 	deck.insert(make_shared<CCardWarcry>("Sample warcry", "Lorem ipsum dolor sit amet", 1, 2, 3, 4, null));
+	deck.insert(make_shared<CCardWarcry>("Sample warcry", "Lorem ipsum dolor sit amet", 1, 2, 3, 4, draw));
+	deck.insert(make_shared<CCardWarcry>("Sample warcry", "Lorem ipsum dolor sit amet", 1, 2, 3, 4, discard));
+	deck.insert(make_shared<CCardWarcry>("Sample warcry", "Lorem ipsum dolor sit amet", 1, 2, 3, 4, sacrifice));
 
 	CDeck deck2;
+	deck2.insert(make_shared<CCardTroop>("Training dummy", "Lorem ipsum dolor sit amet", 8, 2, 0, 0, 1, null));
 	deck2.insert(make_shared<CCardTroop>("Training dummy", "Lorem ipsum dolor sit amet", 8, 2, 0, 0, 1, null));
 	deck2.insert(make_shared<CCardTroop>("Training dummy", "Lorem ipsum dolor sit amet", 8, 2, 0, 0, 1, null));
 	deck2.insert(make_shared<CCardTroop>("Training dummy", "Lorem ipsum dolor sit amet", 8, 2, 0, 0, 1, null));
@@ -238,7 +242,7 @@ void play_card_t () {
 	p1->set_opponent(p2);
 	p2->set_opponent(p1);
 
-	p1->draw_cards(3);
+	p1->draw_cards(5);
 
 	p2->draw_cards(3);
 	p2->deploy_card(p2->get_hand().at(0));
