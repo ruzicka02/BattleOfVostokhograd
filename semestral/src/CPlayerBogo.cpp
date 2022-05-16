@@ -12,6 +12,10 @@ std::shared_ptr<CCard> CPlayerBogo::pick_card(const std::vector<std::shared_ptr<
 	return cards.at(0);
 }
 
-void CPlayerBogo::discard_selection(int amount) {
+void CPlayerBogo::discard_selection() {
+
+}
+
+void CPlayerBogo::sacrifice_selection() {
 
 }

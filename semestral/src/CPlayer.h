@@ -19,6 +19,7 @@ class CDisplay;
 /// as it needs to create own shared pointers when calling CDisplay::refresh_board().
 class CPlayer : public std::enable_shared_from_this<CPlayer> {
 protected:
+	int 							m_cards_to_discard;
 	int 							m_cash;
 	std::shared_ptr<CCardGeneral> 	m_general;
 	CDeck							m_drawing;
@@ -33,7 +34,7 @@ public:
 	/// Constructs instance of Player with empty decks.
 	/// @param[in] gen General card of Player, necessary for construction
 	CPlayer( std::shared_ptr<CCardGeneral> gen, const CDeck& deck, CDisplay* display, CShop* shop )
-			: m_cash(0), m_general(std::move(gen)), m_drawing(deck), m_shop(shop), m_display(display) {}
+			: m_cards_to_discard(0), m_cash(0), m_general(std::move(gen)), m_drawing(deck), m_shop(shop), m_display(display) {}
 	CPlayer( const CPlayer& ) = default;
 	CPlayer& operator= ( const CPlayer& ) = default;
 	virtual ~CPlayer() = default;
@@ -42,14 +43,17 @@ public:
 	void draw_cards( size_t amount );
 
 	/// Discards the given amount of cards from hand to discard pile. Lets human player select, which cards he wants to discard.
-	virtual void discard_selection( int amount ) = 0;
+	virtual void discard_selection() = 0;
+
+	/// Sacrifices the given amount of cards from discard pile to /dev/null. Lets human player select, which cards he wants to discard.
+	virtual void sacrifice_selection() = 0;
 
 	/// Discards all cards from hand to discard pile. Does not throw any card selection to human player.
 	void discard_all();
 
 	/// Discards the one specific card from hand to discard pile. Used when playing warcries from hand.
 	/// @exception out_of_range Throws exception if card is not in hand.
-	virtual void discard_card( std::shared_ptr<CCard> );
+	void discard_card( std::shared_ptr<CCard> );
 
 	/// Restores health of the referenced card and puts it from table to discard pile.
 	/// @exception out_of_range Throws exception if card is not on table.
@@ -66,6 +70,10 @@ public:
 	/// Deploys the referenced card from hand to the table.
 	/// @exception out_of_range Throws exception if card is not in hand.
 	void deploy_card( std::shared_ptr<CCard> );
+
+	void opponent_discard( int amount ) {
+		m_opponent.lock()->m_cards_to_discard ++;
+	}
 
 	[[nodiscard]] std::shared_ptr<CCardGeneral> get_general() const {
 		return m_general;
@@ -119,6 +127,5 @@ public:
 	virtual std::shared_ptr<CCard> pick_card( const std::vector< std::shared_ptr<CCard> >& cards, int mode ) const = 0;
 
 };
-
 
 #endif //SEMESTRAL_CPLAYER_H

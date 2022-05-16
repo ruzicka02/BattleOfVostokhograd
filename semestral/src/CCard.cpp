@@ -34,6 +34,12 @@ void CCard::special( shared_ptr<CPlayer> player, std::shared_ptr <CCard> target)
 		case draw:
 			player->draw_cards(1);
 			break;
+		case discard:
+			player->opponent_discard(1);
+			break;
+		case sacrifice:
+			player->sacrifice_selection();
+			break;
 	}
 }
 

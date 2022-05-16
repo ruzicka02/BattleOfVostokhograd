@@ -48,14 +48,25 @@ void CPlayerHuman::play() {
 
 
 
-void CPlayerHuman::discard_selection (int amount) {
-
-	for ( int i = 0; i < amount; i ++ ) {
-		stringstream context;
-		context << i << '/' << amount << " discarded";
-		m_display->context_bar(context.str());
-		m_hand.remove( m_display->card_selection(m_hand.cards()) );
+void CPlayerHuman::discard_selection () {
+	if ( m_cards_to_discard >= 5) {
+		discard_all();
+		return;
 	}
+
+	for ( int i = 0; i < m_cards_to_discard; i ++ ) {
+		stringstream context;
+		context << i << '/' << m_cards_to_discard << " discarded";
+		m_display->context_bar(context.str());
+		discard_card( m_display->card_selection(m_hand.cards()) );
+	}
+
+	m_cards_to_discard = 0;
+}
+
+void CPlayerHuman::sacrifice_selection() {
+	m_display->context_bar("Select a card from your discard pile to sacrifice/destroy.");
+	m_discard.remove( m_display->card_selection(m_discard.cards()) );
 
 }
 
