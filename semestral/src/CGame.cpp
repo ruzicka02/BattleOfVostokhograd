@@ -62,7 +62,7 @@ void CGame::prepare_pve() {
 	deck.load_deck(input, true);
 	input.close();
 
-	auto g1 = make_shared<CCardGeneral>("General 1", "This general is the best general in the world", 50, 2, 3, 4, 1, null);
+	auto g1 = make_shared<CCardGeneral>("Human General", "This general is the best general in the world", 50, 2, 3, 4, 1, null);
 	m_first = make_shared<CPlayerHuman>(g1, deck, &m_display, &m_shop);
 
 	// AI randomness
@@ -71,10 +71,10 @@ void CGame::prepare_pve() {
 
 	CDeck deck2;
 	input.open( "examples/decks/start_hand.csv" );
-	deck.load_deck(input, true);
+	deck2.load_deck(input, true);
 	input.close();
 
-	auto g2 = make_shared<CCardGeneral>("General 2", "This general is also the best general in the world", 50, 2, 3, 4, 1, null);
+	auto g2 = make_shared<CCardGeneral>("General RoboCop", "This general is also the best general in the world", 50, 2, 3, 4, 1, null);
 	if ( menu_res )
 		m_second = make_shared<CPlayerBogo>(g2, deck2, &m_display, &m_shop);
 	else

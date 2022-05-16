@@ -49,7 +49,7 @@ void CPlayerHuman::play() {
 
 
 void CPlayerHuman::discard_selection () {
-	if ( m_cards_to_discard >= 5) {
+	if ( m_cards_to_discard >= (int)m_hand.count()) {
 		discard_all();
 		return;
 	}

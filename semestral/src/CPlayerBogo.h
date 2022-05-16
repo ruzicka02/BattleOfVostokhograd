@@ -10,6 +10,10 @@
 /// Derived class of CPlayer that implements the most simple random AI behavior.
 class CPlayerBogo : public CPlayer {
 protected:
+	/// Player selects a random card to buy from the shop and inserts it into the discard pile. Aborted if player has
+	/// insufficient funds for this action.
+	/// @return False in case no card has been bought.
+	bool buy_card();
 public:
 	CPlayerBogo( std::shared_ptr<CCardGeneral> gen, const CDeck& deck, CDisplay* display, CShop* shop )
 			: CPlayer(std::move(gen), deck, display, shop) {}

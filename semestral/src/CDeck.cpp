@@ -89,6 +89,6 @@ shared_ptr <CCard> CDeck::seek_top() const {
 }
 
 void CDeck::shuffle_cards() {
-	random_device rand;
+	random_device rand("/dev/urandom");
 	shuffle( m_content.begin(), m_content.end(), rand );
 }
