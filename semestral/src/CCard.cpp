@@ -56,19 +56,14 @@ shared_ptr<CCard> CCard::load_card(string line) {
 	string name = row.at(0),
 		desc = row.at(1),
 		type = row.at(2),
-		special_str = row.at(8);
-	int life = stoi(row.at(3)),
-		cost = stoi(row.at(4)),
-		damage = stoi(row.at(5)),
-		heal = stoi(row.at(6)),
-		cash = stoi(row.at(7));
+		special_str = row.at(7);
+	int cost = stoi(row.at(3)),
+		damage = stoi(row.at(4)),
+		heal = stoi(row.at(5)),
+		cash = stoi(row.at(6)),
+		life = stoi(row.at(8));
 
-	EAbility special = null;
-
-	if ( special_str == "steal" )
-		special = steal;
-	if ( special_str == "draw" )
-		special = draw;
+	EAbility special = str_to_ability(special_str);
 
 	// create card based on the given type
 	if ( type == "g" )

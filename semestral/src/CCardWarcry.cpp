@@ -33,7 +33,7 @@ void CCardWarcry::print_card(int y, int x) {
 	mvwprintw(card, 10, 3, "%d CASH", m_cash);
 
 	if (m_special != null) {
-		mvwprintw(card, 11, 3, "%s", ability_str(m_special).c_str());
+		mvwprintw(card, 11, 3, "%s", ability_to_print_str(m_special).c_str());
 	}
 
 	wrefresh(card);
@@ -66,7 +66,7 @@ void CCardWarcry::print_card_wide(int y, int x) {
 	mvwprintw(card, 10, 3, "%d CASH ️%ls", m_cash, L"🪙");
 
 	if (m_special != null) {
-		mvwprintw(card, 11, 3, "%s", ability_str(m_special).c_str());
+		mvwprintw(card, 11, 3, "%s", ability_to_print_str(m_special).c_str());
 	}
 
 	wrefresh(card);
@@ -77,25 +77,15 @@ void CCardWarcry::print_card_wide(int y, int x) {
 
 string CCardWarcry::save_card() {
 	string data;
-	data.append(m_name)
-			.append(",")
-			.append(m_desc)
-			.append(",w,0,")
-			.append(to_string(m_cost))
-			.append(",")
-			.append(to_string(m_damage))
-			.append(",")
-			.append(to_string(m_protection))
-			.append(",")
-			.append(to_string(m_cash))
-			.append(",");
-
-	if ( m_special == steal)
-		data.append("steal");
-	else if ( m_special == draw )
-		data.append("draw");
-	else
-		data.append("null");
+	data.append(m_name + ",")
+		.append(m_desc + ",")
+		.append("w,")
+		.append(to_string(m_cost) + ",")
+		.append(to_string(m_damage) + ",")
+		.append(to_string(m_protection) + ",")
+		.append(to_string(m_cash) + ",")
+		.append(ability_to_str(m_special) + ",")
+		.append("0");
 
 	return data;
 }

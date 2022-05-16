@@ -45,7 +45,7 @@ bool CDeck::load_deck(istream & file, bool shuffle) {
 }
 
 bool CDeck::save_deck(ostream & file) {
-	for ( auto card : m_content )
+	for ( const auto& card : m_content )
 		file << card->save_card() << '\n';
 
 	return file.good();
