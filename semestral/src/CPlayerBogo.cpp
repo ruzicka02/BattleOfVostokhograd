@@ -25,12 +25,15 @@ void CPlayerBogo::play() {
 
 	// play all cards on table in random order
 	m_table.shuffle_cards();
-	while(m_table.count()) {
+	for ( shared_ptr<CCard> card : m_table.cards()) {
+		if ( card->played() )
+			continue;
+
 		m_display->context_bar("Opponent is currently playing." );
 		halfdelay(10);
 		getch();
 
-		play_card(m_table.seek_top(), false);
+		play_card(card, false);
 		m_display->refresh_board(shared_from_this(), m_opponent.lock(), m_shop);
 	}
 
