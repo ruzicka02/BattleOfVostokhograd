@@ -31,6 +31,10 @@ public:
 
 	[[nodiscard]] bool played() const override { return m_played; }
 	void set_played(bool played) override { m_played = played; }
+
+	/// Static method that creates a new card based on information in the given string.
+	/// @return Shared pointer to the newly created card.
+	static std::shared_ptr<CCardGeneral> load_card (const std::string& line);
 };
 
 

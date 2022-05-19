@@ -6,6 +6,7 @@
 
 #include <ncurses.h>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -121,4 +122,35 @@ std::vector<int> CCardGeneral::attributes() {
 	values.push_back(m_special != null ? 1 : 0);
 
 	return values;
+}
+
+shared_ptr<CCardGeneral> CCardGeneral::load_card(const string& line) {
+	istringstream line_stream = istringstream( line );
+	string val;
+	vector<string> row;
+
+	while(getline(line_stream, val, ','))
+		row.push_back(val);
+
+	if ( row.size() <= 7 )
+		return nullptr;
+
+	// card values
+	string name = row.at(0),
+			desc = row.at(1),
+			type = row.at(2),
+			special_str = row.at(7);
+	int cost = stoi(row.at(3)),
+			damage = stoi(row.at(4)),
+			heal = stoi(row.at(5)),
+			cash = stoi(row.at(6)),
+			life = stoi(row.at(8));
+
+	EAbility special = str_to_ability(special_str);
+
+	// create card based on the given type
+	if ( type != "g" )
+		return nullptr;
+	else
+		return make_shared<CCardGeneral>(name, desc, life, cost, damage, heal, cash, special);
 }

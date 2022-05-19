@@ -27,7 +27,10 @@ public:
 	CPlayerHuman& operator= ( const CPlayerHuman& ) = default;
 	~CPlayerHuman() override = default;
 
-	void play() override;
+	CPlayerHuman( std::istream& file, CDisplay* display, CShop* shop )
+		: CPlayer(file, display, shop) {}
+
+	bool play() override;
 
 	/// Virtual method for player to choose one card using CDisplay::card_selection()
 	/// @return Selected card.

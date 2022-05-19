@@ -22,9 +22,9 @@ bool CDeck::load_deck(istream & file, bool shuffle) {
 		if ( ! file.good() )
 			return false;
 
-		// line too short
+		// empty line... end of deck
 		if ( line.length() <= 1 )
-			continue;
+			return true;
 
 		// comment
 		if ( line[0] == '/' && line[1] == '/' )

@@ -5,6 +5,8 @@
 #include <ncurses.h>
 #include <filesystem>
 #include <fstream>
+#include <sstream>
+#include <ctime>
 
 #include "CGame.h"
 
@@ -123,12 +125,39 @@ void CGame::play() {
 	getch();
 }
 
-bool CGame::save_game(std::string name) {
-	return false;
+bool CGame::save_game() {
+	stringstream name;
+	time_t t = time(nullptr);
+	tm tm = *localtime(&t);
+	name << "examples/saves/" << put_time(&tm, "%Y-%m-%d_%H:%M:%S") << ".csv";
+
+	ofstream file(name.str());
+	if ( ! file.good() )
+		return false;
+
+	m_first->save_player(file);
+	file << '\n';
+	m_second->save_player(file);
+	file << '\n';
+	m_shop.save_deck(file);
+	file << '\n';
+
+	return file.good();
 }
 
 bool CGame::load_game(std::string name) {
-	return false;
+	ifstream file(name);
+	if ( ! file.good() )
+		return false;
+
+	m_first = make_shared<CPlayerHuman>(file, &m_display, &m_shop);
+	m_second = make_shared<CPlayerHuman>(file, &m_display, &m_shop);
+	m_shop.load_deck(file);
+
+	m_first->set_opponent(m_second);
+	m_second->set_opponent(m_first);
+
+	return file.good();
 }
 
 std::vector<std::string> CGame::get_saved_games() {

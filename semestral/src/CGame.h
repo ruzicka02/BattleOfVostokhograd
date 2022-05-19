@@ -28,9 +28,9 @@ protected:
 	/// Starts playing the game itself.
 	void play();
 
-	/// Saves the game into file with given name.
+	/// Saves the game into file with current datetime as name.
 	/// @return True on successful operation (no IO error etc)
-	bool save_game(std::string name);
+	bool save_game();
 
 	/// Loads the game from file with given name.
 	/// @return True on successful operation (no IO error etc)

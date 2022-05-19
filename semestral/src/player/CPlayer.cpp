@@ -108,7 +108,7 @@ void CPlayer::play_card(std::shared_ptr<CCard> card, bool hand) {
 	// protect
 	if ( attr[2] ) {
 		vector<shared_ptr<CCard>> choice;
-		for ( const auto& table_card : m_opponent.lock()->get_table() ) {
+		for ( const auto& table_card : m_table.cards() ) {
 			choice.push_back(table_card);
 		}
 		choice.push_back(m_opponent.lock()->get_general());
@@ -156,4 +156,49 @@ void CPlayer::play_card(std::shared_ptr<CCard> card, bool hand) {
 
 	nocbreak(); // turn off half delay mode
 	cbreak();
+}
+
+bool CPlayer::save_player(ostream &file) {
+	bool ok;
+	file << m_general->save_card() << "\n\n";
+	ok = m_drawing.save_deck(file);
+	file << "\n";
+	if ( ! ok )
+		return false;
+
+	ok = m_hand.save_deck(file);
+	file << "\n";
+	if ( ! ok )
+		return false;
+
+	ok = m_table.save_deck(file);
+	file << "\n";
+	if ( ! ok )
+		return false;
+
+	ok = m_discard.save_deck(file);
+
+	return ok;
+}
+
+CPlayer::CPlayer(istream &file, CDisplay *display, CShop *shop)
+		: m_cards_to_discard(0), m_cash(0), m_general(nullptr), m_shop(shop), m_display(display) {
+
+	if ( ! file.good() )
+		throw invalid_argument("Loading CPlayer from file failed immediately");
+
+	string gen;
+	getline(file, gen);
+	cerr << gen << endl;
+	m_general = CCardGeneral::load_card(gen);
+	getline(file, gen); // empty newline
+
+	bool ok;
+	m_drawing.load_deck(file, false);
+	m_hand.load_deck(file, false);
+	m_table.load_deck(file, false);
+	ok = m_discard.load_deck(file, false);
+
+	if ( ! ok )
+		throw invalid_argument("Loading CPlayer from file failed");
 }

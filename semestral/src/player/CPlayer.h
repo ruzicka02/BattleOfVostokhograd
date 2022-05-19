@@ -39,6 +39,14 @@ public:
 	CPlayer& operator= ( const CPlayer& ) = default;
 	virtual ~CPlayer() = default;
 
+	/// Alternative constructor loads all information about player from a CSV file.
+	/// @param[in] file Stream from which the card definitions are loaded.
+	CPlayer( std::istream& file, CDisplay* display, CShop* shop );
+
+	/// Saves all information about player and his cards into a CSV file.
+	/// @return True on success, False if a problem (I/O) occurred.
+	bool save_player( std::ostream& file );
+
 	/// Draws the given amount of cards from drawing pile to hand.
 	void draw_cards( size_t amount );
 
@@ -113,7 +121,8 @@ public:
 	}
 
 	/// Virtual method for player to play his turn, either manually or automatically.
-	virtual void play() = 0;
+	/// @return True if game is supposed to be stopped/paused (by human player).
+	virtual bool play() = 0;
 
 	/// Method for player to play one card, based on its type and abilities.
 	/// @param[in] card The referenced card that will be played.
@@ -125,7 +134,6 @@ public:
 	/// @param[in] cards Cards to choose from.
 	/// @param[in] mode Action with the given cards for the AI
 	virtual std::shared_ptr<CCard> pick_card( const std::vector< std::shared_ptr<CCard> >& cards, int mode ) const = 0;
-
 };
 
 #endif //SEMESTRAL_CPLAYER_H
