@@ -4,7 +4,7 @@
 
 #include "CPlayerAI.h"
 
-void CPlayerAI::play() {
+bool CPlayerAI::play() {
 
 }
 

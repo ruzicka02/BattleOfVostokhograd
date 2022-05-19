@@ -18,7 +18,7 @@ public:
 	CPlayerAI& operator= ( const CPlayerAI& ) = default;
 	~CPlayerAI() override = default;
 
-	void play() override;
+	bool play() override;
 
 	/// Virtual method for player to choose one card using CDisplay::card_selection()
 	/// @return Selected card.

@@ -109,10 +109,18 @@ void CGame::prepare_pvp() {
 }
 
 void CGame::play() {
+	bool no_draw = ! m_first->get_hand().empty();
 	while (! m_first->lost()) {
-		m_first->draw_cards(5);
-		m_first->discard_selection(); // discard up to m_cards_to_discard
-		m_first->play();
+		if ( !no_draw ) {
+			m_first->draw_cards(5);
+			m_first->discard_selection(); // discard up to m_cards_to_discard
+			no_draw = false;
+		}
+
+		if ( m_first->play() ) { // ingame menu; save and exit
+			save_game();
+			return;
+		}
 
 		m_display.context_bar(m_second->get_general()->name() + " will be playing now.");
 		getch();

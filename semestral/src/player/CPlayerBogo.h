@@ -21,7 +21,7 @@ public:
 	CPlayerBogo& operator= ( const CPlayerBogo& ) = default;
 	~CPlayerBogo() override = default;
 
-	void play() override;
+	bool play() override;
 
 	/// Virtual method for player to choose one card using the power of randomness.
 	/// @return Selected card.

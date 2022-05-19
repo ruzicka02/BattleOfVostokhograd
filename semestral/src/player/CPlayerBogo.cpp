@@ -10,7 +10,7 @@
 
 using namespace std;
 
-void CPlayerBogo::play() {
+bool CPlayerBogo::play() {
 
 	// play all cards in hand in random order
 	m_hand.shuffle_cards();

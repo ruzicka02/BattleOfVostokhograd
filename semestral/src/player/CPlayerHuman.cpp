@@ -12,17 +12,18 @@
 
 using namespace std;
 
-void CPlayerHuman::play() {
+bool CPlayerHuman::play() {
 
 	bool cards_available = true;
 
 	while (cards_available) {
 		m_display->context_bar("Your turn! Select a card." );
 		m_display->refresh_board(shared_from_this(), m_opponent.lock(), m_shop);
-		card_selection_ingame();
+		if ( card_selection_ingame() )
+			return true;
 
 		if (m_opponent.lock()->lost())
-			return;
+			return false;
 
 		cards_available = m_hand.count() != 0;
 		for ( const auto& i : m_table.cards() )
@@ -44,6 +45,7 @@ void CPlayerHuman::play() {
 		m_table.cards().at(i)->set_played(false);
 
 	get_general()->set_played(false);
+	return false;
 }
 
 
@@ -74,7 +76,7 @@ std::shared_ptr<CCard> CPlayerHuman::pick_card(const vector<std::shared_ptr<CCar
 	return m_display->card_selection(cards);
 }
 
-void CPlayerHuman::card_selection_ingame() {
+bool CPlayerHuman::card_selection_ingame() {
 	// screen is not redrawn, method must be called after refresh_board
 
 	const int hand_count = get_hand().size(), table_count = get_table().size() + 1;
@@ -91,7 +93,7 @@ void CPlayerHuman::card_selection_ingame() {
 	int input = 0, selected = 0, selected_max = hand_count;
 	bool focus_table = (hand_count == 0), enter_press = false;
 
-	m_display->info_bar("Choose card (Arrow keys), Confirm (Y/ENTER), Go to shop (B), Show hand (SPACE)" );
+	m_display->info_bar("Choose card (Arrow keys), Confirm (Y/ENTER), Go to shop (B), Show hand (SPACE), Menu (Q)" );
 
 	int max_scr_x = getmaxx(stdscr);
 
@@ -135,17 +137,22 @@ void CPlayerHuman::card_selection_ingame() {
 			selected = 0;
 		}
 
+		// menu; save and exit
+		if (input == 'q' || input == 'Q') {
+			return true;
+		}
+
 		// shop
 		if (input == 'b' || input == 'B') {
 			m_display->context_bar("Select a card to buy." );
 			buy_card();
-			return;
+			return false;
 		}
 
 		if (input == ' ') {
 			m_display->context_bar("Select a card from your hand to play.");
 			play_card(m_display->card_selection_deckable(get_hand()), true);
-			return;
+			return false;
 		}
 
 		if (input == '\n' || input == 'y' || input == 'Y')
@@ -174,6 +181,7 @@ void CPlayerHuman::card_selection_ingame() {
 		play_card(get_table().at(selected), false);
 	}
 
+	return false;
 }
 
 bool CPlayerHuman::buy_card() {

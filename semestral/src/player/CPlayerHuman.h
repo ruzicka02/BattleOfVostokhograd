@@ -14,7 +14,8 @@ protected:
 
 	/// Lets player choose one card from his hand, table or his general. Used when selecting a card to play. Card is
 	/// then played directly from this function.
-	void card_selection_ingame();
+	/// @return True if player decides to go to the menu (save and exit temporarily).
+	bool card_selection_ingame();
 
 	/// Lets player select a card to buy from the shop and inserts it into the discard pile. Aborted if player has
 	/// insufficient funds for this action.

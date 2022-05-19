@@ -111,7 +111,7 @@ void CPlayer::play_card(std::shared_ptr<CCard> card, bool hand) {
 		for ( const auto& table_card : m_table.cards() ) {
 			choice.push_back(table_card);
 		}
-		choice.push_back(m_opponent.lock()->get_general());
+		choice.push_back(m_general);
 
 		m_display->context_bar("Select a friendly card to protect/heal. HEAL = " + to_string(attr[2]) );
 		auto selected = pick_card(choice, 2);
