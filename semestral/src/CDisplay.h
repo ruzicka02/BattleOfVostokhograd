@@ -25,7 +25,7 @@ protected:
 	/// Prints the given collection of cards to the screen next to each other to given coordinates.
 	/// @param[in] max Maximum amount of cards that can fit to screen.
 	/// @return Amount of unprinted cards (compared to given max).
-	[[nodiscard]] int print_cards( const std::vector<std::shared_ptr<CCard>>& cards, int y, int x, int max ) const;
+	[[nodiscard]] int print_cards( const std::vector<std::shared_ptr<CCardDeckable>>& cards, int y, int x, int max ) const;
 public:
 	/// Initializes an empty ncurses screen.
 	CDisplay();
@@ -41,7 +41,7 @@ public:
 	/// Draws the game menu selection with variable options.
 	/// @param[in] options Selectable options to be displayed in the menu.
 	/// @return Index number of selected option in the menu by the user.
-	int menu(std::vector<std::string> options);
+	int menu(std::vector<std::string> options) const;
 
 	/// Prints an information bar to the bottom of the screen, telling user what he can do
 	void info_bar( const std::string& info ) const;
@@ -58,6 +58,9 @@ public:
 	/// @param[in] cards Cards to select from.
 	/// @return Pointer to the selected card.
 	[[nodiscard]] std::shared_ptr<CCard> card_selection( const std::vector< std::shared_ptr<CCard> >& ) const;
+
+	/// Lazy workaround wrapper to interact with CDisplay::card_selection method by casting to CCard and vice versa
+	[[nodiscard]] std::shared_ptr<CCardDeckable> card_selection_deckable ( const std::vector<std::shared_ptr<CCardDeckable>>&) const;
 
 };
 

@@ -73,7 +73,7 @@ Test.o: src/Test.cpp src/Test.h src/EAbility.h src/card/CCardTroop.h \
 
 # card
 CCard.o: src/card/CCard.cpp src/card/CCard.h src/card/../EAbility.h \
- src/card/CCardWarcry.h src/card/CCardTroop.h \
+ src/card/CCardWarcry.h src/card/CCardDeckable.h src/card/CCardTroop.h \
  src/card/../player/CPlayer.h src/card/../player/../CDeck.h \
  src/card/../player/../card/CCard.h src/card/../player/../EAbility.h \
  src/card/../player/../CShop.h src/card/../player/../CDeck.h \
@@ -82,9 +82,9 @@ CCard.o: src/card/CCard.cpp src/card/CCard.h src/card/../EAbility.h \
 CCardGeneral.o: src/card/CCardGeneral.cpp src/card/CCardGeneral.h \
  src/card/CCard.h src/card/../EAbility.h
 CCardTroop.o: src/card/CCardTroop.cpp src/card/CCardTroop.h \
- src/card/CCard.h src/card/../EAbility.h
+ src/card/CCardDeckable.h src/card/CCard.h src/card/../EAbility.h
 CCardWarcry.o: src/card/CCardWarcry.cpp src/card/CCardWarcry.h \
- src/card/CCard.h src/card/../EAbility.h
+ src/card/CCardDeckable.h src/card/CCard.h src/card/../EAbility.h
 
 # player
 CPlayerAI.o: src/player/CPlayerAI.cpp src/player/CPlayerAI.h \

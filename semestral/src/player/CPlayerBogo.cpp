@@ -25,7 +25,7 @@ void CPlayerBogo::play() {
 
 	// play all cards on table in random order
 	m_table.shuffle_cards();
-	for ( const shared_ptr<CCard>& card : m_table.cards()) {
+	for ( const shared_ptr<CCardDeckable>& card : m_table.cards()) {
 		if ( card->played() )
 			continue;
 
@@ -101,7 +101,7 @@ bool CPlayerBogo::buy_card() {
 
 	uniform_int_distribution<size_t> dist(0, available.size() - 1);
 	random_device rand("/dev/urandom");
-	shared_ptr<CCard> selected;
+	shared_ptr<CCardDeckable> selected;
 	while (true) {
 		selected = available.at(dist(rand));
 

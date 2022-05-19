@@ -34,7 +34,7 @@ bool CShop::save_deck( std::ostream& file ) {
 	return ret_val;
 }
 
-void CShop::sell_card( std::shared_ptr<CCard> card ) {
+void CShop::sell_card( std::shared_ptr<CCardDeckable> card ) {
 	// card is removed from visible shop
 	remove( card );
 

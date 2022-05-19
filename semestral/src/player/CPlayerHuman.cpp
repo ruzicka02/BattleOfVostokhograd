@@ -58,7 +58,8 @@ void CPlayerHuman::discard_selection () {
 		stringstream context;
 		context << i << '/' << m_cards_to_discard << " discarded";
 		m_display->context_bar(context.str());
-		discard_card( m_display->card_selection(m_hand.cards()) );
+
+		discard_card(m_display->card_selection_deckable(m_hand.cards()) );
 	}
 
 	m_cards_to_discard = 0;
@@ -66,8 +67,7 @@ void CPlayerHuman::discard_selection () {
 
 void CPlayerHuman::sacrifice_selection() {
 	m_display->context_bar("Select a card from your discard pile to sacrifice/destroy.");
-	m_discard.remove( m_display->card_selection(m_discard.cards()) );
-
+	m_discard.remove(m_display->card_selection_deckable(m_discard.cards()));
 }
 
 std::shared_ptr<CCard> CPlayerHuman::pick_card(const vector<std::shared_ptr<CCard>> &cards, int mode) const {
@@ -144,7 +144,7 @@ void CPlayerHuman::card_selection_ingame() {
 
 		if (input == ' ') {
 			m_display->context_bar("Select a card from your hand to play.");
-			play_card(m_display->card_selection(get_hand()), true);
+			play_card(m_display->card_selection_deckable(get_hand()), true);
 			return;
 		}
 
@@ -162,21 +162,16 @@ void CPlayerHuman::card_selection_ingame() {
 
 	}
 
-	// return value
-	shared_ptr<CCard> selected_card;
 	m_display->context_bar("Card was successfully selected");
 
 	if (!focus_table) {
-		selected_card = get_hand().at(selected);
-		play_card(selected_card, true);
+		play_card(get_hand().at(selected), true);
 	}
 	else if (selected == selected_max - 1) {
-		selected_card = get_general();
-		play_card(selected_card, false);
+		play_card(get_general(), false);
 	}
 	else {
-		selected_card = get_table().at(selected);
-		play_card(selected_card, false);
+		play_card(get_table().at(selected), false);
 	}
 
 }
@@ -202,9 +197,9 @@ bool CPlayerHuman::buy_card() {
 	string cash_info = "You have " + to_string(m_cash) + " cash available.";
 	m_display->context_bar(cash_info);
 
-	shared_ptr<CCard> selected;
+	shared_ptr<CCardDeckable> selected;
 	while (true) {
-		selected = m_display->card_selection(available);
+		selected = m_display->card_selection_deckable(available);
 
 		if ( selected->cost() <= m_cash ) {
 			break;

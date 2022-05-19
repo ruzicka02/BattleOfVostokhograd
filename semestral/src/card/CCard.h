@@ -13,6 +13,7 @@
 
 // forward declaration because of card playing methods
 class CPlayer;
+class CCardDeckable;
 
 /// Abstract class that represents a single playing card with its unique set of attributes. Does not contain the life
 /// attribute even though it has method interface for it, as it is only necessary for some of the derived classes. It
@@ -52,10 +53,6 @@ public:
 	/// Returns the string with all the card information, used in game saving
 	virtual std::string save_card() = 0;
 
-	/// Static method that creates a new card based on information in the given string.
-	/// @return Shared pointer to the newly created card.
-	static std::shared_ptr<CCard> load_card (std::string line);
-
 	/// Attacks the referenced card of an enemy. In case the card is destroyed, it leaves the battlefield.
 	/// @param[in] player Targeted player (opponent).
 	/// @param[in] target Card targeted by the ability. Can be left empty in case no card is targeted.
@@ -69,7 +66,7 @@ public:
 	/// Card plays its special ability.
 	/// @param[in] player Player that is playing the card.
 	/// @param[in] target Card targeted by the ability. Can be left empty in case no card is targeted.
-	void special( std::shared_ptr<CPlayer> player, std::shared_ptr<CCard> target = nullptr ) const;
+	void special( std::shared_ptr<CPlayer> player, std::shared_ptr<CCardDeckable> target = nullptr ) const;
 
 	/// Card adds or subtracts the given amount of life points. Used for both attacking and protecting a card.
 	/// Dummy implementation for non-permanent cards as they do not have life stats.

@@ -31,7 +31,7 @@ bool CDeck::load_deck(istream & file, bool shuffle) {
 			continue;
 
 		// creates the shared pointer in CCard::load_card
-		shared_ptr<CCard> in = CCard::load_card(line);
+		shared_ptr<CCardDeckable> in = CCardDeckable::load_card(line);
 		if ( in == nullptr )
 			return false;
 
@@ -51,14 +51,14 @@ bool CDeck::save_deck(ostream & file) {
 	return file.good();
 }
 
-CDeck &CDeck::insert( shared_ptr<CCard> in ) {
+CDeck &CDeck::insert( shared_ptr<CCardDeckable> in ) {
 	if ( in != nullptr )
 		m_content.emplace_back(in);
 
 	return *this;
 }
 
-CDeck &CDeck::remove( shared_ptr <CCard> in ) {
+CDeck &CDeck::remove( shared_ptr <CCardDeckable> in ) {
 
 	for ( auto iter = m_content.begin(); iter < m_content.end(); iter ++ )
 		if ( *iter == in ) {
@@ -71,17 +71,17 @@ CDeck &CDeck::remove( shared_ptr <CCard> in ) {
 	return *this;
 }
 
-shared_ptr <CCard> CDeck::pop_top() {
+shared_ptr <CCardDeckable> CDeck::pop_top() {
 	if ( m_content.empty() )
 		return nullptr;
 
-	shared_ptr <CCard> val = m_content.back();
+	shared_ptr <CCardDeckable> val = m_content.back();
 	m_content.pop_back();
 
 	return val;
 }
 
-shared_ptr <CCard> CDeck::seek_top() const {
+shared_ptr <CCardDeckable> CDeck::seek_top() const {
 	if ( ! m_content.empty() )
 		return m_content.back();
 	else

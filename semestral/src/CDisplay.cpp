@@ -65,7 +65,7 @@ void CDisplay::context_bar_draw() const {
 	attroff(COLOR_PAIR(10) );
 }
 
-int CDisplay::print_cards( const std::vector<std::shared_ptr<CCard>>& cards, int y, int x, int max ) const {
+int CDisplay::print_cards( const std::vector<std::shared_ptr<CCardDeckable>>& cards, int y, int x, int max ) const {
 	const int card_diff = 22; // distance of cards next to each other
 	int counter = 0, unprinted = 0;
 
@@ -98,7 +98,7 @@ bool CDisplay::terminal_size_check() const {
 	return false;
 }
 
-int CDisplay::menu(vector<string> options) {
+int CDisplay::menu(vector<string> options) const {
 
 	if ( ! terminal_size_check() )
 		return 3; // exit
@@ -262,4 +262,14 @@ std::shared_ptr<CCard> CDisplay::card_selection( const std::vector< std::shared_
 	refresh();
 
 	return deck.at(selected);
+}
+
+shared_ptr<CCardDeckable> CDisplay::card_selection_deckable(const vector<shared_ptr<CCardDeckable>>& cards) const {
+	vector<shared_ptr<CCard>> choice;
+	for ( const auto& card : cards )
+		choice.emplace_back(card);
+
+	shared_ptr<CCard> select = card_selection(choice);
+	return dynamic_pointer_cast<CCardDeckable>(select);
+	// this cast is completely legal as we know all cards were deckable (come from m_hand.cards)
 }

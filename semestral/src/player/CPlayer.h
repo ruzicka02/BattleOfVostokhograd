@@ -53,7 +53,7 @@ public:
 
 	/// Discards the one specific card from hand to discard pile. Used when playing warcries from hand.
 	/// @exception out_of_range Throws exception if card is not in hand.
-	void discard_card( std::shared_ptr<CCard> );
+	void discard_card( std::shared_ptr<CCardDeckable> );
 
 	/// Restores health of the referenced card and puts it from table to discard pile.
 	/// @exception out_of_range Throws exception if card is not on table.
@@ -61,15 +61,15 @@ public:
 
 	/// Removes the referenced card from table, effectively losing it. Used when card is stolen by opponent.
 	/// @exception out_of_range Throws exception if card is not on table.
-	void destroy_card( std::shared_ptr<CCard> );
+	void destroy_card( std::shared_ptr<CCardDeckable> );
 
 	/// Steals the referenced card from the opponents table. Card is put onto your own table with unchanged health.
 	/// @exception out_of_range Throws exception if card is not on opponents table.
-	void steal_card( std::shared_ptr<CCard> );
+	void steal_card( std::shared_ptr<CCardDeckable> );
 
 	/// Deploys the referenced card from hand to the table.
 	/// @exception out_of_range Throws exception if card is not in hand.
-	void deploy_card( std::shared_ptr<CCard> );
+	void deploy_card( std::shared_ptr<CCardDeckable> );
 
 	void opponent_discard( int amount ) {
 		m_opponent.lock()->m_cards_to_discard ++;
@@ -79,15 +79,15 @@ public:
 		return m_general;
 	}
 
-	[[nodiscard]] const std::vector< std::shared_ptr<CCard> >& get_hand() const {
+	[[nodiscard]] const std::vector< std::shared_ptr<CCardDeckable> >& get_hand() const {
 		return m_hand.cards();
 	}
 
-	[[nodiscard]] const std::vector< std::shared_ptr<CCard> >& get_table() const {
+	[[nodiscard]] const std::vector< std::shared_ptr<CCardDeckable> >& get_table() const {
 		return m_table.cards();
 	}
 
-	[[nodiscard]] std::shared_ptr<CCard> get_discard_top() const {
+	[[nodiscard]] std::shared_ptr<CCardDeckable> get_discard_top() const {
 		return m_discard.seek_top();
 	}
 

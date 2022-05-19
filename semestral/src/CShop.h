@@ -35,7 +35,7 @@ public:
 
 	/// Removes the referenced card from the store and refills with another card from drawing pile.
 	/// @exception out_of_range Throws exception in CDeck::remove when card is not found in the shop.
-	void sell_card( std::shared_ptr<CCard> );
+	void sell_card( std::shared_ptr<CCardDeckable> );
 
 };
 

@@ -25,22 +25,13 @@ void card_selection_t () {
 	getch();
 
 	CDeck selected;
-	std::shared_ptr<CCard> choice;
 
-	screen.context_bar("0/3 selected");
-	choice = screen.card_selection(deck.cards());
-	selected.insert( choice );
-	deck.remove( choice );
-
-	screen.context_bar("1/3 selected");
-	choice = screen.card_selection(deck.cards());
-	selected.insert( choice );
-	deck.remove( choice );
-
-	screen.context_bar("2/3 selected");
-	choice = screen.card_selection(deck.cards());
-	selected.insert( choice );
-	deck.remove( choice );
+	for ( int i = 0; i < 3; i ++ ) {
+		screen.context_bar(to_string(i) + "/3 selected");
+		shared_ptr<CCardDeckable> choice = screen.card_selection_deckable(deck.cards());
+		selected.insert( choice );
+		deck.remove( choice );
+	}
 
 	screen.context_bar("Your selected cards:" );
 	screen.info_bar("Press any key to continue." );

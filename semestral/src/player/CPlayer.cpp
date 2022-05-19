@@ -21,7 +21,7 @@ void CPlayer::draw_cards(size_t amount) {
 			}
 		}
 
-		shared_ptr<CCard> card = m_drawing.pop_top();
+		shared_ptr<CCardDeckable> card = m_drawing.pop_top();
 		m_hand.insert(card);
 	}
 
@@ -32,7 +32,7 @@ void CPlayer::discard_all() {
 		m_discard.insert(m_hand.pop_top());
 }
 
-void CPlayer::discard_card(std::shared_ptr <CCard> target) {
+void CPlayer::discard_card(std::shared_ptr <CCardDeckable> target) {
 	m_hand.remove(target);
 	m_discard.insert(target);
 }
@@ -43,16 +43,17 @@ void CPlayer::kill_card(std::shared_ptr <CCard> target) {
 	if ( target == m_general )
 		return;
 
-	target->restore();
-	m_table.remove(target);
-	m_discard.insert(target);
+	auto target_deck = dynamic_pointer_cast<CCardDeckable>(target);
+	target_deck->restore();
+	m_table.remove(target_deck);
+	m_discard.insert(target_deck);
 }
 
-void CPlayer::destroy_card(std::shared_ptr <CCard> target) {
+void CPlayer::destroy_card(std::shared_ptr <CCardDeckable> target) {
 	m_table.remove(target);
 }
 
-void CPlayer::steal_card(std::shared_ptr <CCard> target) {
+void CPlayer::steal_card(std::shared_ptr <CCardDeckable> target) {
 	if ( ! m_opponent.lock() ) // opponent not set/deallocated
 		return;
 
@@ -62,7 +63,7 @@ void CPlayer::steal_card(std::shared_ptr <CCard> target) {
 	target->set_played(true);
 }
 
-void CPlayer::deploy_card(std::shared_ptr<CCard> target) {
+void CPlayer::deploy_card(std::shared_ptr<CCardDeckable> target) {
 	m_hand.remove(target);
 	m_table.insert(target);
 }
@@ -74,22 +75,28 @@ void CPlayer::play_card(std::shared_ptr<CCard> card, bool hand) {
 	// Can be deployed (troop), can attack, can protect, has special ability
 	vector<int> attr = card->attributes();
 
-	// deploy the card from the hand
-	if ( attr[0] && hand ) {
-		deploy_card(card);
-		m_display->context_bar("Troop has been deployed." );
-		m_display->refresh_board(shared_from_this(), m_opponent.lock(), m_shop);
-		getch();
-	}
+	auto card_deck = dynamic_pointer_cast<CCardDeckable>(card);
+	if (card_deck) {
+		// deploy the card from the hand
+		if ( attr[0] && hand ) {
+			deploy_card(card_deck);
+			m_display->context_bar("Troop has been deployed." );
+			m_display->refresh_board(shared_from_this(), m_opponent.lock(), m_shop);
+			getch();
+		}
 
-	// must be warcry in hand... discard the card from hand
-	if ( ! attr[0] && hand ) {
-		discard_card(card);
+		// must be warcry in hand... discard the card from hand
+		if ( ! attr[0] && hand ) {
+			discard_card(card_deck);
+		}
 	}
 
 	// attack
 	if ( attr[1] ) {
-		auto choice = m_opponent.lock()->get_table();
+		vector<shared_ptr<CCard>> choice;
+		for ( const auto& table_card : m_opponent.lock()->get_table() ) {
+			choice.push_back(table_card);
+		}
 		choice.push_back(m_opponent.lock()->get_general());
 
 		m_display->context_bar("Select an opponents card to attack. DMG = " + to_string(attr[1]) );
@@ -100,8 +107,11 @@ void CPlayer::play_card(std::shared_ptr<CCard> card, bool hand) {
 
 	// protect
 	if ( attr[2] ) {
-		auto choice = get_table();
-		choice.push_back(get_general());
+		vector<shared_ptr<CCard>> choice;
+		for ( const auto& table_card : m_opponent.lock()->get_table() ) {
+			choice.push_back(table_card);
+		}
+		choice.push_back(m_opponent.lock()->get_general());
 
 		m_display->context_bar("Select a friendly card to protect/heal. HEAL = " + to_string(attr[2]) );
 		auto selected = pick_card(choice, 2);
@@ -115,9 +125,14 @@ void CPlayer::play_card(std::shared_ptr<CCard> card, bool hand) {
 
 		if ( ability == steal ) {
 			m_display->context_bar("Select an opponents card to steal." );
-			auto selected = pick_card(m_opponent.lock()->get_table(), 3);
+			vector<shared_ptr<CCard>> choice;
+			for ( const auto& table_card : m_opponent.lock()->get_table() ) {
+				choice.push_back(table_card);
+			}
+			auto selected = pick_card(choice, 3);
 
-			card->special(shared_from_this(), selected);
+			card->special(shared_from_this(), dynamic_pointer_cast<CCardDeckable>(selected));
+			// we know this card is deckable... taken from opponents table
 		} else if ( ability == sacrifice && ! m_discard.count() ) {
 			m_display->context_bar("No card in discard pile to sacrifice" );
 		} else {

@@ -5,11 +5,11 @@
 #ifndef SEMESTRAL_CCARDTROOP_H
 #define SEMESTRAL_CCARDTROOP_H
 
-#include "CCard.h"
+#include "CCardDeckable.h"
 
 /// Derived class from CCard representing a player's deployable troop. It has its own health tracker and in case of death,
 /// it is returned back to player's discard pile with its health restored.
-class CCardTroop : public CCard {
+class CCardTroop : public CCardDeckable {
 protected:
 	int m_life;
 	int m_life_init;
@@ -17,7 +17,7 @@ protected:
 	bool m_played;
 public:
 	CCardTroop(std::string mName, std::string mDesc, int mLife, int mCost, int mDamage, int mProtection, int mCash, EAbility mSpecial)
-	: 	CCard(std::move(mName), std::move(mDesc), mCost, mDamage, mProtection, mCash, mSpecial),
+	: 	CCardDeckable(std::move(mName), std::move(mDesc), mCost, mDamage, mProtection, mCash, mSpecial),
 		m_life(mLife), m_life_init(mLife), m_played(false) {}
 
 	void print_card( int y, int x ) override;
