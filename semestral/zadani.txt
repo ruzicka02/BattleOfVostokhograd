@@ -56,7 +56,7 @@ Inspirací pro semestrální práci byla karetní hra Hero Realms (https://www.h
 
 # TODO
 
-- ovládání počítačem CPlayerAI, CPlayerBogo
+- ovládání počítačem CPlayerAI
 - savegame mechanismus
 - CLI rozhraní
 

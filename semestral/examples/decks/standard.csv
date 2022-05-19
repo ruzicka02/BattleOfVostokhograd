@@ -50,7 +50,7 @@ Out of Gas,You got this tank basically for free,w,4,0,0,1,steal,0
 Out of Gas,You got this tank basically for free,w,4,0,0,1,steal,0
 Claymore,Did you remember to turn it off?,w,2,4,0,0,sacrifice,0
 Claymore,Did you remember to turn it off?,w,2,4,0,0,sacrifice,0
-Decommission,You really cannot fight with this,t,4,0,2,2,sacrifice,0
-Decommission,You really cannot fight with this,t,4,0,2,2,sacrifice,0
-Decommission,You really cannot fight with this,t,4,0,2,2,sacrifice,0
-Decommission,You really cannot fight with this,t,4,0,2,2,sacrifice,0
+Decommission,You really cannot fight with this,t,4,0,1,1,sacrifice,3
+Decommission,You really cannot fight with this,t,4,0,1,1,sacrifice,3
+Decommission,You really cannot fight with this,t,4,0,1,1,sacrifice,3
+Decommission,You really cannot fight with this,t,4,0,1,1,sacrifice,3

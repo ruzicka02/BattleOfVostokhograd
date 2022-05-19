@@ -14,7 +14,7 @@
 
 using namespace std;
 
-void CGame::start() {
+CGame::CGame() {
 	int menu_res = m_display.menu({" New PvP game", " New PvE game", " Load game", " Exit"});
 	bool exit_switch = false, load_switch = false;
 
@@ -51,6 +51,7 @@ void CGame::start() {
 		shop_cards.close();
 	}
 
+	// detection of IO issues from reading external files
 	if (ok) {
 		play();	// main game loop
 	}

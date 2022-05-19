@@ -118,6 +118,8 @@ void CPlayer::play_card(std::shared_ptr<CCard> card, bool hand) {
 			auto selected = pick_card(m_opponent.lock()->get_table(), 3);
 
 			card->special(shared_from_this(), selected);
+		} else if ( ability == sacrifice && ! m_discard.count() ) {
+			m_display->context_bar("No card in discard pile to sacrifice" );
 		} else {
 			m_display->context_bar(ability_to_print_str(ability));
 			card->special(shared_from_this()); // using the default nullptr value as a selected card

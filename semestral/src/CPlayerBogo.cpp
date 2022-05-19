@@ -25,7 +25,7 @@ void CPlayerBogo::play() {
 
 	// play all cards on table in random order
 	m_table.shuffle_cards();
-	for ( shared_ptr<CCard> card : m_table.cards()) {
+	for ( const shared_ptr<CCard>& card : m_table.cards()) {
 		if ( card->played() )
 			continue;
 

@@ -27,13 +27,6 @@ protected:
 
 	/// Starts playing the game itself.
 	void play();
-public:
-
-	/// Starts the game, automatically creates instance of CDisplay and an empty CShop.
-	CGame() = default;
-
-	/// Opens the menu using CDisplay::menu, lets player select action.
-	void start();
 
 	/// Saves the game into file with given name.
 	/// @return True on successful operation (no IO error etc)
@@ -45,6 +38,11 @@ public:
 
 	/// Returns names of all game saves in the inherently used directory examples/saves/
 	std::vector<std::string> get_saved_games();
+public:
+
+	/// Starts the game, automatically creates instance of CDisplay and an empty CShop. Afterwards, it opens the menu
+	/// using CDisplay::menu, lets player select action and performs it.
+	CGame();
 };
 
 

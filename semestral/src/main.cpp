@@ -30,8 +30,7 @@ int main ( int argc, char* argv[] ) {
 		card_selection_t();
 	}
 
-	CGame game;
-	game.start();
+	CGame game; // all game actions started from this constructor
 
 	return 0;
 }
