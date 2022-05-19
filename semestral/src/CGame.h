@@ -7,7 +7,7 @@
 
 #include <memory>
 
-#include "CPlayer.h"
+#include "player/CPlayer.h"
 #include "CShop.h"
 #include "CDisplay.h"
 

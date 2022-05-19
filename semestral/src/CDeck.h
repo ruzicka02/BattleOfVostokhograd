@@ -9,7 +9,7 @@
 #include <memory>
 #include <iostream>
 
-#include "CCard.h"
+#include "card/CCard.h"
 #include "EAbility.h"
 
 /// Container for various CCard derived objects, used on various places throughout the game. It is only recommended to

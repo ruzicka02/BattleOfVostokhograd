@@ -2,20 +2,7 @@
 // Created by simon on 5.5.22.
 //
 
-#include <ncurses.h>
-#include <fstream>
-#include <iostream>
-#include <iomanip>
-#include <cassert>
-
-#include "EAbility.h"
-#include "CCardTroop.h"
-#include "CCardWarcry.h"
-#include "CCardGeneral.h"
-
-#include "CDisplay.h"
-#include "CShop.h"
-#include "CPlayerHuman.h"
+#include "Test.h"
 
 using namespace std;
 
@@ -61,7 +48,7 @@ void card_selection_t () {
 	const int y = 10, card_diff = 22;
 	int x = 4;
 
-	for ( auto card : selected.cards() ) {
+	for ( const auto& card : selected.cards() ) {
 		card->print_card(y, x);
 		x += card_diff;
 	}
@@ -81,7 +68,7 @@ void CDeck_t () {
 	input.close();
 
 	int pos = 25;
-	for ( auto card : deck.cards() ) {
+	for ( const auto& card : deck.cards() ) {
 		card->print_card(30, pos);
 		pos += 25;
 
@@ -102,8 +89,6 @@ void CDeck_t () {
 	clear();
 	endwin();
 
-//	cout << "Total cards in deck: " << deck.count() << endl;
-
 	input.open( "examples/decks/start_hand.csv" );
 	stringstream s_file;
 	s_file << input.rdbuf();
@@ -112,12 +97,7 @@ void CDeck_t () {
 	ostringstream s_processed;
 	deck.save_deck(s_processed);
 
-//	cout << s_processed.str() << endl;
-//	cout << s_file.str() << endl;
-
 	assert(s_processed.str() == s_file.str());
-
-//	shop.save_deck(cout);
 }
 
 void CDisplay_t () {
@@ -252,13 +232,6 @@ void play_card_t () {
 	screen.refresh_board(p1, p2, &shop);
 
 	p1->play();
-
-//	while (! p1.get_hand().empty()) {
-//		screen.context_bar("Card playing showcase - press any key to play a card");
-//		getch();
-//		p1.play_card(p1.get_hand().at(0), true);
-//		screen.refresh_board(&p1, &p2, &shop);
-//	}
 
 	screen.context_bar("Press any key to end the test");
 	screen.refresh_board(p1, p2, &shop);

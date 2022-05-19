@@ -5,7 +5,7 @@
 #include <ncurses.h>
 
 #include "CPlayer.h"
-#include "CDisplay.h"
+#include "../CDisplay.h"
 
 using namespace std;
 

@@ -8,9 +8,9 @@
 
 #include "CGame.h"
 
-#include "CPlayerHuman.h"
-#include "CPlayerAI.h"
-#include "CPlayerBogo.h"
+#include "player/CPlayerHuman.h"
+#include "player/CPlayerAI.h"
+#include "player/CPlayerBogo.h"
 
 using namespace std;
 

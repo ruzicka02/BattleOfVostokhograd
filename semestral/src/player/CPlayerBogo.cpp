@@ -6,7 +6,7 @@
 #include <ncurses.h>
 
 #include "CPlayerBogo.h"
-#include "CDisplay.h"
+#include "../CDisplay.h"
 
 using namespace std;
 

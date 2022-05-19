@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-#include "EAbility.h"
+#include "../EAbility.h"
 
 // forward declaration because of card playing methods
 class CPlayer;

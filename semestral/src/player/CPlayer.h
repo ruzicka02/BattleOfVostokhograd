@@ -7,9 +7,9 @@
 
 #include <utility>
 
-#include "CDeck.h"
-#include "CShop.h"
-#include "CCardGeneral.h"
+#include "../CDeck.h"
+#include "../CShop.h"
+#include "../card/CCardGeneral.h"
 
 // forward declaration because of calling certain CDisplay methods
 class CDisplay;

@@ -5,7 +5,7 @@
 #include "CCard.h"
 #include "CCardWarcry.h"
 #include "CCardTroop.h"
-#include "CPlayer.h"
+#include "../player/CPlayer.h"
 
 #include <memory>
 #include <string>

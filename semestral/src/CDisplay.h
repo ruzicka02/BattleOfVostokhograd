@@ -8,7 +8,7 @@
 #include <memory>
 #include <string>
 
-#include "CPlayer.h"
+#include "player/CPlayer.h"
 #include "CShop.h"
 
 /// Class encapsulation of the majority of interactions with the terminal using the ncurses library. Majority of the
