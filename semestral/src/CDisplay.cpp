@@ -165,6 +165,13 @@ void CDisplay::context_bar(const string &context) {
 	context_bar_draw();
 }
 
+void CDisplay::pause(int time) {
+	halfdelay(time); // change the input mode
+	getch();
+	nocbreak(); // change the mode back immediately (without any side effects)
+	cbreak(); // it is not elegant, but it works
+}
+
 void CDisplay::refresh_board( shared_ptr<CPlayer> first, shared_ptr<CPlayer> second, CShop* shop ) const {
 	clear();
 	refresh();

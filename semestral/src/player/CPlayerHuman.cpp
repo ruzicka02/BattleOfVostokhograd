@@ -68,6 +68,11 @@ void CPlayerHuman::discard_selection () {
 }
 
 void CPlayerHuman::sacrifice_selection() {
+	if ( !m_discard.count() ) {
+		m_display->context_bar("No card in discard pile to sacrifice" );
+		return;
+	}
+
 	m_display->context_bar("Select a card from your discard pile to sacrifice/destroy.");
 	m_discard.remove(m_display->card_selection_deckable(m_discard.cards()));
 }

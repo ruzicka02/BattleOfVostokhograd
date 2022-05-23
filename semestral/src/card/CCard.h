@@ -102,8 +102,7 @@ public:
 	/// Changes state whether card was played or not. Dummy implementation for non deployable cards.
 	virtual void set_played(bool) = 0;
 
-	/// Describes the "quality" of card in one number based on its parameters. Always returns 0 for General card as
-	/// a special value to distinguish. Used mostly by CPlayerAI.
+	/// Describes the "quality" of card in one number based on its parameters. Used mostly by CPlayerAI.
 	virtual int score() = 0;
 };
 

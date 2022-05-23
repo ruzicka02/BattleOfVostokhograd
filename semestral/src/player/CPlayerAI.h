@@ -11,6 +11,10 @@
 /// it selects the most adequate one, using internal heuristics.
 class CPlayerAI : public CPlayer {
 protected:
+	/// Player selects the best fitted card to buy from the shop and inserts it into the discard pile. Aborted if player
+	/// has insufficient funds for this action.
+	/// @return False in case no card has been bought.
+	bool buy_card();
 public:
 	CPlayerAI( std::shared_ptr<CCardGeneral> gen, const CDeck& deck, CDisplay* display, CShop* shop )
 			: CPlayer(std::move(gen), deck, display, shop) {}
@@ -20,7 +24,7 @@ public:
 
 	bool play() override;
 
-	/// Virtual method for player to choose one card using CDisplay::card_selection()
+	/// Virtual method for player to choose one card using smart heuristics.
 	/// @return Selected card.
 	/// @param[in] cards Cards to choose from.
 	/// @param[in] mode Action with the given cards for the AI

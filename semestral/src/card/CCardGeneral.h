@@ -40,7 +40,9 @@ public:
 	/// @return Shared pointer to the newly created card.
 	static std::shared_ptr<CCardGeneral> load_card (const std::string& line);
 
-	int score() override { return 0; }
+	int score() override {
+		return 15 * (m_life_init - m_life); // determined purely by missing life (with stronger coefficient)
+	}
 };
 
 

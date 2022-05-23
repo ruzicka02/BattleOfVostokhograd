@@ -131,8 +131,8 @@ public:
 
 	/// Virtual method for player to choose one card. Performed automatically by AI players.
 	/// @return Selected card.
-	/// @param[in] cards Cards to choose from.
-	/// @param[in] mode Action with the given cards for the AI
+	/// @param[in] cards Cards to choose from. Undefined behavior for empty vector.
+	/// @param[in] mode Action with the given cards for the AI.
 	virtual std::shared_ptr<CCard> pick_card( const std::vector< std::shared_ptr<CCard> >& cards, int mode ) const = 0;
 };
 

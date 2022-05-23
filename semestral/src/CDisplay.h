@@ -49,6 +49,10 @@ public:
 	/// Changes the content of context bar on top of the screen, telling more about the current action
 	void context_bar( const std::string& context );
 
+	/// Pauses the game for given time period so that player can watch the game properly.
+	/// @param[in] time Pause time (tenths of second). Set to 1 second by default.
+	void pause( int time = 10 );
+
 	/// Refreshes the screen with the current card state of these two players.
 	/// @param[in] first Player who is currently about to play.
 	/// @param[in] second Opponent of the playing player.

@@ -3,7 +3,6 @@
 //
 
 #include <random>
-#include <ncurses.h>
 
 #include "CPlayerBogo.h"
 #include "../CDisplay.h"
@@ -16,8 +15,7 @@ bool CPlayerBogo::play() {
 	m_hand.shuffle_cards();
 	while(m_hand.count()) {
 		m_display->context_bar("Opponent is currently playing." );
-		halfdelay(10);
-		getch();
+		m_display->pause();
 
 		play_card(m_hand.seek_top(), true);
 		m_display->refresh_board(shared_from_this(), m_opponent.lock(), m_shop);
@@ -30,8 +28,7 @@ bool CPlayerBogo::play() {
 			continue;
 
 		m_display->context_bar("Opponent is currently playing." );
-		halfdelay(10);
-		getch();
+		m_display->pause();
 
 		play_card(card, false);
 		m_display->refresh_board(shared_from_this(), m_opponent.lock(), m_shop);
@@ -41,8 +38,7 @@ bool CPlayerBogo::play() {
 
 	m_display->context_bar("Opponent is currently buying new cards." );
 	while (	buy_card() ) {
-		halfdelay(10);
-		getch();
+		m_display->pause();
 	}
 
 	// set all cards as not played
@@ -50,12 +46,13 @@ bool CPlayerBogo::play() {
 		m_table.cards().at(i)->set_played(false);
 
 	get_general()->set_played(false);
-
-	nocbreak(); // turn off half delay mode
-	cbreak();
+	return false;
 }
 
 std::shared_ptr<CCard> CPlayerBogo::pick_card(const std::vector<std::shared_ptr<CCard>> &cards, int mode) const {
+	if ( cards.empty() )
+		return nullptr;
+
 	uniform_int_distribution<size_t> dist(0, cards.size() - 1);
 	random_device rand("/dev/urandom");
 	return cards.at(dist(rand));
@@ -77,7 +74,15 @@ void CPlayerBogo::discard_selection() {
 }
 
 void CPlayerBogo::sacrifice_selection() {
-	uniform_int_distribution<size_t> dist(0, m_discard.count() - 1);
+	if ( !m_discard.count() ) {
+		m_display->context_bar("No card in discard pile to sacrifice" );
+		return;
+	}
+
+	// limit the maximal discard pile depth to be equal with CPlayerHuman
+	int max_depth = ( m_discard.count() > 10 ) ? 10 : (int)m_discard.count();
+
+	uniform_int_distribution<size_t> dist(0, max_depth - 1);
 	random_device rand("/dev/urandom");
 	m_discard.remove( m_discard.cards().at(dist(rand)) );
 }

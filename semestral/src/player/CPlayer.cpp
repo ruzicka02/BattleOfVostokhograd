@@ -133,8 +133,6 @@ void CPlayer::play_card(std::shared_ptr<CCard> card, bool hand) {
 
 			card->special(shared_from_this(), dynamic_pointer_cast<CCardDeckable>(selected));
 			// we know this card is deckable... taken from opponents table
-		} else if ( ability == sacrifice && ! m_discard.count() ) {
-			m_display->context_bar("No card in discard pile to sacrifice" );
 		} else {
 			m_display->context_bar(ability_to_print_str(ability));
 			card->special(shared_from_this()); // using the default nullptr value as a selected card
