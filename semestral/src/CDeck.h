@@ -10,7 +10,7 @@
 #include <iostream>
 
 #include "card/CCardDeckable.h"
-#include "EAbility.h"
+#include "card/EAbility.h"
 
 /// Container for various CCardDeckable derived objects, used on various places throughout the game. It is only recommended to
 /// use in cases where all the connected methods are desirable - otherwise, only the pure vector of CCard pointers is used.

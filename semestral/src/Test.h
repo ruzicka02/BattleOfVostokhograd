@@ -11,7 +11,7 @@
 #include <iomanip>
 #include <cassert>
 
-#include "EAbility.h"
+#include "card/EAbility.h"
 #include "card/CCardTroop.h"
 #include "card/CCardWarcry.h"
 #include "card/CCardGeneral.h"

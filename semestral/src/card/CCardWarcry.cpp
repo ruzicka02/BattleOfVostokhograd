@@ -101,3 +101,26 @@ std::vector<int> CCardWarcry::attributes() {
 
 	return values;
 }
+
+int CCardWarcry::score() {
+	int val = 3 * m_damage + 3 * m_protection + 2 * m_cash;
+
+	switch (m_special) {
+		case steal:
+			val += 15;
+			break;
+		case draw:
+			val += 11;
+			break;
+		case discard:
+			val += 9;
+			break;
+		case sacrifice:
+			val += 6;
+			break;
+		default: // no ability or unexpected value
+			break;
+	}
+
+	return val;
+}

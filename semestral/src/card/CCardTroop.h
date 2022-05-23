@@ -29,8 +29,14 @@ public:
 	bool change_life( int life ) override;
 	void restore() override;
 
+	std::pair<int, int> life() override {
+		return {m_life, m_life_init};
+	}
+
 	[[nodiscard]] bool played() const override { return m_played; }
 	void set_played(bool played) override { m_played = played; }
+
+	int score() override;
 };
 
 

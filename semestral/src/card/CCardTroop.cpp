@@ -131,3 +131,28 @@ std::vector<int> CCardTroop::attributes() {
 
 	return values;
 }
+
+int CCardTroop::score() {
+	int val = 3 * m_damage + 3 * m_protection + 2 * m_cash;
+	val += 2 * m_life_init; // cards that start with high health are of good quality
+	val += 5 * (m_life_init - m_life); // cards that are missing life are desirable to be attacked/protected
+
+	switch (m_special) {
+		case steal:
+			val += 15;
+			break;
+		case draw:
+			val += 11;
+			break;
+		case discard:
+			val += 9;
+			break;
+		case sacrifice:
+			val += 6;
+			break;
+		default: // no ability or unexpected value
+			break;
+	}
+
+	return val;
+}

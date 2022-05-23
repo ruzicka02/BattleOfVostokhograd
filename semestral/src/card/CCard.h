@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-#include "../EAbility.h"
+#include "EAbility.h"
 
 // forward declaration because of card playing methods
 class CPlayer;
@@ -93,11 +93,18 @@ public:
 	/// Returns the special ability of the card.
 	[[nodiscard]] EAbility special_get() const { return m_special; }
 
+	/// Returns the current and initial life of the card (in this order). Used mostly by CPlayerAI.
+	virtual std::pair<int, int> life() = 0;
+
 	/// Returns whether card was already played. Dummy implementation for non deployable cards.
 	virtual bool played() const = 0;
 
 	/// Changes state whether card was played or not. Dummy implementation for non deployable cards.
 	virtual void set_played(bool) = 0;
+
+	/// Describes the "quality" of card in one number based on its parameters. Always returns 0 for General card as
+	/// a special value to distinguish. Used mostly by CPlayerAI.
+	virtual int score() = 0;
 };
 
 
