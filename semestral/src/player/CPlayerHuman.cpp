@@ -19,6 +19,8 @@ bool CPlayerHuman::play() {
 	while (cards_available) {
 		m_display->context_bar("Your turn! Select a card." );
 		m_display->refresh_board(shared_from_this(), m_opponent.lock(), m_shop);
+
+		// performs the card play itself (return value means that player wants to exit)
 		if ( card_selection_ingame() )
 			return true;
 

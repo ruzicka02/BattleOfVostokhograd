@@ -2,8 +2,6 @@
 // Created by simon on 17.4.22.
 //
 
-#include <ncurses.h>
-
 #include "CPlayer.h"
 #include "../CDisplay.h"
 
@@ -43,6 +41,7 @@ void CPlayer::kill_card(std::shared_ptr <CCard> target) {
 	if ( target == m_general )
 		return;
 
+	// we now know that the card is not general... is deckable (THIS IS NOT POLYMORPHISM AND I KNOW IT)
 	auto target_deck = dynamic_pointer_cast<CCardDeckable>(target);
 	target_deck->restore();
 	m_table.remove(target_deck);
@@ -69,8 +68,6 @@ void CPlayer::deploy_card(std::shared_ptr<CCardDeckable> target) {
 }
 
 void CPlayer::play_card(std::shared_ptr<CCard> card, bool hand) {
-	// automatically goes through the phases
-	halfdelay(10);
 
 	// Can be deployed (troop), can attack, can protect, has special ability
 	vector<int> attr = card->attributes();
@@ -82,7 +79,7 @@ void CPlayer::play_card(std::shared_ptr<CCard> card, bool hand) {
 			deploy_card(card_deck);
 			m_display->context_bar("Troop has been deployed." );
 			m_display->refresh_board(shared_from_this(), m_opponent.lock(), m_shop);
-			getch();
+			m_display->pause();
 		}
 
 		// must be warcry in hand... discard the card from hand
@@ -139,7 +136,7 @@ void CPlayer::play_card(std::shared_ptr<CCard> card, bool hand) {
 		}
 
 		m_display->refresh_board(shared_from_this(), m_opponent.lock(), m_shop);
-		getch();
+		m_display->pause();
 	}
 
 	// cash
@@ -147,13 +144,10 @@ void CPlayer::play_card(std::shared_ptr<CCard> card, bool hand) {
 		m_cash += card->cash();
 		m_display->context_bar("Cash added to your stockpile.");
 		m_display->refresh_board(shared_from_this(), m_opponent.lock(), m_shop);
-		getch();
+		m_display->pause();
 	}
 
 	card->set_played(true);
-
-	nocbreak(); // turn off half delay mode
-	cbreak();
 }
 
 bool CPlayer::save_player(ostream &file) {

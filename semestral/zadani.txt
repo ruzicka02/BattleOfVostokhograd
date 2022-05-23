@@ -56,10 +56,9 @@ Inspirací pro semestrální práci byla karetní hra Hero Realms (https://www.h
 
 # TODO
 
-- ovládání počítačem CPlayerAI
-- savegame mechanismus
-- CLI rozhraní
+- životy karet v savefiles (life vs. life_init)
+- testování špatných savefiles k načtení
 
 Navíc:
-- životy karet v savefiles (life vs. life_init)
 - nastavení wide char funkcionality v menu
+- CLI rozhraní

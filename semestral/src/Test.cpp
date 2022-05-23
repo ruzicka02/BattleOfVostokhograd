@@ -89,6 +89,17 @@ void CDeck_t () {
 	deck.save_deck(s_processed);
 
 	assert(s_processed.str() == s_file.str());
+	cout << "[ASSERT]	Load and save creates equal file" << endl;
+
+//	Corrupted saves
+	input.open( "examples/decks/corrupted.csv" );
+	s_file.str("");
+	s_file << input.rdbuf();
+	input.close();
+
+	CDeck please_dont_crash;
+	assert ( ! please_dont_crash.load_deck(s_file) );
+	cout << "[ASSERT]	Corrupted files don't crash the program" << endl;
 }
 
 void CDisplay_t () {
@@ -194,7 +205,7 @@ void play_card_t () {
 	deck.insert(make_shared<CCardWarcry>("Sample warcry", "Lorem ipsum dolor sit amet", 1, 2, 3, 4, null));
 	deck.insert(make_shared<CCardWarcry>("Sample warcry", "Lorem ipsum dolor sit amet", 1, 2, 3, 4, draw));
 	deck.insert(make_shared<CCardWarcry>("Sample warcry", "Lorem ipsum dolor sit amet", 1, 2, 3, 4, discard));
-	deck.insert(make_shared<CCardWarcry>("Sample warcry", "Lorem ipsum dolor sit amet", 1, 2, 3, 4, sacrifice));
+	deck.insert(make_shared<CCardTroop>("Sacrifice troop", "Lorem ipsum dolor sit amet", 1, 2, 3, 4, 5, sacrifice));
 
 	CDeck deck2;
 	deck2.insert(make_shared<CCardTroop>("Training dummy", "Lorem ipsum dolor sit amet", 8, 2, 0, 0, 1, null));

@@ -12,10 +12,10 @@ bool CPlayerAI::play() {
 	// play all cards in hand in sequence
 	while(m_hand.count()) {
 		m_display->context_bar("Opponent is currently playing." );
+		m_display->refresh_board(shared_from_this(), m_opponent.lock(), m_shop);
 		m_display->pause();
 
 		play_card(m_hand.seek_top(), true);
-		m_display->refresh_board(shared_from_this(), m_opponent.lock(), m_shop);
 	}
 
 	// play all cards on table in sequence
@@ -24,10 +24,10 @@ bool CPlayerAI::play() {
 			continue;
 
 		m_display->context_bar("Opponent is currently playing." );
+		m_display->refresh_board(shared_from_this(), m_opponent.lock(), m_shop);
 		m_display->pause();
 
 		play_card(card, false);
-		m_display->refresh_board(shared_from_this(), m_opponent.lock(), m_shop);
 	}
 
 	play_card(m_general, false);
