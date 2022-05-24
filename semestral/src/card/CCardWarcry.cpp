@@ -84,8 +84,7 @@ string CCardWarcry::save_card() {
 		.append(to_string(m_damage) + ",")
 		.append(to_string(m_protection) + ",")
 		.append(to_string(m_cash) + ",")
-		.append(ability_to_str(m_special) + ",")
-		.append("0");
+		.append(ability_to_str(m_special));
 
 	return data;
 }

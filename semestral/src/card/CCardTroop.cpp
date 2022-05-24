@@ -117,6 +117,9 @@ string CCardTroop::save_card() {
 		.append(ability_to_str(m_special) + ",")
 		.append(to_string(m_life_init));
 
+	if ( m_life != m_life_init )
+		data.append("," + to_string(m_life));
+
 	return data;
 }
 

@@ -107,7 +107,10 @@ string CCardGeneral::save_card() {
 		.append(to_string(m_protection) + ",")
 		.append(to_string(m_cash) + ",")
 		.append(ability_to_str(m_special) + ",")
-		.append(to_string(m_life)); // only stores the current life value, set as new maximum
+		.append(to_string(m_life_init));
+
+	if ( m_life != m_life_init )
+		data.append("," + to_string(m_life));
 
 	return data;
 }
@@ -132,25 +135,41 @@ shared_ptr<CCardGeneral> CCardGeneral::load_card(const string& line) {
 	while(getline(line_stream, val, ','))
 		row.push_back(val);
 
-	if ( row.size() <= 7 )
+	if ( row.size() <= 8 )
 		return nullptr;
 
 	// card values
-	string name = row.at(0),
+	string	name = row.at(0),
 			desc = row.at(1),
 			type = row.at(2),
 			special_str = row.at(7);
-	int cost = stoi(row.at(3)),
-			damage = stoi(row.at(4)),
-			heal = stoi(row.at(5)),
-			cash = stoi(row.at(6)),
-			life = stoi(row.at(8));
+
+	int cost = 0, damage = 0, heal = 0, cash = 0, life_init = 0, life = 0;
+	try {
+		cost = stoi(row.at(3));
+		damage = stoi(row.at(4));
+		heal = stoi(row.at(5));
+		cash = stoi(row.at(6));
+		life_init = stoi(row.at(8));
+		life = life_init;
+
+		if ( row.size() >= 10 )
+			life = stoi(row.at(9));
+
+	} catch (...) {
+		// problematic numeric conversion, number out of range of 32bit int
+		return nullptr;
+	}
 
 	EAbility special = str_to_ability(special_str);
 
 	// create card based on the given type
 	if ( type != "g" )
 		return nullptr;
-	else
-		return make_shared<CCardGeneral>(name, desc, life, cost, damage, heal, cash, special);
+	else {
+		auto card = make_shared<CCardGeneral>(name, desc, life_init, cost, damage, heal, cash, special);
+		card->change_life(life - life_init);
+		return card;
+	}
+
 }

@@ -98,13 +98,26 @@ void CDeck_t () {
 	cout << "[ASSERT]	Load and save creates equal file" << endl;
 
 //	Corrupted saves
-	input.open( "examples/decks/corrupted.csv" );
+	CDeck please_dont_crash;
+
+	input.open( "examples/decks/corrupted1.csv" );
 	s_file.str("");
 	s_file << input.rdbuf();
 	input.close();
-
-	CDeck please_dont_crash;
 	assert ( ! please_dont_crash.load_deck(s_file) );
+
+	input.open( "examples/decks/corrupted2.csv" );
+	s_file.str("");
+	s_file << input.rdbuf();
+	input.close();
+	assert ( ! please_dont_crash.load_deck(s_file) );
+
+	input.open( "examples/decks/corrupted2.csv" );
+	s_file.str("");
+	s_file << input.rdbuf();
+	input.close();
+	assert ( ! please_dont_crash.load_deck(s_file) );
+
 	cout << "[ASSERT]	Corrupted files don't crash the program" << endl;
 }
 

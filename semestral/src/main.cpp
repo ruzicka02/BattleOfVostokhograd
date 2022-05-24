@@ -23,8 +23,8 @@ int main ( int argc, char* argv[] ) {
 
 	// tests
 	if ( argc > 1 && ! strcmp( argv[1], "--debug") ) {
-		play_card_t();
-		CDisplay_t();
+//		play_card_t();
+//		CDisplay_t();
 		CDeck_t();
 		refresh_board_t();
 		card_selection_t();
