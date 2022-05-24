@@ -47,12 +47,13 @@ Ve složce zdrojových souborů se navíc nachází knihovna funkcí **Test.cpp*
 
 ## Polymorfismus
 
-- Typy karet: jednorázové (Warcry), trvalé (Troop), ~~hráčská postava (General)~~
-- Ovládání hráče: lokální hráč (Human), umělá inteligence (AI), náhodné tahy (Bogo)
+- Typy karet v balíčku (CCardDeckable): jednorázové (Warcry), trvalé (Troop)
+    - Poznámka: Vztah dědičnosti na CCard (Deckable, General) není polymorfický, kvůli použití CCardGeneral ani nemůže
+- Ovládání hráče(CPlayer): lokální hráč (Human), umělá inteligence (AI), náhodné tahy (Bogo)
 
-## Zdroje
+## Inspirace
 
-Inspirací pro semestrální práci byla karetní hra Hero Realms (https://www.herorealms.com/).
+Inspirací pro semestrální práci byla karetní hra [Hero Realms](https://www.herorealms.com/). Některé herní mechaniky mohou naopak nápadně připomínat multiplatformní karetní hru v digitální podobě [Hearthstone](https://playhearthstone.com/).
 
 # TODO
 

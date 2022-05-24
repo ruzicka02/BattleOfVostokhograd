@@ -3,7 +3,6 @@
 //
 
 #include "CCard.h"
-#include "CCardDeckable.h"
 
 #include "../player/CPlayer.h"
 

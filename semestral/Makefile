@@ -1,8 +1,8 @@
 CXXFLAGS = -Wall -pedantic -std=c++17
 LDLIBS = -lncursesw -lstdc++fs
 
-HEADERS = $(wildcard src/*.h) $(wildcard src/card/*.h) $(wildcard src/player/*.h)
-SOURCES = $(wildcard src/*.cpp) $(wildcard src/card/*.cpp) $(wildcard src/player/*.cpp)
+HEADERS = $(wildcard src/*.h) $(wildcard src/*/*.h)
+SOURCES = $(wildcard src/*.cpp) $(wildcard src/*/*.cpp)
 OBJECTS = $(SOURCES:src/%.cpp=build/%.o)
 
 .PHONY: all
@@ -19,13 +19,12 @@ debug: compile
 .PHONY: compile
 compile: ruzicsi1
 
-ruzicsi1: build/main
-	cp $< $@
-
-build/main: $(OBJECTS)
-	mkdir -p $(@D)
+# linking process, creating the executable binary file in the main directory
+ruzicsi1: $(OBJECTS)
 	g++ $^ -o $@ $(LDLIBS)
 
+# compiles the given cpp file into an object file in the 'build' directory
+# $(@D) stands for the needed (sub)directory that has to be created first
 build/%.o: src/%.cpp
 	mkdir -p $(@D)
 	g++ $(CXXFLAGS) $< -c -o $@ -g
@@ -39,47 +38,39 @@ clean:
 	rm -rf ruzicsi1 build/ doc/ README.md 2>/dev/null
 
 # Requirements / Dependencies
-# Proudly generated from g++ src/*.cpp -MM
+# Proudly generated from g++ src/*.cpp src/*/*.cpp -MM
+# Manually tweaked afterwards to avoid jumps between directories (src/player/../card/CCard.h)
 CDeck.o: src/CDeck.cpp src/CDeck.h src/card/CCardDeckable.h \
- src/card/CCard.h src/card/EAbility.h src/card/EAbility.h
+ src/card/CCard.h src/card/EAbility.h
 CDisplay.o: src/CDisplay.cpp src/CDisplay.h src/player/CPlayer.h \
- src/player/../CDeck.h src/player/../card/CCardDeckable.h \
- src/player/../card/CCard.h src/player/../card/EAbility.h \
- src/player/../card/EAbility.h src/player/../CShop.h \
- src/player/../CDeck.h src/player/../card/CCardGeneral.h src/CShop.h
-CGame.o: src/CGame.cpp src/CGame.h src/player/CPlayer.h \
- src/player/../CDeck.h src/player/../card/CCardDeckable.h \
- src/player/../card/CCard.h src/player/../card/EAbility.h \
- src/player/../card/EAbility.h src/player/../CShop.h \
- src/player/../CDeck.h src/player/../card/CCardGeneral.h src/CShop.h \
- src/CDisplay.h src/player/CPlayerHuman.h src/player/CPlayer.h \
- src/player/CPlayerAI.h src/player/CPlayerBogo.h
+ src/CShop.h src/CDeck.h \
+ src/card/CCardDeckable.h src/card/CCard.h \
+ src/card/EAbility.h src/card/CCardGeneral.h \
+ src/CShop.h
+CGame.o: src/CGame.cpp src/CGame.h src/CDisplay.h src/player/CPlayer.h \
+ src/CShop.h src/CDeck.h \
+ src/card/CCardDeckable.h src/card/CCard.h \
+ src/card/EAbility.h src/card/CCardGeneral.h \
+ src/player/CPlayerHuman.h src/player/CPlayer.h src/player/CPlayerAI.h \
+ src/player/CPlayerBogo.h
 CShop.o: src/CShop.cpp src/CShop.h src/CDeck.h src/card/CCardDeckable.h \
- src/card/CCard.h src/card/EAbility.h src/card/EAbility.h
-main.o: src/main.cpp src/Test.h src/card/EAbility.h src/card/CCardTroop.h \
+ src/card/CCard.h src/card/EAbility.h
+main.o: src/main.cpp src/Test.h src/CGame.h src/CDisplay.h \
+ src/player/CPlayer.h src/CShop.h src/CDeck.h \
+ src/card/CCardDeckable.h src/card/CCard.h \
+ src/card/EAbility.h src/card/CCardGeneral.h
+Test.o: src/Test.cpp src/Test.h src/card/CCardTroop.h \
  src/card/CCardDeckable.h src/card/CCard.h src/card/EAbility.h \
  src/card/CCardWarcry.h src/card/CCardGeneral.h src/CDisplay.h \
- src/player/CPlayer.h src/player/../CDeck.h \
- src/player/../card/CCardDeckable.h src/player/../card/EAbility.h \
- src/player/../CShop.h src/player/../CDeck.h \
- src/player/../card/CCardGeneral.h src/CShop.h src/player/CPlayerHuman.h \
- src/player/CPlayer.h src/CGame.h
-Test.o: src/Test.cpp src/Test.h src/card/EAbility.h src/card/CCardTroop.h \
- src/card/CCardDeckable.h src/card/CCard.h src/card/EAbility.h \
- src/card/CCardWarcry.h src/card/CCardGeneral.h src/CDisplay.h \
- src/player/CPlayer.h src/player/../CDeck.h \
- src/player/../card/CCardDeckable.h src/player/../card/EAbility.h \
- src/player/../CShop.h src/player/../CDeck.h \
- src/player/../card/CCardGeneral.h src/CShop.h src/player/CPlayerHuman.h \
- src/player/CPlayer.h
+ src/player/CPlayer.h src/CShop.h src/CDeck.h \
+ src/card/CCardDeckable.h src/card/CCardGeneral.h \
+ src/player/CPlayerHuman.h
 
 # card
 CCard.o: src/card/CCard.cpp src/card/CCard.h src/card/EAbility.h \
- src/card/CCardDeckable.h src/card/../player/CPlayer.h \
- src/card/../player/../CDeck.h src/card/../player/../card/CCardDeckable.h \
- src/card/../player/../card/EAbility.h src/card/../player/../CShop.h \
- src/card/../player/../CDeck.h src/card/../player/../card/CCardGeneral.h \
- src/card/../player/../card/CCard.h
+ src/player/CPlayer.h src/CShop.h \
+ src/CDeck.h src/card/CCardDeckable.h \
+ src/card/CCardGeneral.h
 CCardDeckable.o: src/card/CCardDeckable.cpp src/card/CCardDeckable.h \
  src/card/CCard.h src/card/EAbility.h src/card/CCardWarcry.h \
  src/card/CCardTroop.h
@@ -92,32 +83,23 @@ CCardWarcry.o: src/card/CCardWarcry.cpp src/card/CCardWarcry.h \
 
 # player
 CPlayerAI.o: src/player/CPlayerAI.cpp src/player/CPlayerAI.h \
- src/player/CPlayer.h src/player/../CDeck.h \
- src/player/../card/CCardDeckable.h src/player/../card/CCard.h \
- src/player/../card/EAbility.h src/player/../card/EAbility.h \
- src/player/../CShop.h src/player/../CDeck.h \
- src/player/../card/CCardGeneral.h src/player/../CDisplay.h \
- src/player/../player/CPlayer.h src/player/../CShop.h
+ src/player/CPlayer.h src/CShop.h src/CDeck.h \
+ src/card/CCardDeckable.h src/card/CCard.h \
+ src/card/EAbility.h src/card/CCardGeneral.h \
+ src/CDisplay.h
 CPlayerBogo.o: src/player/CPlayerBogo.cpp src/player/CPlayerBogo.h \
- src/player/CPlayer.h src/player/../CDeck.h \
- src/player/../card/CCardDeckable.h src/player/../card/CCard.h \
- src/player/../card/EAbility.h src/player/../card/EAbility.h \
- src/player/../CShop.h src/player/../CDeck.h \
- src/player/../card/CCardGeneral.h src/player/../CDisplay.h \
- src/player/../player/CPlayer.h src/player/../CShop.h
+ src/player/CPlayer.h src/CShop.h src/CDeck.h \
+ src/card/CCardDeckable.h src/card/CCard.h \
+ src/card/EAbility.h src/card/CCardGeneral.h \
+ src/CDisplay.h
 CPlayer.o: src/player/CPlayer.cpp src/player/CPlayer.h \
- src/player/../CDeck.h src/player/../card/CCardDeckable.h \
- src/player/../card/CCard.h src/player/../card/EAbility.h \
- src/player/../card/EAbility.h src/player/../CShop.h \
- src/player/../CDeck.h src/player/../card/CCardGeneral.h \
- src/player/../CDisplay.h src/player/../player/CPlayer.h \
- src/player/../CShop.h
-CPlayerHuman.o: src/player/CPlayerHuman.cpp src/player/../CDisplay.h \
- src/player/../player/CPlayer.h src/player/../player/../CDeck.h \
- src/player/../player/../card/CCardDeckable.h \
- src/player/../player/../card/CCard.h \
- src/player/../player/../card/EAbility.h \
- src/player/../player/../card/EAbility.h src/player/../player/../CShop.h \
- src/player/../player/../CDeck.h \
- src/player/../player/../card/CCardGeneral.h src/player/../CShop.h \
- src/player/CPlayerHuman.h src/player/CPlayer.h
+ src/CShop.h src/CDeck.h \
+ src/card/CCardDeckable.h src/card/CCard.h \
+ src/card/EAbility.h src/card/CCardGeneral.h \
+ src/CDisplay.h
+CPlayerHuman.o: src/player/CPlayerHuman.cpp src/player/CPlayerHuman.h \
+ src/player/CPlayer.h src/CShop.h src/CDeck.h \
+ src/card/CCardDeckable.h src/card/CCard.h \
+ src/card/EAbility.h src/card/CCardGeneral.h \
+ src/CDisplay.h
+

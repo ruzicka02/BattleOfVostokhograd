@@ -14,7 +14,7 @@ using namespace std;
 void sigint_handler( int num ) {
 	endwin(); // shut down ncurses
 
-	cout << "Interrupt signal called, game was terminated automatically";
+	cout << "Interrupt signal called, game was terminated automatically" << endl;
 	exit(0);
 }
 

@@ -3,6 +3,12 @@
 //
 
 #include "Test.h"
+#include "card/CCardTroop.h"
+#include "card/CCardWarcry.h"
+#include "card/CCardGeneral.h"
+
+#include "CDisplay.h"
+#include "player/CPlayerHuman.h"
 
 using namespace std;
 

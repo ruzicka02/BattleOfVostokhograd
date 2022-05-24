@@ -6,9 +6,8 @@
 #include <sstream>
 #include <ncurses.h>
 
-
-#include "../CDisplay.h"
 #include "CPlayerHuman.h"
+#include "../CDisplay.h"
 
 using namespace std;
 

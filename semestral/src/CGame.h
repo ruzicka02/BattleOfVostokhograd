@@ -7,8 +7,6 @@
 
 #include <memory>
 
-#include "player/CPlayer.h"
-#include "CShop.h"
 #include "CDisplay.h"
 
 /// High-level class for managing the creation and successful termination of the game. Handles the way players change turns.
