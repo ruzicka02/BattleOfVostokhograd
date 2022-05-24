@@ -16,7 +16,10 @@
 
 using namespace std;
 
-CGame::CGame() {
+CGame::CGame(bool start) {
+	if ( !start )
+		return;
+
 	int menu_res = m_display.menu({" New PvP game", " New PvE game", " Load game", " Exit"});
 	bool exit_switch = false, load_switch = false;
 

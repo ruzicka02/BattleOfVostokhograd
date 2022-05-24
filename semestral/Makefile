@@ -64,7 +64,7 @@ Test.o: src/Test.cpp src/Test.h src/card/CCardTroop.h \
  src/card/CCardWarcry.h src/card/CCardGeneral.h src/CDisplay.h \
  src/player/CPlayer.h src/CShop.h src/CDeck.h \
  src/card/CCardDeckable.h src/card/CCardGeneral.h \
- src/player/CPlayerHuman.h
+ src/player/CPlayerHuman.h src/CGame.h
 
 # card
 CCard.o: src/card/CCard.cpp src/card/CCard.h src/card/EAbility.h \

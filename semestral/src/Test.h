@@ -27,4 +27,7 @@ void refresh_board_t ();
 /// Tests the CPlayer::play_card method
 void play_card_t ();
 
+/// Tests the load/save feature of CGame class.
+void CGame_load_t();
+
 #endif //SEMESTRAL_TEST_H

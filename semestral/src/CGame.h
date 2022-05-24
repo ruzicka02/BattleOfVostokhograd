@@ -16,6 +16,13 @@ protected:
 	std::shared_ptr<CPlayer> 	m_second;
 	CShop						m_shop;
 	CDisplay					m_display;
+public:
+
+	/// Starts the game, automatically creates instance of CDisplay and an empty CShop. Afterwards, it opens the menu
+	/// using CDisplay::menu, lets player select action and performs it.
+	/// @param[in] start If true (default value), starts the opening game menu and all following actions. This behavior
+	/// is not desirable when debugging methods of CGame.
+	CGame(bool start = true);
 
 	/// Prepares the game for one player vs. AI
 	void prepare_pve();
@@ -36,11 +43,6 @@ protected:
 
 	/// Returns names of all game saves in the inherently used directory examples/saves/
 	std::vector<std::string> get_saved_games();
-public:
-
-	/// Starts the game, automatically creates instance of CDisplay and an empty CShop. Afterwards, it opens the menu
-	/// using CDisplay::menu, lets player select action and performs it.
-	CGame();
 };
 
 

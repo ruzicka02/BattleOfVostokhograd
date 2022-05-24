@@ -7,7 +7,7 @@
 #include "card/CCardWarcry.h"
 #include "card/CCardGeneral.h"
 
-#include "CDisplay.h"
+#include "CGame.h"
 #include "player/CPlayerHuman.h"
 
 using namespace std;
@@ -259,4 +259,9 @@ void play_card_t () {
 	getch();
 
 	clear();
+}
+
+void CGame_load_t() {
+	CGame test_game(false);
+	test_game.prepare_pve();
 }

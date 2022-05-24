@@ -15,7 +15,7 @@ void sigint_handler( int num ) {
 	endwin(); // shut down ncurses
 
 	cout << "Interrupt signal called, game was terminated automatically" << endl;
-	exit(0);
+	exit(1);
 }
 
 int main ( int argc, char* argv[] ) {
@@ -23,11 +23,12 @@ int main ( int argc, char* argv[] ) {
 
 	// tests
 	if ( argc > 1 && ! strcmp( argv[1], "--debug") ) {
-//		play_card_t();
-//		CDisplay_t();
+		play_card_t();
+		CDisplay_t();
 		CDeck_t();
 		refresh_board_t();
 		card_selection_t();
+		CGame_load_t();
 	}
 
 	CGame game; // all game actions started from this constructor
