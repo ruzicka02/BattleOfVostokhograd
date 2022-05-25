@@ -73,7 +73,7 @@ void CGame::prepare_pve() {
 	deck.load_deck(input, true);
 	input.close();
 
-	auto g1 = make_shared<CCardGeneral>("Human General", "This general is the best general in the world", 50, 2, 3, 4, 1, null);
+	auto g1 = make_shared<CCardGeneral>("Human General", "This general is the best general in the world", 50, 0, 1, 0, 1, null);
 	m_first = make_shared<CPlayerHuman>(g1, deck, &m_display, &m_shop);
 
 	// AI randomness
@@ -85,7 +85,7 @@ void CGame::prepare_pve() {
 	deck2.load_deck(input, true);
 	input.close();
 
-	auto g2 = make_shared<CCardGeneral>("General RoboCop", "EX-TER-MI-NA-TE!", 50, 2, 3, 4, 1, null);
+	auto g2 = make_shared<CCardGeneral>("General RoboCop", "EX-TER-MI-NA-TE!", 50, 0, 1, 0, 1, null);
 	if ( menu_res )
 		m_second = make_shared<CPlayerBogo>(g2, deck2, &m_display, &m_shop);
 	else
@@ -101,7 +101,7 @@ void CGame::prepare_pvp() {
 	deck.load_deck(input, true);
 	input.close();
 
-	auto g1 = make_shared<CCardGeneral>("General Alice", "Using the power of weapons to crush her opponent", 50, 2, 3, 4, 1, null);
+	auto g1 = make_shared<CCardGeneral>("General Alice", "Using the power of weapons to crush her opponent", 50, 0, 1, 0, 1, null);
 	m_first = make_shared<CPlayerHuman>(g1, deck, &m_display, &m_shop);
 
 	CDeck deck2;
@@ -109,7 +109,7 @@ void CGame::prepare_pvp() {
 	deck2.load_deck(input, true);
 	input.close();
 
-	auto g2 = make_shared<CCardGeneral>("General Bob", "Using the weapons of power to crush his opponent", 50, 2, 3, 4, 1, null);
+	auto g2 = make_shared<CCardGeneral>("General Bob", "Using the weapons of power to crush his opponent", 50, 0, 1, 0, 1, null);
 	m_second = make_shared<CPlayerHuman>(g2, deck2, &m_display, &m_shop);
 
 	m_first->set_opponent(m_second);

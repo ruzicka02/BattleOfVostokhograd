@@ -128,10 +128,13 @@ void CPlayer::play_card(std::shared_ptr<CCard> card, bool hand) {
 			for ( const auto& table_card : m_opponent.lock()->get_table() ) {
 				choice.push_back(table_card);
 			}
-			auto selected = pick_card(choice, 3);
 
-			card->special(shared_from_this(), dynamic_pointer_cast<CCardDeckable>(selected));
-			// we know this card is deckable... taken from opponents table
+			if ( ! choice.empty() ) {
+				auto selected = pick_card(choice, 3);
+				card->special(shared_from_this(), dynamic_pointer_cast<CCardDeckable>(selected));
+				// we know this card is deckable... taken from opponents table
+			}
+
 		} else {
 			m_display->context_bar(ability_to_print_str(ability));
 			card->special(shared_from_this()); // using the default nullptr value as a selected card
