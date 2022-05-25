@@ -55,12 +55,7 @@ Ve složce zdrojových souborů se navíc nachází knihovna funkcí **Test.cpp*
 
 Inspirací pro semestrální práci byla karetní hra [Hero Realms](https://www.herorealms.com/). Některé herní mechaniky mohou naopak nápadně připomínat multiplatformní karetní hru v digitální podobě [Hearthstone](https://playhearthstone.com/).
 
-# TODO
+## Případné vylepšení
 
-- memory leak check
-- příprava pořadí prezentace
-
-## S trochou času navíc
-
-- nastavení wide char funkcionality v menu
-- CLI rozhraní (pro ukázku absence memory leaků)
+- Nastavitelné zobrazování karet pomocí UTF-8 (metoda print_card_wide() špatně funguje na terminálech nepodporujících UTF-8 znaky)
+- Alternativní zobrazovací rozhraní (např. CLI pro ukázku absence memory leaků)

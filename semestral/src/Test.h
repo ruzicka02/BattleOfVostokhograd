@@ -25,10 +25,13 @@ void CDisplay_t ();
 /// Prints a preview of the in-game board with "hidden cards" (not fitting to screen), deploys cards from hand to table on clicks.
 void refresh_board_t ();
 
-/// Tests the CPlayer::play_card method
+/// Tests the CPlayer::play_card method.
 void play_card_t ();
 
 /// Tests the load/save feature of CGame class.
 void CGame_load_t();
+
+/// Minimum actions required to trigger all ncurses-related memory leaks.
+void mem_check_t();
 
 #endif //SEMESTRAL_TEST_H

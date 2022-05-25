@@ -8,9 +8,8 @@
 using namespace std;
 
 void CShop::print_shop( int y, int x ) {
-	for ( const auto& card : m_content ) {
-		card->print_card(y, x);
-		y += 4;
+	for ( size_t i = 0; i < m_content.size(); i ++ ) {
+		m_content.at(i)->print_card(y + 4 * (int)i, x);
 	}
 }
 

@@ -22,13 +22,18 @@ int main ( int argc, char* argv[] ) {
 	signal(SIGINT, sigint_handler);
 
 	// tests
-	if ( argc > 1 && ! strcmp( argv[1], "--debug") ) {
-		CGame_load_t();
-		CDeck_t();
-		CDisplay_t();
-		card_selection_t();
-		refresh_board_t();
-		play_card_t();
+	if ( argc > 1 ) {
+		if ( ! strcmp( argv[1], "--debug") ) {
+			CGame_load_t();
+			CDeck_t();
+			CDisplay_t();
+			card_selection_t();
+			refresh_board_t();
+			play_card_t();
+		} else if ( ! strcmp( argv[1], "--mem-check") ) {
+			mem_check_t();
+			return 1;
+		}
 	}
 
 	CGame game; // all game actions started from this constructor

@@ -42,8 +42,9 @@ CDisplay::CDisplay() {
 	// game background (and inversion)
 	init_pair(8, COLOR_WHITE, COLOR_BLACK);
 	init_pair(9, COLOR_BLACK, COLOR_WHITE);
-	// version unsupported by test bench
+	// version unsupported in ncurses included on Docker
 	// init_pair(8, COLOR_WHITE, COLOR_CYAN + 16);
+	// init_pair(9, COLOR_CYAN + 16, COLOR_WHITE);
 
 	// info, context bars
 	init_pair(10, COLOR_BLACK, COLOR_CYAN);

@@ -290,3 +290,15 @@ void CGame_load_t() {
 
 	cout << "[ASSERT]	CGame_load_t: Corrupted files don't crash the program" << endl;
 }
+
+void mem_check_t() {
+	CDisplay screen; // initscr(), color definitions
+
+	auto card_t = CCardTroop("Name", "Sample description", 1, 2, 3, 4, 5, null);
+	card_t.print_card(0, 0); // more memory lost in window (that was deleted)
+
+	card_t.print_card(4, 0);
+	card_t.print_card(8, 0);
+	card_t.print_card(12, 0); // sometimes, more memory is taken when card windows are overlapping
+	card_t.print_card(16, 0); // this mostly occurs when drawing the shop on board
+}
