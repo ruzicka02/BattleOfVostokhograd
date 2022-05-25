@@ -31,7 +31,8 @@ public:
 	void prepare_pvp();
 
 	/// Starts playing the game itself.
-	void play();
+	/// @param[in] no_draw Used to determine whether the game has started from the scratch or was loaded.
+	void play(bool no_draw = false);
 
 	/// Saves the game into file with current datetime as name.
 	/// @return True on successful operation (no IO error etc)

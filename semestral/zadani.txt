@@ -57,9 +57,11 @@ Inspirací pro semestrální práci byla karetní hra [Hero Realms](https://www.
 
 # TODO
 
-- životy karet v savefiles (life vs. life_init)
 - testování špatných savefiles k načtení
+- memory leak check
+- příprava pořadí prezentace
 
-Navíc:
+## S trochou času navíc
+
 - nastavení wide char funkcionality v menu
-- CLI rozhraní
+- CLI rozhraní (pro ukázku absence memory leaků)

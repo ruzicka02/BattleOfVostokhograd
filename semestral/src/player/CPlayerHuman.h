@@ -31,6 +31,10 @@ public:
 	CPlayerHuman( std::istream& file, CDisplay* display, CShop* shop )
 		: CPlayer(file, display, shop) {}
 
+	std::string save_player_type() override {
+		return "Human";
+	}
+
 	bool play() override;
 
 	/// Virtual method for player to choose one card using CDisplay::card_selection()

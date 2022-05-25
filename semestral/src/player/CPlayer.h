@@ -38,13 +38,18 @@ public:
 	CPlayer& operator= ( const CPlayer& ) = default;
 	virtual ~CPlayer() = default;
 
-	/// Alternative constructor loads all information about player from a CSV file.
+	/// Alternative constructor loads all information about player from a CSV file. Used as a hypothetical
+	/// CPlayer::load_player() method that is nonexistent
 	/// @param[in] file Stream from which the card definitions are loaded.
+	/// @exception invalid_argument Throws exception on I/O error or invalid data as it has no return value.
 	CPlayer( std::istream& file, CDisplay* display, CShop* shop );
 
 	/// Saves all information about player and his cards into a CSV file.
 	/// @return True on success, False if a problem (I/O) occurred.
 	bool save_player( std::ostream& file );
+
+	/// Virtual method defined in each specialization of CPlayer, that is called from CPlayer::save_player().
+	virtual std::string save_player_type() = 0;
 
 	/// Draws the given amount of cards from drawing pile to hand.
 	void draw_cards( size_t amount );

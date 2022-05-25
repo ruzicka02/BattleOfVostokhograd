@@ -21,6 +21,13 @@ public:
 	CPlayerBogo& operator= ( const CPlayerBogo& ) = default;
 	~CPlayerBogo() override = default;
 
+	CPlayerBogo( std::istream& file, CDisplay* display, CShop* shop )
+	: CPlayer(file, display, shop) {}
+
+	std::string save_player_type() override {
+		return "Bogo";
+	}
+
 	bool play() override;
 
 	/// Virtual method for player to choose one card using the power of randomness.

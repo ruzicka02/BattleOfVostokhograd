@@ -36,8 +36,8 @@ public:
 		return {m_life, m_life_init};
 	}
 
-	/// Static method that creates a new card based on information in the given string.
-	/// @return Shared pointer to the newly created card.
+	/// Static method that creates a new CCardGeneral based on information in the given string.
+	/// @return Shared pointer to the newly created card. Returns nullptr on invalid input.
 	static std::shared_ptr<CCardGeneral> load_card (const std::string& line);
 
 	int score() override {

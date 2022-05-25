@@ -152,7 +152,7 @@ void CPlayer::play_card(std::shared_ptr<CCard> card, bool hand) {
 
 bool CPlayer::save_player(ostream &file) {
 	bool ok;
-	file << m_general->save_card() << "\n\n";
+	file << save_player_type() << '\n' << m_general->save_card() << "\n\n";
 	ok = m_drawing.save_deck(file);
 	file << "\n";
 	if ( ! ok )
@@ -179,11 +179,10 @@ CPlayer::CPlayer(istream &file, CDisplay *display, CShop *shop)
 	if ( ! file.good() )
 		throw invalid_argument("Loading CPlayer from file failed immediately");
 
-	string gen;
-	getline(file, gen);
-	cerr << gen << endl;
-	m_general = CCardGeneral::load_card(gen);
-	getline(file, gen); // empty newline
+	string line;
+	getline(file, line);
+	m_general = CCardGeneral::load_card(line);
+	getline(file, line); // empty newline
 
 	bool ok;
 	m_drawing.load_deck(file, false);

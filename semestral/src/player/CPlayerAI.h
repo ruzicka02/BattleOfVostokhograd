@@ -22,6 +22,13 @@ public:
 	CPlayerAI& operator= ( const CPlayerAI& ) = default;
 	~CPlayerAI() override = default;
 
+	CPlayerAI( std::istream& file, CDisplay* display, CShop* shop )
+	: CPlayer(file, display, shop) {}
+
+	std::string save_player_type() override {
+		return "AI";
+	}
+
 	bool play() override;
 
 	/// Virtual method for player to choose one card using smart heuristics.

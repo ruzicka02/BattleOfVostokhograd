@@ -21,6 +21,11 @@ bool CShop::load_deck( std::istream& file, bool shuffle ) {
 		insert(m_drawing.pop_top());
 	}
 
+	// swap cards to original order (saves should be identical)
+	for ( int i = 0; i < SHOP_SIZE / 2; i ++ ) {
+		swap(m_content.at(i), m_content.at(SHOP_SIZE - 1 - i));
+	}
+
 	return ret_val;
 }
 

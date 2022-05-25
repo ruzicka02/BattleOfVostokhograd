@@ -7,6 +7,7 @@
 #include <fstream>
 #include <sstream>
 #include <ctime>
+#include <iomanip>
 
 #include "CGame.h"
 
@@ -58,7 +59,7 @@ CGame::CGame(bool start) {
 
 	// detection of IO issues from reading external files
 	if (ok) {
-		play();	// main game loop
+		play(load_switch);	// main game loop
 	}
 }
 
@@ -111,12 +112,12 @@ void CGame::prepare_pvp() {
 	m_second->set_opponent(m_first);
 }
 
-void CGame::play() {
-	bool no_draw = ! m_first->get_hand().empty();
+void CGame::play(bool no_draw) {
 	while (! m_first->lost()) {
 		if ( !no_draw ) {
 			m_first->draw_cards(5);
 			m_first->discard_selection(); // discard up to m_cards_to_discard
+		} else {
 			no_draw = false;
 		}
 
@@ -161,8 +162,23 @@ bool CGame::load_game(std::string name) {
 	if ( ! file.good() )
 		return false;
 
-	m_first = make_shared<CPlayerHuman>(file, &m_display, &m_shop);
-	m_second = make_shared<CPlayerHuman>(file, &m_display, &m_shop);
+	string player_type;
+	getline(file, player_type);
+	if (player_type == "AI" )
+		m_first = make_shared<CPlayerAI>(file, &m_display, &m_shop);
+	else if (player_type == "Bogo" )
+		m_first = make_shared<CPlayerBogo>(file, &m_display, &m_shop);
+	else
+		m_first = make_shared<CPlayerHuman>(file, &m_display, &m_shop);
+
+	getline(file, player_type);
+	if (player_type == "AI" )
+		m_second = make_shared<CPlayerAI>(file, &m_display, &m_shop);
+	else if (player_type == "Bogo" )
+		m_second = make_shared<CPlayerBogo>(file, &m_display, &m_shop);
+	else
+		m_second = make_shared<CPlayerHuman>(file, &m_display, &m_shop);
+
 	m_shop.load_deck(file);
 
 	m_first->set_opponent(m_second);
