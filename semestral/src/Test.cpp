@@ -95,9 +95,9 @@ void CDeck_t () {
 	deck.save_deck(s_processed);
 
 	assert(s_processed.str() == s_file.str());
-	cout << "[ASSERT]	Load and save creates equal file" << endl;
+	cout << "[ASSERT]	CDeck_t: Load and save creates equal file" << endl;
 
-//	Corrupted saves
+//	Corrupted deck definitions
 	CDeck please_dont_crash;
 
 	input.open( "examples/decks/corrupted1.csv" );
@@ -118,7 +118,7 @@ void CDeck_t () {
 	input.close();
 	assert ( ! please_dont_crash.load_deck(s_file, false) );
 
-	cout << "[ASSERT]	Corrupted files don't crash the program" << endl;
+	cout << "[ASSERT]	CDeck_t: Corrupted files don't crash the program" << endl;
 }
 
 void CDisplay_t () {
@@ -269,11 +269,24 @@ void CGame_load_t() {
 	test_game.load_game(t1);
 	test_game.save_game(t2);
 
-	ifstream file1(t1), file2(t2);
+	ifstream file1(t1, ifstream::ate), file2(t2, ifstream::ate);
 
 	assert( file1.tellg() == file2.tellg() ); // same length
+	file1.seekg(0, ifstream::beg);
+	file2.seekg(0, ifstream::beg);
+	assert ( equal(	istreambuf_iterator<char>(file1.rdbuf()),
+					istreambuf_iterator<char>(),
+					istreambuf_iterator<char>(file2.rdbuf())) ); // same content
 
+	cout << "[ASSERT]	CGame_load_t: Load and save creates equal savegame" << endl;
 	filesystem::remove(t2);
 
-	cout << "[ASSERT]	Load and save creates equal savegame" << endl;
+	//	Corrupted saves
+	CGame please_dont_crash(false);
+
+	assert ( ! please_dont_crash.load_game("examples/saves/corrupted1.csv") );
+	assert ( ! please_dont_crash.load_game("examples/saves/corrupted2.csv") );
+	assert ( ! please_dont_crash.load_game("examples/saves/corrupted3.csv") );
+
+	cout << "[ASSERT]	CGame_load_t: Corrupted files don't crash the program" << endl;
 }

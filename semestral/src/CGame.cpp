@@ -60,6 +60,10 @@ CGame::CGame(bool start) {
 	// detection of IO issues from reading external files
 	if (ok) {
 		play(load_switch);	// main game loop
+	} else {
+		endwin();
+		cout << "Problems occurred while reading game definition files and the game terminated." << endl;
+		initscr();
 	}
 }
 
@@ -81,7 +85,7 @@ void CGame::prepare_pve() {
 	deck2.load_deck(input, true);
 	input.close();
 
-	auto g2 = make_shared<CCardGeneral>("General RoboCop", "This general is also the best general in the world", 50, 2, 3, 4, 1, null);
+	auto g2 = make_shared<CCardGeneral>("General RoboCop", "EX-TER-MI-NA-TE!", 50, 2, 3, 4, 1, null);
 	if ( menu_res )
 		m_second = make_shared<CPlayerBogo>(g2, deck2, &m_display, &m_shop);
 	else
@@ -97,7 +101,7 @@ void CGame::prepare_pvp() {
 	deck.load_deck(input, true);
 	input.close();
 
-	auto g1 = make_shared<CCardGeneral>("General Alice", "This general is the best general in the world", 50, 2, 3, 4, 1, null);
+	auto g1 = make_shared<CCardGeneral>("General Alice", "Using the power of weapons to crush her opponent", 50, 2, 3, 4, 1, null);
 	m_first = make_shared<CPlayerHuman>(g1, deck, &m_display, &m_shop);
 
 	CDeck deck2;
@@ -105,7 +109,7 @@ void CGame::prepare_pvp() {
 	deck2.load_deck(input, true);
 	input.close();
 
-	auto g2 = make_shared<CCardGeneral>("General Bob", "This general is also the best general in the world", 50, 2, 3, 4, 1, null);
+	auto g2 = make_shared<CCardGeneral>("General Bob", "Using the weapons of power to crush his opponent", 50, 2, 3, 4, 1, null);
 	m_second = make_shared<CPlayerHuman>(g2, deck2, &m_display, &m_shop);
 
 	m_first->set_opponent(m_second);
@@ -138,6 +142,10 @@ void CGame::play(bool no_draw) {
 }
 
 bool CGame::save_game(string name) {
+	// unexpected nullptr
+	if ( ! m_first || ! m_second )
+		return false;
+
 	ofstream file;
 
 	// default name... timestamp
@@ -160,7 +168,6 @@ bool CGame::save_game(string name) {
 	m_second->save_player(file);
 	file << '\n';
 	m_shop.save_deck(file);
-	file << '\n';
 
 	return file.good();
 }
@@ -171,23 +178,17 @@ bool CGame::load_game(std::string name) {
 		return false;
 
 	string player_type;
-	getline(file, player_type);
-	if (player_type == "AI" )
-		m_first = make_shared<CPlayerAI>(file, &m_display, &m_shop);
-	else if (player_type == "Bogo" )
-		m_first = make_shared<CPlayerBogo>(file, &m_display, &m_shop);
-	else
-		m_first = make_shared<CPlayerHuman>(file, &m_display, &m_shop);
 
-	getline(file, player_type);
-	if (player_type == "AI" )
-		m_second = make_shared<CPlayerAI>(file, &m_display, &m_shop);
-	else if (player_type == "Bogo" )
-		m_second = make_shared<CPlayerBogo>(file, &m_display, &m_shop);
-	else
-		m_second = make_shared<CPlayerHuman>(file, &m_display, &m_shop);
+	try {
+		m_first = CPlayer::load_player(file, &m_display, &m_shop);
+		m_second = CPlayer::load_player(file, &m_display, &m_shop);
+	} catch (invalid_argument&) { // exception called from CPlayer constructor
+		return false;
+	}
 
-	m_shop.load_deck(file, false);
+	// nullptr check of players, loading shop deck
+	if ( ! m_first || ! m_second || ! m_shop.load_deck(file, false) )
+		return false;
 
 	m_first->set_opponent(m_second);
 	m_second->set_opponent(m_first);

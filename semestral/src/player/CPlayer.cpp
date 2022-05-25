@@ -2,7 +2,9 @@
 // Created by simon on 17.4.22.
 //
 
-#include "CPlayer.h"
+#include "CPlayerAI.h"
+#include "CPlayerBogo.h"
+#include "CPlayerHuman.h"
 #include "../CDisplay.h"
 
 using namespace std;
@@ -184,12 +186,28 @@ CPlayer::CPlayer(istream &file, CDisplay *display, CShop *shop)
 	m_general = CCardGeneral::load_card(line);
 	getline(file, line); // empty newline
 
-	bool ok;
+	if ( ! m_general || ! file.good() )
+		throw invalid_argument("Loading CPlayer from file failed on loading CCardGeneral");
+
 	m_drawing.load_deck(file, false);
 	m_hand.load_deck(file, false);
 	m_table.load_deck(file, false);
-	ok = m_discard.load_deck(file, false);
+	m_discard.load_deck(file, false);
 
-	if ( ! ok )
+	if ( ! file.good() )
 		throw invalid_argument("Loading CPlayer from file failed");
+}
+
+std::shared_ptr<CPlayer> CPlayer::load_player(istream &file, CDisplay *display, CShop *shop) {
+	string player_type;
+	getline(file, player_type);
+
+	if (player_type == "AI")
+		return make_shared<CPlayerAI>(file, display, shop);
+	else if (player_type == "Bogo")
+		return make_shared<CPlayerBogo>(file, display, shop);
+	else if (player_type == "Human")
+		return make_shared<CPlayerHuman>(file, display, shop);
+	else
+		return nullptr;
 }

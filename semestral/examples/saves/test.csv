@@ -19,7 +19,7 @@ Poor F*** Infantry,It ain't much but it's honest work,t,0,1,0,0,null,2
 Assassination,One well aimed shot - one opportunity,w,3,5,0,0,discard
 
 AI
-General RoboCop,This general is also the best general in the world,g,2,3,4,1,null,50,41
+General RoboCop,EX-TER-MI-NA-TE!,g,2,3,4,1,null,50,41
 
 Spare Cash,One hryvnia adds to another...,w,0,0,0,1,null
 Kalashnikov,The weapon of revolution,w,0,2,0,0,null
@@ -89,4 +89,3 @@ Tsar Bomb,Press the red button in dire emergency only,w,8,10,0,0,discard
 Out of Gas,You got this tank basically for free,w,4,0,0,1,steal
 Decommission,You really cannot fight with this,t,4,0,1,1,sacrifice,3
 Suicide Bomber,Effective at cleaning totally everything,w,3,5,1,0,sacrifice
-

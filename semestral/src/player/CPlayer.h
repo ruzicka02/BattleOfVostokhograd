@@ -38,11 +38,15 @@ public:
 	CPlayer& operator= ( const CPlayer& ) = default;
 	virtual ~CPlayer() = default;
 
-	/// Alternative constructor loads all information about player from a CSV file. Used as a hypothetical
-	/// CPlayer::load_player() method that is nonexistent
+	/// Alternative constructor loads all information about player from a CSV file.
 	/// @param[in] file Stream from which the card definitions are loaded.
 	/// @exception invalid_argument Throws exception on I/O error or invalid data as it has no return value.
 	CPlayer( std::istream& file, CDisplay* display, CShop* shop );
+
+	/// Loads the player type from given file and creates adequate player object.
+	/// @return Pointer to created object on success, nullptr on incorrect type (first line).
+	/// @exception invalid_argument Propagates exception from used CPlayer constructor.
+	static std::shared_ptr<CPlayer> load_player( std::istream& file, CDisplay* display, CShop* shop );
 
 	/// Saves all information about player and his cards into a CSV file.
 	/// @return True on success, False if a problem (I/O) occurred.
