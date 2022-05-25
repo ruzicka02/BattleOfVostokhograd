@@ -2,12 +2,13 @@
 // Created by simon on 17.4.22.
 //
 #include <iostream>
+#include <utility>
 #include "CShop.h"
 
 using namespace std;
 
 void CShop::print_shop( int y, int x ) {
-	for ( auto card : m_content ) {
+	for ( const auto& card : m_content ) {
 		card->print_card(y, x);
 		y += 4;
 	}
@@ -41,7 +42,7 @@ bool CShop::save_deck( std::ostream& file ) {
 
 void CShop::sell_card( std::shared_ptr<CCardDeckable> card ) {
 	// card is removed from visible shop
-	remove( card );
+	remove( std::move(card) );
 
 	// new card from drawing pile (if it is available)
 	if ( m_drawing.seek_top() )

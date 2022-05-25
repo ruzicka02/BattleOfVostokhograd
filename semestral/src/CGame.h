@@ -36,7 +36,7 @@ public:
 
 	/// Saves the game into file with current datetime as name.
 	/// @return True on successful operation (no IO error etc)
-	bool save_game();
+	bool save_game(std::string name = "");
 
 	/// Loads the game from file with given name.
 	/// @return True on successful operation (no IO error etc)

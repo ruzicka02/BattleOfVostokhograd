@@ -26,8 +26,8 @@ public:
 	/// Loads all cards from a CSV file into the deck.
 	/// @return True on success, False if a problem (I/O, invalid data) occurred.
 	/// @param[in] file Stream from which the card definitions are loaded.
-	/// @param[in] shuffle Decides whether cards are shuffled randomly, turned off by default.
-	virtual bool load_deck( std::istream& file, bool shuffle = false );
+	/// @param[in] shuffle Decides whether cards are shuffled randomly.
+	virtual bool load_deck( std::istream& file, bool shuffle );
 
 	/// Saves all cards into a CSV file from the deck.
 	/// @return True on success, False if a problem (I/O) occurred.

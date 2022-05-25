@@ -1,0 +1,92 @@
+Human
+Human General,This general is the best general in the world,g,2,3,4,1,null,50,45
+
+Street Gangs,Give me your money or I'll give you my knife,t,3,2,0,1,null,4
+Kalashnikov,The weapon of revolution,w,0,2,0,0,null
+Spare Cash,One hryvnia adds to another...,w,0,0,0,1,null
+Kalashnikov,The weapon of revolution,w,0,2,0,0,null
+Spare Cash,One hryvnia adds to another...,w,0,0,0,1,null
+Decommission,You really cannot fight with this,t,4,0,1,1,sacrifice,3
+Spare Cash,One hryvnia adds to another...,w,0,0,0,1,null
+Pile of Cash,Let's buy some real guns,w,0,0,0,2,null
+
+Spare Cash,One hryvnia adds to another...,w,0,0,0,1,null
+Spare Cash,One hryvnia adds to another...,w,0,0,0,1,null
+Spare Cash,One hryvnia adds to another...,w,0,0,0,1,null
+
+Poor F*** Infantry,It ain't much but it's honest work,t,0,1,0,0,null,2
+
+Assassination,One well aimed shot - one opportunity,w,3,5,0,0,discard
+
+AI
+General RoboCop,This general is also the best general in the world,g,2,3,4,1,null,50,41
+
+Spare Cash,One hryvnia adds to another...,w,0,0,0,1,null
+Kalashnikov,The weapon of revolution,w,0,2,0,0,null
+Spare Cash,One hryvnia adds to another...,w,0,0,0,1,null
+Spare Cash,One hryvnia adds to another...,w,0,0,0,1,null
+Assassination,One well aimed shot - one opportunity,w,3,5,0,0,discard
+Poor F*** Infantry,It ain't much but it's honest work,t,0,1,0,0,null,2
+
+
+The White Death,They do not call him Sniper Elite for no reason,t,7,5,0,0,discard,5
+
+Spare Cash,One hryvnia adds to another...,w,0,0,0,1,null
+Spare Cash,One hryvnia adds to another...,w,0,0,0,1,null
+Kalashnikov,The weapon of revolution,w,0,2,0,0,null
+Pile of Cash,Let's buy some real guns,w,0,0,0,2,null
+Spare Cash,One hryvnia adds to another...,w,0,0,0,1,null
+Battlefield Chaos,What are we fighting for?,w,6,6,0,0,draw
+
+Invitation Letter,So many new faces...,w,5,3,4,2,draw
+Claymore,Did you remember to turn it off?,w,2,4,0,0,sacrifice
+Western Gifts,You have their weapons - use them,w,3,4,1,0,null
+The White Death,They do not call him Sniper Elite for no reason,t,7,5,0,0,discard,5
+Suicide Bomber,Effective at cleaning totally everything,w,3,5,1,0,sacrifice
+Out of Gas,You got this tank basically for free,w,4,0,0,1,steal
+Tsar Bomb,Press the red button in dire emergency only,w,8,10,0,0,discard
+Enforcer Vasily,Watching every one of your steps,t,5,3,0,0,draw,5
+Suicide Bomber,Effective at cleaning totally everything,w,3,5,1,0,sacrifice
+Propaganda,Let the whole world know your success,w,2,2,0,3,null
+Decommission,You really cannot fight with this,t,4,0,1,1,sacrifice,3
+Recruit,Boost your military numbers,w,2,0,4,2,null
+Propaganda,Let the whole world know your success,w,2,2,0,3,null
+Death and Taxes,War sometimes creates truly terrible combinations,w,1,0,2,3,null
+Death and Taxes,War sometimes creates truly terrible combinations,w,1,0,2,3,null
+Western Gifts,You have their weapons - use them,w,3,4,1,0,null
+Out of Gas,You got this tank basically for free,w,4,0,0,1,steal
+Eastern Farmers,What a beautiful tank you have there,t,6,3,0,0,steal,3
+Propaganda,Let the whole world know your success,w,2,2,0,3,null
+Long Lasting Curse,They were predestined to fail this one,w,5,7,2,0,discard
+Sanctions,This attack will hurt your enemy the most,w,1,3,0,3,null
+Local Patriots,They will do what it takes to defend the Homeland,t,3,2,1,1,null,1
+Bribe,Why are all the officials like this?,w,3,0,0,2,draw
+Tsar Bomb,Press the red button in dire emergency only,w,8,10,0,0,discard
+Nuclear Power,Good servant - Bad lord,w,4,5,0,0,draw
+Domination,Crushing the opponents so hard,w,7,6,6,0,draw
+Bribe,Why are all the officials like this?,w,3,0,0,2,draw
+Flag of Victory,War is over - If you want it,w,3,0,3,1,null
+Death and Taxes,War sometimes creates truly terrible combinations,w,1,0,2,3,null
+Eastern Farmers,What a beautiful tank you have there,t,6,3,0,0,steal,3
+Suicide Bomber,Effective at cleaning totally everything,w,3,5,1,0,sacrifice
+Claymore,Did you remember to turn it off?,w,2,4,0,0,sacrifice
+Pack Leader,Boosts your side for a small fee,t,7,5,0,1,null,6
+The Ancient Van,Why is the military always so underfunded,t,2,3,0,0,null,4
+Long Lasting Curse,They were predestined to fail this one,w,5,7,2,0,discard
+Assassination,One well aimed shot - one opportunity,w,3,5,0,0,discard
+Local Patriots,They will do what it takes to defend the Homeland,t,3,2,1,1,null,1
+Sanctions,This attack will hurt your enemy the most,w,1,3,0,3,null
+Rally the Troops,Boost the confidence of your military,w,4,4,4,0,draw
+Bribe,Why are all the officials like this?,w,3,0,0,2,draw
+The Ancient Van,Why is the military always so underfunded,t,2,3,0,0,null,4
+War on Opera,Using the weapon of voice,w,4,0,3,2,draw
+Decommission,You really cannot fight with this,t,4,0,1,1,sacrifice,3
+Drug Smugglers,Making money at every opportunity,t,4,1,0,3,null,5
+Close Air Support,Giving your ground divisions exactly what they need,t,6,0,4,1,draw,6
+The Ancient Van,Why is the military always so underfunded,t,2,3,0,0,null,4
+Intimidation,Your confidence is their fear,w,2,5,0,1,null
+Tsar Bomb,Press the red button in dire emergency only,w,8,10,0,0,discard
+Out of Gas,You got this tank basically for free,w,4,0,0,1,steal
+Decommission,You really cannot fight with this,t,4,0,1,1,sacrifice,3
+Suicide Bomber,Effective at cleaning totally everything,w,3,5,1,0,sacrifice
+

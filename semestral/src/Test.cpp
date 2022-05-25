@@ -20,7 +20,7 @@ void card_selection_t () {
 
 	CDeck deck;
 	ifstream input( "examples/decks/start_hand.csv" );
-	deck.load_deck(input);
+	deck.load_deck(input, false);
 	input.close();
 
 	deck.pop_top()->print_card(10, 4);
@@ -61,7 +61,7 @@ void CDeck_t () {
 
 	CDeck deck;
 	ifstream input( "examples/decks/start_hand.csv" );
-	deck.load_deck(input);
+	deck.load_deck(input, false);
 	input.close();
 
 	int pos = 25;
@@ -104,19 +104,19 @@ void CDeck_t () {
 	s_file.str("");
 	s_file << input.rdbuf();
 	input.close();
-	assert ( ! please_dont_crash.load_deck(s_file) );
+	assert ( ! please_dont_crash.load_deck(s_file, false) );
 
 	input.open( "examples/decks/corrupted2.csv" );
 	s_file.str("");
 	s_file << input.rdbuf();
 	input.close();
-	assert ( ! please_dont_crash.load_deck(s_file) );
+	assert ( ! please_dont_crash.load_deck(s_file, false) );
 
 	input.open( "examples/decks/corrupted2.csv" );
 	s_file.str("");
 	s_file << input.rdbuf();
 	input.close();
-	assert ( ! please_dont_crash.load_deck(s_file) );
+	assert ( ! please_dont_crash.load_deck(s_file, false) );
 
 	cout << "[ASSERT]	Corrupted files don't crash the program" << endl;
 }
@@ -214,7 +214,7 @@ void play_card_t () {
 	CDisplay screen;
 
 	CShop shop;
-	ifstream input( "examples/decks/shop.csv" );
+	ifstream input( "examples/decks/standard.csv" );
 	shop.load_deck(input, true);
 	input.close();
 
@@ -263,5 +263,17 @@ void play_card_t () {
 
 void CGame_load_t() {
 	CGame test_game(false);
-	test_game.prepare_pve();
+	endwin();
+
+	string t1 = "examples/saves/test.csv", t2 = "examples/saves/test_copy.csv";
+	test_game.load_game(t1);
+	test_game.save_game(t2);
+
+	ifstream file1(t1), file2(t2);
+
+	assert( file1.tellg() == file2.tellg() ); // same length
+
+	filesystem::remove(t2);
+
+	cout << "[ASSERT]	Load and save creates equal savegame" << endl;
 }

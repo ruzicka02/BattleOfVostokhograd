@@ -137,13 +137,21 @@ void CGame::play(bool no_draw) {
 	getch();
 }
 
-bool CGame::save_game() {
-	stringstream name;
-	time_t t = time(nullptr);
-	tm tm = *localtime(&t);
-	name << "examples/saves/" << put_time(&tm, "%Y-%m-%d_%H:%M:%S") << ".csv";
+bool CGame::save_game(string name) {
+	ofstream file;
 
-	ofstream file(name.str());
+	// default name... timestamp
+	if ( name == "" ) {
+		stringstream name_stream;
+		time_t t = time(nullptr);
+		tm tm = *localtime(&t);
+		name_stream << "examples/saves/" << put_time(&tm, "%Y-%m-%d_%H:%M:%S") << ".csv";
+
+		file.open(name_stream.str());
+	} else {
+		file.open(name);
+	}
+
 	if ( ! file.good() )
 		return false;
 
@@ -179,7 +187,7 @@ bool CGame::load_game(std::string name) {
 	else
 		m_second = make_shared<CPlayerHuman>(file, &m_display, &m_shop);
 
-	m_shop.load_deck(file);
+	m_shop.load_deck(file, false);
 
 	m_first->set_opponent(m_second);
 	m_second->set_opponent(m_first);

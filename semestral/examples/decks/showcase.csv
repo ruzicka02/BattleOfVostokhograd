@@ -18,3 +18,5 @@ Testing War Cry,Testing games is awesome,w,2,4,0,0,draw,0
 Testing War Cry,Testing games is awesome,w,2,4,0,0,steal,0
 Testing War Cry,Testing games is awesome,w,2,4,0,0,discard,0
 Testing War Cry,Testing games is awesome,w,2,4,0,0,sacrifice,0
+
+// anything below an empty line is considered a comment as the program stops reading

@@ -27,11 +27,11 @@ public:
 	/// @return True on success, False if a problem (I/O, invalid data) occurred.
 	/// @param[in] file Stream from which the card definitions are loaded.
 	/// @param[in] shuffle Decides whether cards are shuffled BEFORE the split to shop and drawing pile.
-	virtual bool load_deck( std::istream& file, bool shuffle = false ) override;
+	bool load_deck( std::istream& file, bool shuffle ) override;
 
 	/// Saves all cards into a csv file from the drawing pile as well as the shop.
 	/// @return True on success, False if a problem (I/O) occurred.
-	virtual bool save_deck( std::ostream& ) override;
+	bool save_deck( std::ostream& ) override;
 
 	/// Removes the referenced card from the store and refills with another card from drawing pile.
 	/// @exception out_of_range Throws exception in CDeck::remove when card is not found in the shop.

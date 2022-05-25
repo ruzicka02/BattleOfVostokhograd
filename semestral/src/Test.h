@@ -10,6 +10,7 @@
 #include <iostream>
 #include <iomanip>
 #include <cassert>
+#include <filesystem>
 
 /// Loads the starting deck, reduces the amount of cards and lets player select 3 cards.
 void card_selection_t ();
