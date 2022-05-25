@@ -18,6 +18,10 @@ bool CShop::load_deck( std::istream& file, bool shuffle ) {
 
 	bool ret_val = m_drawing.load_deck(file, shuffle);
 	for ( int i = 0; i < SHOP_SIZE; i ++ ) {
+		// drawing pile is empty
+		if (!m_drawing.seek_top())
+			return true;
+
 		insert(m_drawing.pop_top());
 	}
 
