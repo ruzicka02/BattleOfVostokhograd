@@ -130,15 +130,17 @@ void CGame::play(bool no_draw) {
 			return;
 		}
 
+		if ( m_second->lost() )
+			break;
+
 		m_display.context_bar(m_second->get_general()->name() + " will be playing now.");
-		getch();
+		m_display.pause(0);
 		swap(m_first, m_second);
 	}
 
-	swap(m_first, m_second);
 	m_display.context_bar(m_first->get_general()->name() + " has won the game!");
 	m_display.info_bar("Press any key to continue.");
-	getch();
+	m_display.pause(0);
 }
 
 bool CGame::save_game(string name) {
@@ -168,27 +170,32 @@ bool CGame::save_game(string name) {
 	m_second->save_player(file);
 	file << '\n';
 	m_shop.save_deck(file);
+	file << '\n';
 
 	return file.good();
 }
 
 bool CGame::load_game(std::string name) {
 	ifstream file(name);
-	if ( ! file.good() )
+	if ( ! file.good() ) {
 		return false;
+	}
+
 
 	string player_type;
 
 	try {
 		m_first = CPlayer::load_player(file, &m_display, &m_shop);
 		m_second = CPlayer::load_player(file, &m_display, &m_shop);
-	} catch (invalid_argument&) { // exception called from CPlayer constructor
+	} catch (invalid_argument& exc) { // exception called from CPlayer constructor
 		return false;
 	}
 
 	// nullptr check of players, loading shop deck
-	if ( ! m_first || ! m_second || ! m_shop.load_deck(file, false) )
+	if ( ! m_first || ! m_second || ! m_shop.load_deck(file, false) ) {
 		return false;
+	}
+
 
 	m_first->set_opponent(m_second);
 	m_second->set_opponent(m_first);

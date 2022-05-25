@@ -89,3 +89,4 @@ Tsar Bomb,Press the red button in dire emergency only,w,8,10,0,0,discard
 Out of Gas,You got this tank basically for free,w,4,0,0,1,steal
 Decommission,You really cannot fight with this,t,4,0,1,1,sacrifice,3
 Suicide Bomber,Effective at cleaning totally everything,w,3,5,1,0,sacrifice
+

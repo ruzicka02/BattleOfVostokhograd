@@ -1,0 +1,48 @@
+Human
+Human General,This general is the best general in the world,g,2,3,4,1,null,50,15
+
+Street Gangs,Give me your money or I'll give you my knife,t,3,2,0,1,null,4
+Kalashnikov,The weapon of revolution,w,0,2,0,0,null
+Spare Cash,One hryvnia adds to another...,w,0,0,0,1,null
+Kalashnikov,The weapon of revolution,w,0,2,0,0,null
+Spare Cash,One hryvnia adds to another...,w,0,0,0,1,null
+Decommission,You really cannot fight with this,t,4,0,1,1,sacrifice,3
+Spare Cash,One hryvnia adds to another...,w,0,0,0,1,null
+Pile of Cash,Let's buy some real guns,w,0,0,0,2,null
+
+Spare Cash,One hryvnia adds to another...,w,0,0,0,1,null
+Spare Cash,One hryvnia adds to another...,w,0,0,0,1,null
+Spare Cash,One hryvnia adds to another...,w,0,0,0,1,null
+
+Poor F*** Infantry,It ain't much but it's honest work,t,0,1,0,0,null,2
+
+Assassination,One well aimed shot - one opportunity,w,3,5,0,0,discard
+
+AI
+General RoboCop,EX-TER-MI-NA-TE!,g,2,3,4,1,null,50,1
+
+Spare Cash,One hryvnia adds to another...,w,0,0,0,1,null
+Kalashnikov,The weapon of revolution,w,0,2,0,0,null
+Spare Cash,One hryvnia adds to another...,w,0,0,0,1,null
+Spare Cash,One hryvnia adds to another...,w,0,0,0,1,null
+Assassination,One well aimed shot - one opportunity,w,3,5,0,0,discard
+Poor F*** Infantry,It ain't much but it's honest work,t,0,1,0,0,null,2
+
+
+The White Death,They do not call him Sniper Elite for no reason,t,7,5,0,0,discard,5
+
+Spare Cash,One hryvnia adds to another...,w,0,0,0,1,null
+Spare Cash,One hryvnia adds to another...,w,0,0,0,1,null
+Kalashnikov,The weapon of revolution,w,0,2,0,0,null
+Pile of Cash,Let's buy some real guns,w,0,0,0,2,null
+Spare Cash,One hryvnia adds to another...,w,0,0,0,1,null
+Battlefield Chaos,What are we fighting for?,w,6,6,0,0,draw
+
+Close Air Support,Giving your ground divisions exactly what they need,t,6,0,4,1,draw,6
+The Ancient Van,Why is the military always so underfunded,t,2,3,0,0,null,4
+Intimidation,Your confidence is their fear,w,2,5,0,1,null
+Tsar Bomb,Press the red button in dire emergency only,w,8,10,0,0,discard
+Out of Gas,You got this tank basically for free,w,4,0,0,1,steal
+Decommission,You really cannot fight with this,t,4,0,1,1,sacrifice,3
+Suicide Bomber,Effective at cleaning totally everything,w,3,5,1,0,sacrifice
+

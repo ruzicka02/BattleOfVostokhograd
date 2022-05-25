@@ -19,12 +19,14 @@ bool CPlayerHuman::play() {
 		m_display->context_bar("Your turn! Select a card." );
 		m_display->refresh_board(shared_from_this(), m_opponent.lock(), m_shop);
 
-		// performs the card play itself (return value means that player wants to exit)
+		// performs the card play itself (return value true means that player wants to exit)
 		if ( card_selection_ingame() )
 			return true;
 
-		if (m_opponent.lock()->lost())
+		if (m_opponent.lock()->lost()) {
+			m_display->refresh_board(shared_from_this(), m_opponent.lock(), m_shop);
 			return false;
+		}
 
 		cards_available = m_hand.count() != 0;
 		for ( const auto& i : m_table.cards() )
@@ -99,7 +101,7 @@ bool CPlayerHuman::card_selection_ingame() {
 	int input = 0, selected = 0, selected_max = hand_count;
 	bool focus_table = (hand_count == 0), enter_press = false;
 
-	m_display->info_bar("Choose card (Arrow keys), Confirm (Y/ENTER), Go to shop (B), Show hand (SPACE), Menu (Q)" );
+	m_display->info_bar("Choose card (Arrow keys), Confirm (Y/ENTER), Go to shop (B), Show hand (SPACE), Save and exit (Q)" );
 
 	int max_scr_x = getmaxx(stdscr);
 
