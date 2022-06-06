@@ -59,3 +59,7 @@ Inspirací pro semestrální práci byla karetní hra [Hero Realms](https://www.
 
 - Nastavitelné zobrazování karet pomocí UTF-8 (metoda print_card_wide() špatně funguje na terminálech nepodporujících UTF-8 znaky)
 - Alternativní zobrazovací rozhraní (např. CLI pro ukázku absence memory leaků)
+
+# Ukázka
+
+[![Video showcase](https://img.youtube.com/vi/jJ5Pid4QQRA/0.jpg)](https://www.youtube.com/watch?v=jJ5Pid4QQRA "Video showcase")

@@ -30,12 +30,11 @@ build/%.o: src/%.cpp
 	g++ $(CXXFLAGS) $< -c -o $@ -g
 
 doc: Doxyfile $(HEADERS)
-	cp zadani.txt README.md
 	doxygen Doxyfile
 
 .PHONY: clean
 clean:
-	rm -rf ruzicsi1 build/ doc/ README.md 2>/dev/null
+	rm -rf ruzicsi1 build/ doc/ 2>/dev/null
 
 # Requirements / Dependencies
 # Proudly generated from g++ src/*.cpp src/*/*.cpp -MM
